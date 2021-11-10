@@ -1,0 +1,5 @@
+.list-group,
+.list-item {
+  @include flex-center-between;
+  list-style-type: none;
+}

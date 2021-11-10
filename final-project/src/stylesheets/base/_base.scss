@@ -1,0 +1,36 @@
+html {
+  font-family: $font-primary;
+  font-size: 12px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+body {
+  position: relative;
+  font-size: map-get($font-size, 's');
+}
+h3 {
+  @include font-size-weight(map-get($font-size, 'xxxl'), 300);
+  color: map-get($color, 'black');
+}
+a {
+  text-decoration: none;
+}
+img {
+  width: 100%;
+}
+.logo-link {
+  font-family: $font-secondary;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+@media (min-width: 1200px) {
+  html {
+    font-size: 16px;
+  }
+  img {
+    width: unset;
+  }
+}

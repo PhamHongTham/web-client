@@ -1,0 +1,13 @@
+.price {
+  @include font-size-weight(map-get($font-size, 'xl'), 400);
+  color: map-get($color, 'black');
+}
+.text-primary {
+  color: map-get($color, 'primary');
+}
+.price-sale-off {
+  color: map-get($color, 'red');
+}
+.price-initial {
+  color: map-get($color, 'gray-d');
+}

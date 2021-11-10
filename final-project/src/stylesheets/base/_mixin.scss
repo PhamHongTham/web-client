@@ -1,0 +1,48 @@
+@mixin font-size-weight($size, $weight) {
+  font-size: $size;
+  font-weight: $weight;
+}
+@mixin align-start {
+  display: flex;
+  align-items: flex-start;
+}
+@mixin align-center {
+  display: flex;
+  align-items: center;
+}
+@mixin flex-center-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin flex-start-center {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+@mixin flex-start-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+@mixin justify-center {
+  display: flex;
+  justify-content: center;
+}
+@mixin justify-between {
+  display: flex;
+  justify-content: space-between;
+}
+@mixin mask-gray {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}

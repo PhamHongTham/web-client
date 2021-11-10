@@ -1,0 +1,52 @@
+$size-xl: 10px;
+$size-s: 4px;
+.container {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.row {
+  @include flex-center-between;
+  width: 100%;
+  margin: 0 -$size-s;
+  flex-wrap: wrap;
+  & [class*='col'] {
+    padding: 0 $size-s;
+    .col {
+      display: flex;
+      flex: 1;
+    }
+  }
+}
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    width: ($i / 12 * 100%);
+  }
+}
+@media (min-width: 1200px) {
+  html {
+    font-size: 16px;
+  }
+  .container {
+    max-width: 1192px;
+    padding: 0 64px;
+  }
+  .row {
+    @include flex-center-between;
+    margin: 0 -$size-xl;
+    flex-wrap: wrap;
+    & [class*='col'] {
+      padding: 0 $size-xl;
+    }
+    .col {
+      display: flex;
+      flex: 1;
+    }
+  }
+  @for $i from 1 through 12 {
+    .col-xl-#{$i} {
+      width: ($i / 12 * 100%);
+    }
+  }
+}
