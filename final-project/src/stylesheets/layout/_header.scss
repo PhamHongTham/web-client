@@ -5,6 +5,7 @@ header {
   position: fixed;
   top: 0;
   z-index: 100;
+  transition: 0.3s;
   .page-header {
     @include flex-center-between;
     height: 75px;
@@ -27,20 +28,24 @@ header {
         color: map-get($color, 'black');
         margin: 0 1rem;
         white-space: nowrap;
+        transition: 0.3s;
       }
     }
   }
 }
 .active {
-  background-color: rgba($color: #000000, $alpha: 0.7);
+  background-color: map-get($color, 'black-transparent');
   backdrop-filter: blur(0.5rem);
+  transition: 0.3s;
   .page-header {
     .brand {
       color: map-get($color, 'white-snow');
+      transition: 0.3s;
     }
     .list-nav-link {
       .nav-link {
         color: map-get($color, 'white-snow');
+        transition: 0.3s;
       }
     }
   }
@@ -54,7 +59,7 @@ header {
     }
   }
 }
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 992px) {
   header {
     .page-header {
       .list-nav-link:nth-child(n) {
