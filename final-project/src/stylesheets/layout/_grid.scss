@@ -1,0 +1,30 @@
+@mixin create-grid-system($sizeScreen) {
+  @for $i from 1 through 12 {
+    @if (str-length($sizeScreen) > 0) {
+      .col-#{$sizeScreen}-#{$i} {
+        width: percentage($i / 12);
+      }
+    } @else {
+      .col-#{$i} {
+        width: percentage($i / 12);
+      }
+    }
+  }
+}
+@include create-grid-system("");
+.row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.container {
+  max-width: 1192px; 
+  margin: 0 64px;
+  z-index: 1;
+}
+@media screen and (max-width: 480px) {
+  @include create-grid-system("sm");
+  .container {
+    margin: 0 24px;
+  }
+}

@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: $font-family;
+  font-style: normal;
+  font-size: map-get($font-size, "normal");
+  font-weight: 400;
+  color: map-get($color, "primary");
+}
+a {
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
+li {
+  list-style: none;
+}
