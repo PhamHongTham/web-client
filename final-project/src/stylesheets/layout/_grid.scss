@@ -3,28 +3,35 @@
     @if (str-length($sizeScreen) > 0) {
       .col-#{$sizeScreen}-#{$i} {
         width: percentage($i / 12);
+        padding: 0 24px;
       }
     } @else {
       .col-#{$i} {
         width: percentage($i / 12);
+        padding: 0 24px;
       }
     }
   }
 }
-@include create-grid-system("");
+@include create-grid-system('');
 .row {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  margin: 0 -24px;
 }
 .container {
-  max-width: 1192px; 
-  margin: 0 64px;
+  max-width: 1192px;
+  margin: 0 auto;
+  padding: 0 48px;
   z-index: 1;
 }
 @media screen and (max-width: 480px) {
-  @include create-grid-system("sm");
+  @include create-grid-system('sm');
   .container {
-    margin: 0 24px;
+    padding: 0 24px;
   }
+}
+@media screen and (max-width: 768px) {
+  @include create-grid-system('md');
 }

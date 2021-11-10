@@ -6,6 +6,7 @@ h5,
 h6 {
   font-weight: bold;
   color: map-get($color, "black");
+  line-height: 1.2;
 }
 .text-primary {
   color: map-get($color, "primary");
@@ -19,4 +20,3 @@ h6 {
 .text-right {
   text-align: right;
 }
-
