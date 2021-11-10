@@ -1,0 +1,66 @@
+header {
+  border-bottom: 1px solid map-get($color, 'black');
+  background-color: map-get($color, "white-snow" );
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  .page-header {
+    @include flex-center-between;
+    height: 75px;
+    font-weight: bold;
+    .logo {
+      &-letter {
+        font-size: 150%;
+      }
+    }
+    .group-nav-link,
+    .list-nav-link,
+    .header-action {
+      @include flex-center-between;
+    }
+    .list-nav-link {
+      &:nth-child(n) {
+        display: none;
+      }
+      .nav-link {
+        color: map-get($color, 'black');
+        margin: 0 1rem;
+        white-space: nowrap;
+      }
+    }
+  }
+
+}
+.active{
+  background-color: rgba($color: #000000, $alpha: 0.7);
+  backdrop-filter: blur(.5rem);
+  .page-header {
+    .brand{color: map-get($color, 'white-snow');}
+    .list-nav-link {
+      .nav-link {
+        color: map-get($color, 'white-snow');
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 576px) {
+  header {
+    .page-header {
+      .list-nav-link:nth-child(1) {
+        display: block;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  header {
+    .page-header {
+      .list-nav-link:nth-child(n) {
+        display: block;
+      }
+    }
+  }
+}

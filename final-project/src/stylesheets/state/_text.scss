@@ -8,7 +8,7 @@ h6 {
   color: map-get($color, "black");
 }
 .text-primary {
-  color: map-get($color, "primary");
+  color: map-get($color, "primary") !important;
 }
 .text-center {
   text-align: center;
