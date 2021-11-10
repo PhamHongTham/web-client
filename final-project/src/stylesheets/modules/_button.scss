@@ -7,11 +7,11 @@
   white-space: nowrap;
   padding: 0.5rem 1rem;
   border-radius: 99rem;
-  &.btn-outline{
+  &.btn-outline {
     border: 1px solid map-get($color, 'black');
     background-color: map-get($color, 'white-snow');
   }
-  &.btn-primary{
+  &.btn-primary {
     border: 1px solid map-get($color, 'primary');
     background-color: map-get($color, 'primary');
   }
