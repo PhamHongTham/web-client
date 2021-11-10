@@ -16,9 +16,6 @@ h3 {
 a {
   text-decoration: none;
 }
-img {
-  width: 100%;
-}
 .logo-link {
   font-family: $font-secondary;
   color: #000000;
@@ -29,8 +26,5 @@ img {
 @media (min-width: 1200px) {
   html {
     font-size: 16px;
-  }
-  img {
-    width: unset;
   }
 }
