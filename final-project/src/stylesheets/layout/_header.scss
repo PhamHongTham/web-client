@@ -1,6 +1,6 @@
 header {
-  border-bottom: 1px solid map-get($color, 'black');
   background-color: map-get($color, 'white-snow');
+  box-shadow: 0 0 1rem .1rem map-get($color, 'b;ack-transparent');
   width: 100%;
   position: fixed;
   top: 0;
@@ -10,21 +10,21 @@ header {
     @include flex-center-between;
     height: 75px;
     font-weight: bold;
-    .logo {
-      &-letter {
+    .header-logo {
+      .logo-letter {
         font-size: 150%;
       }
     }
-    .group-nav-link,
-    .list-nav-link,
+    .menu-list,
+    .menu-item,
     .header-action {
       @include flex-center-between;
     }
-    .list-nav-link {
+    .menu-item {
       &:nth-child(n) {
         display: none;
       }
-      .nav-link {
+      .menu-link {
         color: map-get($color, 'black');
         margin: 0 1rem;
         white-space: nowrap;
@@ -33,27 +33,10 @@ header {
     }
   }
 }
-.active {
-  background-color: map-get($color, 'black-transparent');
-  backdrop-filter: blur(0.5rem);
-  transition: 0.3s;
-  .page-header {
-    .brand {
-      color: map-get($color, 'white-snow');
-      transition: 0.3s;
-    }
-    .list-nav-link {
-      .nav-link {
-        color: map-get($color, 'white-snow');
-        transition: 0.3s;
-      }
-    }
-  }
-}
 @media only screen and (min-width: 576px) {
   header {
     .page-header {
-      .list-nav-link:nth-child(1) {
+      .menu-item:nth-child(1) {
         display: block;
       }
     }
@@ -62,7 +45,7 @@ header {
 @media only screen and (min-width: 992px) {
   header {
     .page-header {
-      .list-nav-link:nth-child(n) {
+      .menu-item:nth-child(n) {
         display: block;
       }
     }

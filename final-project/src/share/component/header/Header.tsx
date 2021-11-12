@@ -1,56 +1,49 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+import { Link } from 'react-router-dom';
 
 const Header = () => {
-  const [headerStyle, setHeaderStyle] = useState(false);
-  const changeHeaderStyle = () => {
-    if (window.scrollY >= 76 && window.scrollY <= 760) {
-      setHeaderStyle(() => true);
-    } else {
-      setHeaderStyle(() => false);
-    }
-  };
-  window.addEventListener('scroll', changeHeaderStyle);
   return (
-    <header className={headerStyle ? 'active' : ''}>
+    <header className="active">
       <div className="container">
         <div className="page-header">
-          <div className="logo">
+          <div className="header-logo">
             <h1 className="brand">
               <span className="text-primary logo-letter">B</span>oogle
             </h1>
           </div>
           <div className="header-action">
             <nav className="navigation-bar">
-              <ul className="group-item group-nav-link">
-                <li className="list-item list-nav-link">
-                  <a className="text-primary nav-link" href="/#">
+              <ul className="group-item menu-list">
+                <li className="list-item menu-item">
+                  <Link to="/" className="text-primary menu-link">
                     Home
-                  </a>
+                  </Link>
                 </li>
-                <li className="list-item list-nav-link">
-                  <a className="nav-link" href="/#">
+                <li className="list-item menu-item">
+                  <Link to="/" className="menu-link" href="/#">
                     Categories
-                  </a>
+                  </Link>
                 </li>
-                <li className="list-item list-nav-link">
-                  <a className="nav-link" href="/#">
+                <li className="list-item menu-item">
+                  <Link to="/" className="menu-link">
                     Travel
-                  </a>
+                  </Link>
                 </li>
-                <li className="list-item list-nav-link">
-                  <a className="nav-link" href="/#">
+                <li className="list-item menu-item">
+                  <Link to="/" className="menu-link">
                     Food
-                  </a>
+                  </Link>
                 </li>
-                <li className="list-item list-nav-link">
-                  <a className="nav-link" href="/#">
+                <li className="list-item menu-item">
+                  <Link to="/" className="menu-link">
                     Technology
-                  </a>
+                  </Link>
                 </li>
-                <li className="list-item list-nav-link">
-                  <a className="nav-link" href="/#">
+                <li className="list-item menu-item">
+                  <Link to="/" className="menu-link">
                     Business
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>

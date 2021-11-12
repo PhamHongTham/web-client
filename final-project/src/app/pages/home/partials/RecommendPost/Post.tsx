@@ -1,31 +1,32 @@
 import React from 'react';
+import { articleOption } from 'share/model/articleInterface';
+import { Link } from 'react-router-dom';
+import { convertFromStringToDate } from 'share/helper/helper-function';
 
-const Post = () => {
+const Post = (props: articleOption) => {
+  const { id, title, likes, user, cover, description, createdAt } = props;
+  const postCreateTime = convertFromStringToDate(createdAt);
   return (
-    <li className="list-item col-4 col-lg-12 ">
-      <div className="card">
-        <img src="pictures/picture1.jpg" alt="" className="card-img-top" />
-        <div className="card-body">
+    <li key={id} className="list-item col-4 col-lg-6 col-md-12">
+      <div className="post">
+        <div className="post-img-top">
+          <img src={cover} alt="" className="image" />
+        </div>
+        <div className="post-body">
           <div className="post-topic-date">
             <h4 className="post-topic">Business, Travel</h4>
-            <p className="card-text post-date">— July 2, 2020</p>
+            <p className="post-text post-date">—{postCreateTime}</p>
           </div>
-          <h2 className="card-title post-title">
-            Your most unhappy customers are your greatest source of learning.
-          </h2>
-          <p className="card-text">
-            Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-            there live the blind texts. Separated they live in Bookmarksgrove right at the coast of
-            the Semantics, a large language ocean.
-          </p>
+          <h2 className="post-title">{title}</h2>
+          <p className="post-text" dangerouslySetInnerHTML={{ __html: description }}></p>
         </div>
-        <a href="/#" className="card-footer">
-          <img src="pictures/avatar.jpg" alt="" className="author-avatar" />
+        <Link to="/" className="post-footer">
+          <img src={user.picture} alt="" className="author-avatar" />
           <div className="author-info">
-            <h4 className="card-title">Sergy Campbell</h4>
-            <p className="card-text">CEO and Founder</p>
+            <h4 className="post-text author-name">{user.displayName}</h4>
+            <p className="post-text author-email">{user.email}</p>
           </div>
-        </a>
+        </Link>
       </div>
     </li>
   );
