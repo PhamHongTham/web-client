@@ -13,7 +13,7 @@ export const getArticle = (param: object[]) => ({
 export const fetchArticle = () => async (dispatch: any) => {
   console.log('reducer');
   const res = await axios.get(
-    'https://vast-lowlands-08945.herokuapp.com/api/v1/posts/public?page=21&size=6'
+    'https://vast-lowlands-08945.herokuapp.com/api/v1/posts/public?page=22&size=6'
   );
   dispatch(getArticle(res.data));
 };
