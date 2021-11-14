@@ -1,4 +1,4 @@
-import axios from 'axios';
+import articleApi from 'api/service-article';
 const initialState = {
   articles: [],
 };
@@ -11,10 +11,11 @@ export const getArticle = (param: object[]) => ({
 });
 
 export const fetchArticle = () => async (dispatch: any) => {
-  console.log('reducer');
-  const res = await axios.get(
-    'https://vast-lowlands-08945.herokuapp.com/api/v1/posts/public?page=22&size=6'
-  );
+  const params: { page: number; size: number } = {
+    page: 1,
+    size: 6,
+  };
+  const res = await articleApi.getAll(params);
   dispatch(getArticle(res.data));
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { articleOption } from 'share/model/articleInterface';
+import { articleOption } from 'share/model/article-interface';
 import { Link } from 'react-router-dom';
 import { calculateTimeSince } from 'share/helper/helper-function';
 

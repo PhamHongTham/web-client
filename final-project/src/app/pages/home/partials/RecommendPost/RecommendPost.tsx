@@ -2,14 +2,13 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from 'app/stores/app-reducer';
 import Post from './Post';
-import { articleOption } from 'share/model/articleInterface';
+import { articleOption } from 'share/model/article-interface';
 const RecommendPost = () => {
   const listArticle = useSelector((state: RootState) => state.article?.articles);
-  console.log('component', listArticle.data);
   return (
     <section className="section-recommend-post">
       <div className="container">
-        <ul className="row group-item">{listArticle.data?.map((article: articleOption) => Post(article))}</ul>
+        <ul className="row group-item">{listArticle?.map((article: articleOption) => Post(article))}</ul>
       </div>
     </section>
   );
