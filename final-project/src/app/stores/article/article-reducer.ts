@@ -12,7 +12,7 @@ export const getArticle = (param: object[]) => ({
 
 export const fetchArticle = () => async (dispatch: any) => {
   const params: { page: number; size: number } = {
-    page: 1,
+    page: 19,
     size: 6,
   };
   const res = await articleApi.getAll(params);
