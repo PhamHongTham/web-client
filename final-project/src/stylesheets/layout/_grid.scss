@@ -3,12 +3,12 @@
     @if (str-length($sizeScreen) > 0) {
       .col-#{$sizeScreen}-#{$i} {
         width: percentage($i / 12);
-        padding: 0 24px;
+        padding: 0 1.5rem;
       }
     } @else {
       .col-#{$i} {
         width: percentage($i / 12);
-        padding: 0 24px;
+        padding: 0 1.5rem;
       }
     }
   }
@@ -18,20 +18,40 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  margin: 0 -24px;
+  margin: 0 -1.5rem;
 }
 .container {
-  max-width: 1192px;
+  max-width: 1320px;
   margin: 0 auto;
-  padding: 0 48px;
-  z-index: 1;
+  padding: 0 12px;
 }
-@media screen and (max-width: 480px) {
-  @include create-grid-system('sm');
+@media screen and (max-width: 1400px) {
+  @include create-grid-system('xxl');
   .container {
-    padding: 0 24px;
+    max-width: 1140px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  @include create-grid-system('xl');
+  .container {
+    max-width: 960px;
+  }
+}
+@media screen and (max-width: 992px) {
+  @include create-grid-system('lg');
+  .container {
+    max-width: 720px;
   }
 }
 @media screen and (max-width: 768px) {
   @include create-grid-system('md');
+  .container {
+    max-width: 540px;
+  }
+}
+@media screen and (max-width: 400px) {
+  @include create-grid-system('md');
+  .container {
+    max-width: 320px;
+  }
 }

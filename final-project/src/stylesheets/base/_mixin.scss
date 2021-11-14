@@ -7,6 +7,11 @@
   display: flex;
   align-items: center;
 }
+@mixin flex-center-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 @mixin create-layer {
   content: '';
   position: absolute;

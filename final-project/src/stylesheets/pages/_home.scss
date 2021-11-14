@@ -41,6 +41,10 @@
             font-weight: 400;
             font-size: map-get($font-size, 'lg');
             margin-bottom: 1.5rem;
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
           }
           .post-author {
             display: flex;
