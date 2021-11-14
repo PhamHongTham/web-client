@@ -1,10 +1,13 @@
 import React from 'react';
-import { articleOption } from 'share/model/article-interface';
+
 import { Link } from 'react-router-dom';
+
+import { articleOptions } from 'share/model/article-interface';
+
 import { calculateTimeSince } from 'share/helper/helper-function';
 
-const Post = (props: articleOption) => {
-  const { id, title, comments, likes, user, cover, description, createdAt } = props;
+const Post = ({article}:{article:articleOptions}) => {
+  const { id, title, comments, likes, user, cover, description, createdAt } = article;
   const timeSince = calculateTimeSince(createdAt) + ' ago';
 
   return (

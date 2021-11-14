@@ -1,27 +1,25 @@
 import articleApi from 'api/service-article';
+
+import { getArticle } from './actions';
+
+import { articleConstant } from 'share/constants/articleConstant';
+
 const initialState = {
   articles: [],
 };
 
-const GET_ARTICLE = 'GET_ARTICLE';
-
-export const getArticle = (param: object[]) => ({
-  type: GET_ARTICLE,
-  payload: param,
-});
-
 export const fetchArticle = () => async (dispatch: any) => {
   const params: { page: number; size: number } = {
-    page: 19,
+    page: 1,
     size: 6,
   };
   const res = await articleApi.getAll(params);
   dispatch(getArticle(res.data));
 };
 
-const articleReducer = (state: any = initialState, action: { type: string; payload: object[] }) => {
+const articleState = (state: any = initialState, action: { type: string; payload: object[] }) => {
   switch (action.type) {
-    case GET_ARTICLE:
+    case articleConstant.GET_ARTICLE:
       return {
         ...state,
         articles: action.payload,
@@ -31,4 +29,4 @@ const articleReducer = (state: any = initialState, action: { type: string; paylo
   }
 };
 
-export default articleReducer;
+export default articleState;

@@ -1,4 +1,4 @@
-export interface articleOption {
+export interface articleOptions {
   id: number;
   title: string;
   content: string;

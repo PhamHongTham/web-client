@@ -4,12 +4,11 @@ import queryString from 'query-string';
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_ARTICLE_URL,
   headers: {
-    'content-type': 'article/json',
+    'content-type': 'application/json',
   },
   paramsSerializer: (params) => queryString.stringify(params),
 });
 axiosClient.interceptors.request.use(async (config) => {
-
   return config;
 });
 axiosClient.interceptors.response.use(
@@ -20,7 +19,6 @@ axiosClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    // Handle errors
     throw error;
   }
 );

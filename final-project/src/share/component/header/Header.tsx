@@ -79,7 +79,7 @@ const Header = () => {
               </li>
             </ul>
           </nav>
-          <button className="btn btn-primary">Get started</button>
+          <button className="user-avatar"><i className="fal fa-user-circle"></i></button>
         </div>
       </div>
     </header>
