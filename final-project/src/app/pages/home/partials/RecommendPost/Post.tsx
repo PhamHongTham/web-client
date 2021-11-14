@@ -1,31 +1,41 @@
 import React from 'react';
+import { articleOption } from 'share/model/article-interface';
+import { Link } from 'react-router-dom';
+import { calculateTimeSince } from 'share/helper/helper-function';
 
-const Post = () => {
+const Post = (props: articleOption) => {
+  const { id, title, comments, likes, user, cover, description, createdAt } = props;
+  const timeSince = calculateTimeSince(createdAt) + ' ago';
+
   return (
-    <li className="list-item col-4 col-lg-12 ">
+    <li key={id} className="list-item col-4 col-lg-6 col-md-12">
       <div className="card">
-        <img src="pictures/picture1.jpg" alt="" className="card-img-top" />
-        <div className="card-body">
-          <div className="post-topic-date">
-            <h4 className="post-topic">Business, Travel</h4>
-            <p className="card-text post-date">— July 2, 2020</p>
-          </div>
-          <h2 className="card-title post-title">
-            Your most unhappy customers are your greatest source of learning.
-          </h2>
-          <p className="card-text">
-            Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-            there live the blind texts. Separated they live in Bookmarksgrove right at the coast of
-            the Semantics, a large language ocean.
-          </p>
+        <div className="card-img">
+          <img src={cover} alt="" className="post-image" />
         </div>
-        <a href="/#" className="card-footer">
-          <img src="pictures/avatar.jpg" alt="" className="author-avatar" />
-          <div className="author-info">
-            <h4 className="card-title">Sergy Campbell</h4>
-            <p className="card-text">CEO and Founder</p>
+        <div className="card-body post-content">
+          <h2 className="card-title">{title}</h2>
+          <p className="post-description" dangerouslySetInnerHTML={{ __html: description }}></p>
+        </div>
+        <div className="card-footer">
+          <Link to="/" className="post-creator-info">
+            <img src={user.picture} alt="" className="author-avatar" />
+            <div className="author-info">
+              <h4 className="card-content author-name">{user.displayName}</h4>
+              <p className="card-content post-sub-info">{timeSince}</p>
+            </div>
+          </Link>
+          <div className="post-status-info">
+            <div className="post-interact ">
+              <p>
+                {likes} <i className="fal fa-heart"></i>
+              </p>
+              <p>
+                {comments} <i className="fal fa-comment"></i>
+              </p>
+            </div>
           </div>
-        </a>
+        </div>
       </div>
     </li>
   );

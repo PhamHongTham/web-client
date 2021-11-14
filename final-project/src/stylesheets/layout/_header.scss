@@ -1,51 +1,100 @@
 header {
-  border-bottom: 1px solid map-get($color, 'black');
+  @include box-shadow;
   background-color: map-get($color, 'white-snow');
   width: 100%;
-  position: fixed;
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -o-sticky;
+  position: -ms-sticky;
+  position: sticky;
   top: 0;
   z-index: 100;
-  transition: 0.3s;
   .page-header {
     @include flex-center-between;
-    height: 75px;
+    height: 4.75rem;
     font-weight: bold;
-    .logo {
-      &-letter {
-        font-size: 150%;
-      }
+    .logo-letter {
+      font-size: 150%;
     }
-    .group-nav-link,
-    .list-nav-link,
+    .menu-list,
+    .menu-item,
     .header-action {
       @include flex-center-between;
     }
-    .list-nav-link {
+    .menu-mobile-list {
+      flex-direction: column;
+      justify-content: flex-start;
+      text-align: right;
+      position: absolute;
+      top: 0;
+      right: -100vw;
+      transition: 0.5s;
+      background-color: map-get($color, 'white-snow');
+      z-index: 100;
+      width: 50vw;
+      height: 100vh;
+      &.active {
+        right: 0;
+      }
+      .menu-mobile-item {
+        width: 100%;
+        height: 3rem;
+        padding: 0 1rem;
+        border-bottom: 1px dotted #cecece;
+        .menu-mobile-link {
+          @include align-center;
+          color: map-get($color, 'black');
+          justify-content: end;
+          width: 100%;
+          height: 100%;
+          margin: 0;
+          transition: 0.3s;
+          &:hover {
+            color: map-get($color, 'primary');
+            transition: 0.3s;
+          }
+        }
+      }
+      .hide-menu {
+        display: flex;
+        align-items: center;
+        .hide-menu-btn {
+          cursor: pointer;
+          font-size: 200%;
+          background-color: transparent;
+          border: none;
+          outline: none;
+        }
+      }
+    }
+    .menu-item {
       &:nth-child(n) {
         display: none;
       }
-      .nav-link {
+      &.menu-mobile {
+        display: block;
+      }
+      .menu-link {
         color: map-get($color, 'black');
         margin: 0 1rem;
         white-space: nowrap;
         transition: 0.3s;
+        &:hover {
+          color: map-get($color, 'primary');
+          transition: 0.3s;
+        }
       }
     }
   }
 }
-.active {
-  background-color: map-get($color, 'black-transparent');
-  backdrop-filter: blur(0.5rem);
-  transition: 0.3s;
-  .page-header {
-    .brand {
-      color: map-get($color, 'white-snow');
-      transition: 0.3s;
-    }
-    .list-nav-link {
-      .nav-link {
-        color: map-get($color, 'white-snow');
-        transition: 0.3s;
+@media only screen and (min-width: 768px) {
+  header {
+    .page-header {
+      .menu-item:nth-child(n) {
+        display: block;
+      }
+      .menu-item.menu-mobile {
+        display: none;
       }
     }
   }
@@ -53,17 +102,8 @@ header {
 @media only screen and (min-width: 576px) {
   header {
     .page-header {
-      .list-nav-link:nth-child(1) {
-        display: block;
-      }
-    }
-  }
-}
-@media only screen and (min-width: 992px) {
-  header {
-    .page-header {
-      .list-nav-link:nth-child(n) {
-        display: block;
+      .menu-mobile-list {
+        width: 30vw;
       }
     }
   }

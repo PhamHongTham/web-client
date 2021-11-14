@@ -1,28 +1,39 @@
 .card {
-  line-height: 1.35rem;
-  margin-bottom: 3rem;
+  @include box-shadow;
+  margin: 1.5rem auto;
+  border-radius: 10px;
   display: block;
-  &-img-top {
+  overflow: hidden;
+  &-img {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
     width: 100%;
-    border-radius: 10px;
-    margin-bottom: 30px;
+    height: 0;
+    padding-top: 56.25%;
+    overflow: hidden;
   }
   &-body {
-    margin-bottom: 1rem;
+    padding: 0.5rem;
     .card-title {
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
   }
   &-title {
-    @include text-overflow(3);
+    @include text-overflow(1);
+    font-size: 130%;
     font-weight: bold;
+    line-height: 150%;
+    margin: 0.5rem auto;
   }
-  &-text {
-    @include text-overflow(3);
+  &-content {
     color: map-get($color, 'gray');
     font-weight: 400;
+    line-height: 150%;
   }
   &-footer {
-    @include align-center;
+    @include flex-center-between;
+    padding: 0.5rem;
+    border-top: 1px solid map-get($color, 'black-transparent');
   }
 }
