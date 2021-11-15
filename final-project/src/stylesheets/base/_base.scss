@@ -8,7 +8,6 @@ body {
   font-style: normal;
   font-size: map-get($font-size, "normal");
   font-weight: 400;
-  color: map-get($color, "primary");
 }
 a {
   text-decoration: none;

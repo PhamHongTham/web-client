@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
+
+import RecommendPost from './partials/RecommendPost/RecommendPost';
 
 const Home = () => {
   return (
-    <div>
-      home
-    </div>
-  )
-}
-
-export default Home
+    <>
+      <RecommendPost />
+    </>
+  );
+};
+export default Home;

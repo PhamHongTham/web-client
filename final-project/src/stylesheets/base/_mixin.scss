@@ -3,15 +3,30 @@
   align-items: center;
   justify-content: center;
 }
+@mixin flex-center-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 @mixin align-center {
   display: flex;
   align-items: center;
 }
 @mixin create-layer {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+}
+@mixin text-overflow($line) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: $line;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+@mixin box-shadow {
+  box-shadow: 0 3px 8px rgba($color: #000000, $alpha: 0.24);
 }

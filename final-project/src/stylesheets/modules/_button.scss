@@ -1,0 +1,22 @@
+.btn {
+  @include flex-center;
+  position: relative;
+  cursor: pointer;
+  font-size: map-get($font-size, 'normal');
+  font-weight: bold;
+  line-height: 1.25rem;
+  white-space: nowrap;
+  padding: 0.5rem 1rem;
+  border-radius: 99rem;
+  &:hover{
+    @include box-shadow;
+  }
+  &.btn-outline {
+    border: 1px solid map-get($color, 'black');
+    background-color: map-get($color, 'white-snow');
+  }
+  &.btn-primary {
+    border: 1px solid map-get($color, 'primary');
+    background-color: map-get($color, 'primary');
+  }
+}

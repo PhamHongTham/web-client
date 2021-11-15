@@ -1,0 +1,47 @@
+.section-recommend-post {
+  margin-top: 5rem;
+  .post-creator-info {
+    @include align-center;
+    flex: 1;
+    overflow: hidden;
+    .author-avatar {
+      height: 2rem;
+      width: 2rem;
+      border-radius: 50%;
+      margin-right: 1rem;
+    }
+    .author-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding-right: 0.5rem;
+      overflow: hidden;
+      .author-name {
+        @include text-overflow(1);
+        color: map-get($color, 'black');
+        font-size: map-get($font-size, 'lg');
+        font-weight: bold;
+        display: flex;
+        flex: 1;
+        padding-right: 0.5rem;
+      }
+    }
+  }
+  .post-content {
+    height: 8rem;
+    .post-description {
+      @include text-overflow(3);
+    }
+  }
+  .post-status-info {
+    display: flex;
+    justify-content: flex-end;
+    .post-interact {
+      @include flex-center-between;
+      width: 80px;
+    }
+  }
+  .post-sub-info {
+    font-size: map-get($font-size, 'sm');
+  }
+}
