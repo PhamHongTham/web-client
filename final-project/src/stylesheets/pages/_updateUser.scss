@@ -52,14 +52,14 @@
 }
 
 @media screen and (max-width: 576px) {
-  .update-info {
+  .section-update-info {
     .update-form {
       width: 100%;
     }
   }
 }
 @media screen and (max-width: 400px) {
-  .update-info {
+  .section-update-info {
     .update-info-title {
       font-size: map-get($font-size, 'xl');
       margin: 2rem 0;

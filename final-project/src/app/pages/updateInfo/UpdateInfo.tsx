@@ -3,6 +3,8 @@ import React, { FormEvent, useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import InputMask from 'react-input-mask';
 import { useDispatch, useSelector } from 'react-redux';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 import { RootState } from 'app/stores/app-reducer';
 import { UserInfoOptions } from 'app/shared/models/User';
@@ -12,14 +14,18 @@ import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
 
 const UpdateInfo = () => {
   const dispatch = useDispatch();
+  const schema = yup.object().shape({
+    phone: yup.string().trim().matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/, 'Wrong phone number').required(),
+  });
   const {
     register,
     handleSubmit,
     watch,
     setError,
+    clearErrors,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm({ resolver: yupResolver(schema) });
   const [dateOfBirth, setDateOfBirth] = useState<string>('');
   const [gender, setGender] = useState<string>('');
 
@@ -42,6 +48,19 @@ const UpdateInfo = () => {
     }
   }, [isLoading, userCurrent, dispatch, error]);
 
+  useEffect(() => {
+    let date = new Date(dateOfBirth);
+    let currentDate = new Date();
+    if (date.getTime() > currentDate.getTime()) {
+      setError('dateOfBirth', {
+        type: "manual",
+        message: "Wrong date of birth",
+      })
+    } else {
+      clearErrors('dateOfBirth')
+    }
+  }, [dateOfBirth])
+
   const onSubmit = (data: UserInfoOptions) => {
     const newUserInfo: UserInfoOptions = {
       ...data,
@@ -57,8 +76,8 @@ const UpdateInfo = () => {
       <div className="container">
         <h2 className="update-info-title">Update information</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="update-form">
-          <input placeholder="Firstname" {...register('firstName')}></input>
-          <input placeholder="Lastname" {...register('lastName')}></input>
+          <input placeholder="Firstname" {...register('firstName')} required></input>
+          <input placeholder="Lastname" {...register('lastName')} required></input>
           <div className="select-gender">
             <label className="container-radio">
               Male
@@ -66,6 +85,7 @@ const UpdateInfo = () => {
                 type="radio"
                 name="radio"
                 onChange={(e: FormEvent<HTMLInputElement>) => setGender('male')}
+                required
               ></input>
               <span className="checkmark"></span>
             </label>
@@ -77,6 +97,7 @@ const UpdateInfo = () => {
                 onChange={(e: FormEvent<HTMLInputElement>) =>
                   setGender('female')
                 }
+                required
               ></input>
               <span className="checkmark"></span>
             </label>
@@ -88,12 +109,24 @@ const UpdateInfo = () => {
             onChange={(e: FormEvent<HTMLInputElement>) =>
               setDateOfBirth(e.currentTarget.value)
             }
+            required
           />
+          {errors.dateOfBirth ? (
+            <p className="error">{errors.dateOfBirth.message}</p>
+          ) : (
+            ''
+          )}
           <input
             placeholder="Display name"
             {...register('displayName')}
+            required
           ></input>
-          <input placeholder="Phone" {...register('phone')}></input>
+          <input placeholder="Phone" {...register('phone')} required></input>
+          {errors.phone ? (
+            <p className="error">{errors.phone.message}</p>
+          ) : (
+            ''
+          )}
           <div className="form-btn">
             <button className="btn btn-primary" type="submit">
               Update{' '}

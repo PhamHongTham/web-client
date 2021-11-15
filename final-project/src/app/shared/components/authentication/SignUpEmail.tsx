@@ -24,6 +24,7 @@ const SignUpEmail = ({
 }: SignUpEmailOptions) => {
   const dispatch = useDispatch();
   const schema = yup.object().shape({
+    phone: yup.string().trim().matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/, 'Wrong phone number').required(),
     email: yup.string().email('Invalid email').required('Invalid email'),
     password: yup
       .string()
@@ -35,9 +36,10 @@ const SignUpEmail = ({
     register,
     handleSubmit,
     setError,
+    clearErrors,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm({ resolver: yupResolver(schema) });
   const [dateOfBirth, setDateOfBirth] = useState<string>('');
   const [gender, setGender] = useState<string>('');
   const [pass, setPass] = useState<string>('');
@@ -74,6 +76,25 @@ const SignUpEmail = ({
     setDateOfBirth('');
   };
 
+  useEffect(() => {
+    if (pass.length >= 8) {
+      clearErrors('password')
+    }
+  }, [pass])
+
+  useEffect(() => {
+    let date = new Date(dateOfBirth);
+    let currentDate = new Date();
+    if (date.getTime() > currentDate.getTime()) {
+      setError('dateOfBirth', {
+        type: "manual",
+        message: "Wrong date of birth",
+      })
+    } else {
+      clearErrors('dateOfBirth')
+    }
+  }, [dateOfBirth])
+
   const onSubmit = (data: UserLoginOptions) => {
     if (pass === repeatPass) {
       const infoUser = {
@@ -83,11 +104,10 @@ const SignUpEmail = ({
       };
       dispatch(signUpRequest(infoUser, resetForm));
     } else {
-      console.log('Password not match');
-      // setError('repeatPassword', {
-      //   type: "manual",
-      //   message: "Password not match",
-      // })
+      setError('repeatPassword', {
+        type: "manual",
+        message: "Password not match",
+      })
     }
   };
 
@@ -152,12 +172,22 @@ const SignUpEmail = ({
           }
           required
         />
+        {errors.dateOfBirth ? (
+          <p className="error">{errors.dateOfBirth.message}</p>
+        ) : (
+          ''
+        )}
         <input
           type="number"
           placeholder="Phone"
           {...register('phone')}
           required
         ></input>
+        {errors.phone ? (
+          <p className="error">{errors.phone.message}</p>
+        ) : (
+          ''
+        )}
         <input
           type="password"
           placeholder="Password"
@@ -167,14 +197,24 @@ const SignUpEmail = ({
           }
           required
         ></input>
+        {errors.password ? (
+          <p className="error">{errors.password.message}</p>
+        ) : (
+          ''
+        )}
         <input
           type="password"
-          placeholder="Repeat password"
+          placeholder="repeatPassword"
           onChange={(e: FormEvent<HTMLInputElement>) =>
             setRepeatPass(e.currentTarget.value)
           }
           required
         ></input>
+        {errors.repeatPassword ? (
+          <p className="error">{errors.repeatPassword.message}</p>
+        ) : (
+          ''
+        )}
         <button className="btn btn-primary">Sign Up</button>
       </form>
       <Link to="" className="back-all-action" onClick={handleShowSignInModal}>

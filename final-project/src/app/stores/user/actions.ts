@@ -11,7 +11,7 @@ import { PasswordOptions } from 'app/shared/types/Password';
 import { UserInfoOptions } from 'app/shared/models/User';
 import {
   addInfoLocalStorage,
-  removeInfoLocalStorage,
+  removeInfoUserLocalStorage,
 } from 'app/shared/helper/LocalAction';
 
 export const loginRequest =
@@ -46,8 +46,7 @@ export const signUpRequest =
   };
 
 export const logoutRequest = () => {
-  removeInfoLocalStorage('USER_TOKEN');
-  removeInfoLocalStorage('USER_ID');
+  removeInfoUserLocalStorage();
   return {
     type: UserConstant.LOGOUT,
   };
@@ -59,10 +58,18 @@ export const getUserInfoRequest = () => async (dispatch: any) => {
     const data = await getUserInfo();
     dispatch({ type: UserConstant.GET_USER_INFO_SUCCESS, payload: data });
   } catch (error: any) {
-    dispatch({
-      type: UserConstant.GET_USER_INFO_FAILURE,
-      payload: error.response.data.errors[0],
-    });
+    if(error.response.status === 401){
+      removeInfoUserLocalStorage();
+      dispatch({
+        type: UserConstant.GET_USER_INFO_FAILURE,
+        payload: error.response.statusText,
+      });
+    }else{
+      dispatch({
+        type: UserConstant.GET_USER_INFO_FAILURE,
+        payload: error.response.data.errors[0],
+      });
+    }
   }
 };
 
@@ -73,10 +80,19 @@ export const changePasswordRequest =
       const data = await changePassword(info);
       dispatch({ type: UserConstant.CHANGE_PASSWORD_SUCCESS, payload: data });
     } catch (error: any) {
-      dispatch({
-        type: UserConstant.CHANGE_PASSWORD_FAILURE,
-        payload: error.response.data.errors[0],
-      });
+      if(error.response.status === 401){
+        console.log(error.response.data)
+        removeInfoUserLocalStorage();
+        dispatch({
+          type: UserConstant.CHANGE_PASSWORD_FAILURE,
+          payload: error.response.statusText,
+        });
+      }else{
+        dispatch({
+          type: UserConstant.CHANGE_PASSWORD_FAILURE,
+          payload: error.response.data.errors[0],
+        });
+      }
     }
   };
 
@@ -90,10 +106,18 @@ export const updateUserInfoRequest =
         payload: data,
       });
     } catch (error: any) {
-      dispatch({
-        type: UserConstant.UPDATE_USER_INFO_FAILURE,
-        payload: error.response.data.errors[0],
-      });
+      if(error.response.status === 401){
+        removeInfoUserLocalStorage();
+        dispatch({
+          type: UserConstant.CHANGE_PASSWORD_FAILURE,
+          payload: error.response.statusText,
+        });
+      }else{
+        dispatch({
+          type: UserConstant.UPDATE_USER_INFO_FAILURE,
+          payload: error.response.data.errors[0],
+        });
+      }
     }
   };
 
