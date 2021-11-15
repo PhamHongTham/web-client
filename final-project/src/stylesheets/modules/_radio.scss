@@ -1,4 +1,4 @@
-.container-radio{
+.container-radio {
   display: block;
   position: relative;
   padding: 0 2rem;
@@ -14,7 +14,7 @@
     opacity: 0;
     cursor: pointer;
     &:checked ~ .checkmark {
-      background-color: map-get($color, 'primary')
+      background-color: map-get($color, 'primary');
     }
     &:checked ~ .checkmark:after {
       display: block;
@@ -29,7 +29,7 @@
     background-color: #eee;
     border-radius: 50%;
     &:after {
-      content: "";
+      content: '';
       position: absolute;
       display: none;
     }
@@ -37,11 +37,10 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: .4rem;
-      height: .4rem;
+      width: 0.4rem;
+      height: 0.4rem;
       border-radius: 50%;
       background: white;
     }
   }
 }
-

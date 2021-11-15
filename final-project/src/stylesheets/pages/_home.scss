@@ -11,8 +11,7 @@
       display: flex;
       width: 300%;
       .post-item {
-        display: flex;
-        align-items: center;
+        @include flex-center;
         transition: ease 1000ms;
         .post-image {
           img {

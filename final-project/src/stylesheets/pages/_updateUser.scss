@@ -1,7 +1,6 @@
 .section-update-info {
-  display: flex;
+  @include flex-center;
   flex-direction: column;
-  align-items: center;
   margin: 0 auto;
   .update-info-title {
     font-size: map-get($font-size, 'xxl');
@@ -9,7 +8,7 @@
     text-align: center;
     margin: 3rem 0;
   }
-  .update-form{
+  .update-form {
     display: flex;
     flex-direction: column;
     width: 600px;
@@ -30,7 +29,7 @@
         transition: 0.3s;
       }
     }
-    .form-btn{
+    .form-btn {
       display: flex;
       justify-content: center;
       button {
@@ -45,7 +44,7 @@
       margin-left: 1.5rem;
       margin-bottom: 0.3rem;
     }
-    .select-gender{
+    .select-gender {
       display: flex;
       padding-left: 1.5rem;
     }
@@ -53,19 +52,19 @@
 }
 
 @media screen and (max-width: 576px) {
-  .update-info{
-    .update-form{
+  .update-info {
+    .update-form {
       width: 100%;
     }
   }
 }
 @media screen and (max-width: 400px) {
-  .update-info{
+  .update-info {
     .update-info-title {
       font-size: map-get($font-size, 'xl');
       margin: 2rem 0;
     }
-    .update-form{
+    .update-form {
       width: 100%;
     }
   }

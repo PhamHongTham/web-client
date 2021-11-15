@@ -43,7 +43,7 @@
       .list-action {
         .action-item {
           .action-link {
-            border: 1px solid #e5e5e5;
+            border: 1px solid map-get($color, 'gray-stone');
             border-radius: 3rem;
             padding: 0.6rem 1.2rem;
             display: flex;
@@ -75,10 +75,8 @@
       }
     }
     .sign-in-email {
-      display: flex;
+      @include flex-center;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
       .sign-in-email-title {
         font-size: map-get($font-size, 'xxl');
         font-weight: 500;
@@ -88,10 +86,8 @@
         }
       }
       .modal-form {
-        display: flex;
+        @include flex-center;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
         width: 50%;
         .input-description {
           font-size: map-get($font-size, 'sm');
@@ -142,9 +138,8 @@
         }
       }
       .modal-form {
-        display: flex;
+        @include flex-center;
         flex-direction: column;
-        align-items: center;
         width: 80%;
         margin: 0 auto;
         input {
@@ -171,9 +166,7 @@
           display: flex;
           margin: 0.5rem 0;
           label {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            @include flex-center;
             margin: 0;
           }
         }

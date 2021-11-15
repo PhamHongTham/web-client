@@ -3,6 +3,10 @@ header {
   border-bottom: 1px solid map-get($color, 'gray-light');
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   width: 100%;
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -o-sticky;
+  position: -ms-sticky;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -29,7 +33,7 @@ header {
         white-space: nowrap;
       }
     }
-    .signin{
+    .signin {
       color: map-get($color, 'black-midnight');
     }
   }

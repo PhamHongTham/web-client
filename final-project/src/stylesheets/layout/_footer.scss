@@ -14,9 +14,7 @@
       .media-link {
         width: 100%;
         height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include flex-center;
         color: map-get($color, 'black-midnight');
       }
       &:hover {

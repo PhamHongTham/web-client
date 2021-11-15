@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const SlideItem = ({ index }: { index: number }) => {
   return (
@@ -21,14 +21,13 @@ const SlideItem = ({ index }: { index: number }) => {
               <span className="post-create-at">July 2, 2020</span>
             </p>
             <h2 className="post-title">
-              Your most unhappy customers are your greatest source of
-              learning.
+              Your most unhappy customers are your greatest source of learning.
             </h2>
             <p className="post-text-content">
-              Far far away, behind the word mountains, far from the
-              countries Vokalia and Consonantia, there live the blind
-              texts. Separated they live in Bookmarksgrove right at the
-              coast of the Semantics, a large language ocean.
+              Far far away, behind the word mountains, far from the countries
+              Vokalia and Consonantia, there live the blind texts. Separated
+              they live in Bookmarksgrove right at the coast of the Semantics, a
+              large language ocean.
             </p>
             <div className="post-author">
               <img
@@ -45,7 +44,7 @@ const SlideItem = ({ index }: { index: number }) => {
         </div>
       </Link>
     </li>
-  )
-}
+  );
+};
 
-export default SlideItem
+export default SlideItem;

@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 import AuthenticationModal from './authentication/AuthenticationModal';
 
 const Header = () => {
-  const [showLoginModal, setShowLoginModal] = useState(false)
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const handleShowLoginModal = () => {
-    setShowLoginModal(!showLoginModal)
-  }
+    setShowLoginModal(!showLoginModal);
+  };
   return (
     <header>
       <div className="container">
@@ -48,14 +48,18 @@ const Header = () => {
                 </li>
               </ul>
             </nav>
-            <Link to="" className="signin" onClick={handleShowLoginModal}>Signin</Link>
+            <Link to="" className="signin" onClick={handleShowLoginModal}>
+              Signin
+            </Link>
           </div>
         </div>
       </div>
 
-      {
-        showLoginModal ? <AuthenticationModal showLoginModal={handleShowLoginModal} /> : ''
-      }
+      {showLoginModal ? (
+        <AuthenticationModal showLoginModal={handleShowLoginModal} />
+      ) : (
+        ''
+      )}
     </header>
   );
 };
