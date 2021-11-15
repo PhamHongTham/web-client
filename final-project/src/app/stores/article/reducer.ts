@@ -1,4 +1,4 @@
-import { articleConstant } from 'share/constants/articleConstant';
+import { articleConstant } from 'app/shared/constants/articleConstant';
 
 const initialState = {
   articles: [],

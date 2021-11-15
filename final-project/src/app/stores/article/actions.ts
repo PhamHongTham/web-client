@@ -1,5 +1,5 @@
+import { articleConstant } from 'app/shared/constants/articleConstant';
 import { getRecommendPost } from 'app/shared/core/services/service-article';
-import { articleConstant } from 'share/constants/articleConstant';
 
 export const fetchArticleRequest = () => async (dispatch: any) => {
   dispatch({ type: articleConstant.FETCH_ARTICLE_REQUEST });
@@ -11,7 +11,7 @@ export const fetchArticleRequest = () => async (dispatch: any) => {
     const res = await getRecommendPost(params);
     dispatch({ type: articleConstant.FETCH_ARTICLE_SUCCESS, payload: res });
   } catch (error: any) {
-    console.log(error)
+    console.log(error);
     // dispatch({
     //   type: articleConstant.FETCH_ARTICLE_FAILURE,
     //   payload: error.response.data,

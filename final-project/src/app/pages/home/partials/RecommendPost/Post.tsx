@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { articleOptions } from 'share/model/article-interface';
+import { articleOptions } from 'app/shared/models/article-interface';
 
-import { calculateTimeSince } from 'share/helper/helper-function';
+import { calculateTimeSince } from 'app/shared/helper/helper-function';
 
 const Post = ({article}:{article:articleOptions}) => {
   const { id, title, comments, likes, user, cover, description, createdAt } = article;
