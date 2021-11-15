@@ -88,13 +88,14 @@ const Header = () => {
           </nav>
           <button className="user-avatar">
             <i className="fal fa-user-circle"></i>
-            <div className="user-action">
+            {/* tam an lam sau */}
+            {/* <div className="user-action">
               <ul className="action-list">
                 <li className="action-item"><Link to="/user/update">Update information</Link></li>
                 <li className="action-item"><Link to="/user/changepass">Update password</Link></li>
                 <li className="action-item"><Link to="">Sign out</Link></li>
               </ul>
-            </div>
+            </div> */}
           </button>
         </div>
       </div>
