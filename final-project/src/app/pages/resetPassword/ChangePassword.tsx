@@ -25,6 +25,7 @@ const ChangePassword = () => {
     handleSubmit,
     watch,
     setError,
+    clearErrors,
     formState: { errors },
     reset,
   } = useForm({ resolver: yupResolver(schema) });
@@ -100,7 +101,7 @@ const ChangePassword = () => {
           )}
           <div className="form-btn">
             <button className="btn btn-primary" type="submit">
-              Change password{' '}
+              Change password
             </button>
           </div>
         </form>

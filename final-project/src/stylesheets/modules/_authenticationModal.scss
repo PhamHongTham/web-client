@@ -139,6 +139,7 @@
       }
       .modal-form {
         @include flex-center;
+        align-items: flex-start;
         flex-direction: column;
         width: 80%;
         margin: 0 auto;
@@ -163,12 +164,21 @@
           margin-top: 1rem;
         }
         .select-gender {
-          display: flex;
+          @include flex-center;
           margin: 0.5rem 0;
+          margin-left: 1rem;
           label {
             @include flex-center;
             margin: 0;
           }
+        }
+        .error {
+          display: flex;
+          align-items: flex-start;
+          color: red;
+          font-size: map-get($font-size, 'sm');
+          margin-top: -0.5rem;
+          margin-left: 1rem;
         }
       }
       .back-all-action {
