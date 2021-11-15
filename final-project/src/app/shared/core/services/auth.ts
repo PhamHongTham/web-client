@@ -2,9 +2,6 @@ import axiosClient from "./axios-client";
 import { UserLoginOptions } from "app/shared/types/UserLogin";
 import { PasswordOptions } from "app/shared/types/Password";
 import { UserInfoOptions } from "app/shared/models/User";
-interface ListResponse<T> {
-  data: T[]
-}
 
 export const login = (user: UserLoginOptions) :any => axiosClient.post('/users/login', user);
 export const signUp = (user: UserLoginOptions) :any => axiosClient.post('/users/register', user);

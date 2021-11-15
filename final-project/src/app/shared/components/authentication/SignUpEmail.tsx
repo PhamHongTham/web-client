@@ -18,13 +18,14 @@ interface SignUpEmailOptions {
   handleShowSignInEmail: () => void;
 }
 
-const SignUpEmail = ({
-  handleShowSignInModal,
-  handleShowSignInEmail,
-}: SignUpEmailOptions) => {
+const SignUpEmail = ({ handleShowSignInModal, handleShowSignInEmail }: SignUpEmailOptions) => {
   const dispatch = useDispatch();
   const schema = yup.object().shape({
-    phone: yup.string().trim().matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/, 'Wrong phone number').required(),
+    phone: yup
+      .string()
+      .trim()
+      .matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/, 'Wrong phone number')
+      .required(),
     email: yup.string().email('Invalid email').required('Invalid email'),
     password: yup
       .string()
@@ -47,9 +48,7 @@ const SignUpEmail = ({
 
   const { handleAddNotification } = useContext(NotificationContext);
   const { handleShowLoading } = useContext(LoadingContext);
-  const { isLoading, message, error } = useSelector(
-    (state: RootState) => state.userState
-  );
+  const { isLoading, message, error } = useSelector((state: RootState) => state.userState);
 
   useEffect(() => {
     handleShowLoading(isLoading ? true : false);
@@ -63,7 +62,15 @@ const SignUpEmail = ({
       });
       handleShowSignInEmail();
     }
-  }, [isLoading, message, error, dispatch]);
+  }, [
+    isLoading,
+    message,
+    error,
+    dispatch,
+    handleShowSignInEmail,
+    handleAddNotification,
+    handleShowLoading,
+  ]);
 
   useEffect(() => {
     return () => {
@@ -78,22 +85,22 @@ const SignUpEmail = ({
 
   useEffect(() => {
     if (pass.length >= 8) {
-      clearErrors('password')
+      clearErrors('password');
     }
-  }, [pass])
+  }, [pass, clearErrors]);
 
   useEffect(() => {
     let date = new Date(dateOfBirth);
     let currentDate = new Date();
     if (date.getTime() > currentDate.getTime()) {
       setError('dateOfBirth', {
-        type: "manual",
-        message: "Wrong date of birth",
-      })
+        type: 'manual',
+        message: 'Wrong date of birth',
+      });
     } else {
-      clearErrors('dateOfBirth')
+      clearErrors('dateOfBirth');
     }
-  }, [dateOfBirth])
+  }, [dateOfBirth, clearErrors, setError]);
 
   const onSubmit = (data: UserLoginOptions) => {
     if (pass === repeatPass) {
@@ -105,9 +112,9 @@ const SignUpEmail = ({
       dispatch(signUpRequest(infoUser, resetForm));
     } else {
       setError('repeatPassword', {
-        type: "manual",
-        message: "Password not match",
-      })
+        type: 'manual',
+        message: 'Password not match',
+      });
     }
   };
 
@@ -117,30 +124,10 @@ const SignUpEmail = ({
         Join <span className="blog-name">Boogle</span>
       </h2>
       <form className="modal-form" onSubmit={handleSubmit(onSubmit)}>
-        <input
-          type="email"
-          placeholder="Email"
-          {...register('email')}
-          required
-        ></input>
-        <input
-          type="text"
-          placeholder="First name"
-          {...register('firstName')}
-          required
-        ></input>
-        <input
-          type="text"
-          placeholder="Last name"
-          {...register('lastName')}
-          required
-        ></input>
-        <input
-          type="text"
-          placeholder="Display name"
-          {...register('displayName')}
-          required
-        ></input>
+        <input type="email" placeholder="Email" {...register('email')} required></input>
+        <input type="text" placeholder="First name" {...register('firstName')} required></input>
+        <input type="text" placeholder="Last name" {...register('lastName')} required></input>
+        <input type="text" placeholder="Display name" {...register('displayName')} required></input>
         <div className="select-gender">
           <label className="container-radio">
             Male
@@ -167,54 +154,27 @@ const SignUpEmail = ({
           mask="99/99/9999"
           placeholder="Enter birthdate"
           value={dateOfBirth}
-          onChange={(e: FormEvent<HTMLInputElement>) =>
-            setDateOfBirth(e.currentTarget.value)
-          }
+          onChange={(e: FormEvent<HTMLInputElement>) => setDateOfBirth(e.currentTarget.value)}
           required
         />
-        {errors.dateOfBirth ? (
-          <p className="error">{errors.dateOfBirth.message}</p>
-        ) : (
-          ''
-        )}
-        <input
-          type="number"
-          placeholder="Phone"
-          {...register('phone')}
-          required
-        ></input>
-        {errors.phone ? (
-          <p className="error">{errors.phone.message}</p>
-        ) : (
-          ''
-        )}
+        {errors.dateOfBirth ? <p className="error">{errors.dateOfBirth.message}</p> : ''}
+        <input type="number" placeholder="Phone" {...register('phone')} required></input>
+        {errors.phone ? <p className="error">{errors.phone.message}</p> : ''}
         <input
           type="password"
           placeholder="Password"
           {...register('password')}
-          onChange={(e: FormEvent<HTMLInputElement>) =>
-            setPass(e.currentTarget.value)
-          }
+          onChange={(e: FormEvent<HTMLInputElement>) => setPass(e.currentTarget.value)}
           required
         ></input>
-        {errors.password ? (
-          <p className="error">{errors.password.message}</p>
-        ) : (
-          ''
-        )}
+        {errors.password ? <p className="error">{errors.password.message}</p> : ''}
         <input
           type="password"
           placeholder="repeatPassword"
-          onChange={(e: FormEvent<HTMLInputElement>) =>
-            setRepeatPass(e.currentTarget.value)
-          }
+          onChange={(e: FormEvent<HTMLInputElement>) => setRepeatPass(e.currentTarget.value)}
           required
         ></input>
-        {errors.repeatPassword ? (
-          <p className="error">{errors.repeatPassword.message}</p>
-        ) : (
-          ''
-        )}
+        {errors.repeatPassword ? <p className="error">{errors.repeatPassword.message}</p> : ''}
         <button className="btn btn-primary">Sign Up</button>
       </form>
       <Link to="" className="back-all-action" onClick={handleShowSignInModal}>
