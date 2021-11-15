@@ -1,0 +1,16 @@
+.btn {
+  width: 100%;
+  height: 50px;
+  font-weight: 700;
+  outline: none;
+  cursor: pointer;
+  border-radius: 3rem;
+  &.btn-primary {
+    background: map-get($color, 'primary');
+    border: 1px solid map-get($color, 'primary');
+    &:hover {
+      background: map-get($color, 'white-snow');
+      transition: 0.3s;
+    }
+  }
+}

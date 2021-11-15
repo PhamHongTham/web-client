@@ -1,0 +1,191 @@
+.section-slide {
+  .slide-title {
+    font-weight: 700;
+    font-size: map-get($font-size, 'xxxxxl');
+    text-align: center;
+    margin: 3rem 0;
+  }
+  .slide-content {
+    overflow: hidden;
+    .list-post {
+      display: flex;
+      width: 300%;
+      .post-item {
+        @include flex-center;
+        transition: ease 1000ms;
+        .post-image {
+          img {
+            border-radius: 1rem;
+          }
+        }
+        .post-content {
+          .post-topic {
+            color: map-get($color, 'black-midnight');
+            font-size: map-get($font-size, 'lg');
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            .post-create-at {
+              color: map-get($color, 'gray-bold');
+              font-weight: 400;
+            }
+          }
+          .post-title {
+            font-size: map-get($font-size, 'xxxxxl');
+            color: map-get($color, 'black-midnight');
+            font-weight: 700;
+            margin-bottom: 1rem;
+          }
+          .post-text-content {
+            color: map-get($color, 'gray-bold');
+            font-weight: 400;
+            font-size: map-get($font-size, 'lg');
+            margin-bottom: 1.5rem;
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+          }
+          .post-author {
+            display: flex;
+            .author-avatar {
+              width: 2.813rem;
+              height: 2.813rem;
+              border-radius: 50%;
+              object-fit: cover;
+            }
+            .author-content {
+              display: flex;
+              flex-direction: column;
+              margin-left: 1rem;
+              .author-name {
+                font-size: map-get($font-size, 'lg');
+                color: map-get($color, 'black-midnight');
+                font-weight: 700;
+              }
+              .author-role {
+                color: map-get($color, 'gray-bold');
+                font-weight: 400;
+                font-size: map-get($font-size, 'sm');
+              }
+            }
+          }
+        }
+      }
+    }
+    .slide-dots {
+      display: flex;
+      justify-content: center;
+      margin: 2rem;
+      .dot-item {
+        height: 0.5rem;
+        width: 0.5rem;
+        border-radius: 50%;
+        background: map-get($color, 'gray-smoke');
+        margin: 0 0.2rem;
+        cursor: pointer;
+        &.active {
+          background: map-get($color, 'primary');
+        }
+      }
+    }
+  }
+}
+.section-recommend-post {
+  margin-top: 5rem;
+  .post-creator-info {
+    @include align-center;
+    flex: 1;
+    overflow: hidden;
+    .author-avatar {
+      height: 2rem;
+      width: 2rem;
+      border-radius: 50%;
+      margin-right: 1rem;
+    }
+    .author-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      padding-right: 0.5rem;
+      overflow: hidden;
+      .author-name {
+        @include text-overflow(1);
+        color: map-get($color, 'black');
+        font-size: map-get($font-size, 'lg');
+        font-weight: bold;
+        display: flex;
+        flex: 1;
+        padding-right: 0.5rem;
+      }
+    }
+  }
+  .post-content {
+    height: 8rem;
+    .post-description {
+      @include text-overflow(3);
+    }
+  }
+  .post-status-info {
+    display: flex;
+    justify-content: flex-end;
+    .post-interact {
+      @include flex-center-between;
+      width: 80px;
+    }
+  }
+  .post-sub-info {
+    font-size: map-get($font-size, 'sm');
+  }
+}
+.section-contact {
+  background: map-get($color, 'gray-light');
+  padding: 3rem 0;
+  .contact-title {
+    font-weight: 700;
+    font-size: map-get($font-size, 'xxl');
+    color: map-get($color, 'black');
+  }
+  .contact-form {
+    display: flex;
+    margin-top: 1rem;
+    .contact-input {
+      height: 3.2rem;
+      width: 100%;
+      padding: 0 1.25rem;
+      border: 1px solid #e5e5e5;
+      outline: none;
+      border-radius: 0.5rem;
+      font-size: map-get($font-size, 'lg');
+    }
+  }
+}
+@media screen and(max-width: 768px) {
+  .section-slide {
+    .slide-title {
+      margin: 1rem 0;
+      font-size: map-get($font-size, 'lg');
+    }
+    .slide-content {
+      .list-post {
+        .post-item {
+          .post-content {
+            .post-topic {
+              margin-top: 1rem;
+              margin-bottom: 0.5rem;
+              font-size: map-get($font-size, 'normal');
+            }
+            .post-title {
+              font-size: map-get($font-size, 'xxl');
+            }
+          }
+        }
+      }
+    }
+  }
+  .section-contact {
+    .contact-input {
+      margin-bottom: 1rem;
+    }
+  }
+}
+

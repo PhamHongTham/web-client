@@ -1,12 +1,19 @@
 $color: (
-  primary: rgba(117, 117, 117, 1),
-  black: rgba(41, 41, 41, 1),
-  green: rgb(26, 137, 23),
+  primary: #f79918,
+  gray-bold: rgba(117, 117, 117, 1),
+  gray-smoke: #888,
+  gray-light: #f8f9fa,
+  gray-stone: #e5e5e5,
+  black-midnight: rgba(41, 41, 41, 1),
+  white-snow: #ffffff,
 );
 $font-size: (
+  xs: 0.6rem,
   sm: 0.813rem,
   normal: 0.875rem,
   lg: 1rem,
-  xxxl: 1.375rem,
+  xl: 1.375rem,
+  xxl: 1.5rem,
+  xxxxxl: 2.5rem,
 );
-$font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family: 'Poppins', sans-serif;

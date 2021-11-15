@@ -1,0 +1,258 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.95);
+  overflow: hidden;
+  .authentication-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: calc(100vh - 150px);
+    background: map-get($color, 'white-snow');
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding: 2rem;
+    animation: 0.5s zoom ease-in-out;
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: map-get($font-size, 'xl');
+      cursor: pointer;
+    }
+    .sign-in-modal {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .sign-in-title {
+        font-size: map-get($font-size, 'xxl');
+        font-weight: 500;
+        margin-top: 5rem;
+        margin-bottom: 3rem;
+        .blog-name {
+          color: map-get($color, 'primary');
+        }
+      }
+      .list-action {
+        .action-item {
+          .action-link {
+            border: 1px solid map-get($color, 'gray-stone');
+            border-radius: 3rem;
+            padding: 0.6rem 1.2rem;
+            display: flex;
+            align-items: center;
+            color: map-get($color, 'black-midnight');
+            &:hover {
+              border: 1px solid #333;
+              transition: 0.2s;
+            }
+            i {
+              margin-right: 1rem;
+            }
+          }
+        }
+      }
+      .sign-up-action {
+        font-size: map-get($font-size, 'lg');
+        margin-top: 2rem;
+        .create-account {
+          color: map-get($color, 'primary');
+          font-weight: 600;
+        }
+      }
+      .sign-in-info {
+        text-align: center;
+        font-size: map-get($font-size, 'normal');
+        color: map-get($color, 'gray-smoke');
+        margin-top: 2rem;
+      }
+    }
+    .sign-in-email {
+      @include flex-center;
+      flex-direction: column;
+      .sign-in-email-title {
+        font-size: map-get($font-size, 'xxl');
+        font-weight: 500;
+        margin-top: 3rem;
+        .blog-name {
+          color: map-get($color, 'primary');
+        }
+      }
+      .modal-form {
+        @include flex-center;
+        flex-direction: column;
+        width: 50%;
+        .input-description {
+          font-size: map-get($font-size, 'sm');
+          color: map-get($color, 'gray-smoke');
+          text-align: center;
+          margin-top: 1.5rem;
+        }
+        .form-input {
+          width: 100%;
+          border: none;
+          outline: none;
+          border-bottom: 1px solid #333;
+          padding: 0.6rem 1rem;
+          font-size: map-get($font-size, 'lg');
+          text-align: center;
+          &:focus {
+            border-bottom: 1px solid map-get($color, 'primary');
+            transition: 0.3s;
+          }
+        }
+        .btn {
+          width: 200px;
+          height: 45px;
+          margin-top: 1.5rem;
+        }
+      }
+      .back-all-action {
+        color: map-get($color, 'primary');
+        margin-top: 2rem;
+        i {
+          margin-right: 0.5rem;
+        }
+      }
+      .sign-in-info {
+        text-align: center;
+        font-size: map-get($font-size, 'normal');
+        color: map-get($color, 'gray-smoke');
+        margin-top: 2rem;
+      }
+    }
+    .sign-up-email {
+      .sign-up-email-title {
+        font-size: map-get($font-size, 'xxl');
+        font-weight: 600;
+        text-align: center;
+        .blog-name {
+          color: map-get($color, 'primary');
+        }
+      }
+      .modal-form {
+        @include flex-center;
+        align-items: flex-start;
+        flex-direction: column;
+        width: 80%;
+        margin: 0 auto;
+        input {
+          padding: 0.6rem 1rem;
+          margin-bottom: 0.5rem;
+          border: none;
+          border-bottom: 1px solid #e5e5e5;
+          outline: none;
+          font-size: map-get($font-size, 'lg');
+          width: 100%;
+          &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
+          &:focus {
+            border-bottom: 1px solid map-get($color, 'primary');
+            transition: 0.3s;
+          }
+        }
+        button {
+          margin-top: 1rem;
+        }
+        .select-gender {
+          @include flex-center;
+          margin: 0.5rem 0;
+          margin-left: 1rem;
+          label {
+            @include flex-center;
+            margin: 0;
+          }
+        }
+        .error {
+          display: flex;
+          align-items: flex-start;
+          color: red;
+          font-size: map-get($font-size, 'sm');
+          margin-top: -0.5rem;
+          margin-left: 1rem;
+        }
+      }
+      .back-all-action {
+        @include flex-center;
+        color: map-get($color, 'primary');
+        margin-top: 1rem;
+        i {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+}
+@keyframes zoom {
+  0% {
+    margin-left: 1200px;
+  }
+  100% {
+    margin-left: 0;
+  }
+}
+@media screen and (max-width: 768px) {
+  .modal {
+    .authentication-modal {
+      width: 80%;
+      margin: 0 auto;
+    }
+  }
+}
+@media screen and (max-width: 576px) {
+  .modal {
+    .authentication-modal {
+      width: 90%;
+      padding: 1rem;
+      overflow-y: scroll;
+      .sign-in-email,
+      .sign-up-email {
+        .sign-in-email-title,
+        .sign-up-email-title {
+          margin-top: 1rem;
+        }
+        .modal-form {
+          width: 90%;
+        }
+      }
+      .sign-in-info,
+      .sign-up-info {
+        display: none;
+      }
+    }
+  }
+}
+@media screen and (max-width: 400px) {
+  .modal {
+    .authentication-modal {
+      .sign-in-email,
+      .sign-up-email {
+        .modal-form {
+          .input-description {
+            margin-top: 0.5rem;
+          }
+          input {
+            font-size: map-get($font-size, 'normal');
+          }
+          button {
+            height: 40px;
+          }
+        }
+        .select-gender {
+          label {
+            font-size: map-get($font-size, 'normal');
+          }
+        }
+      }
+    }
+  }
+}

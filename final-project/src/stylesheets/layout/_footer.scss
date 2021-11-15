@@ -1,0 +1,36 @@
+.section-footer {
+  @include flex-center;
+  margin-top: 3rem;
+  .list-media {
+    @include flex-center;
+    margin-bottom: 2rem;
+    .media-item {
+      width: 2.5rem;
+      height: 2.5rem;
+      margin: 0 5px;
+      border-radius: 40%;
+      background: #ccc;
+      cursor: pointer;
+      .media-link {
+        width: 100%;
+        height: 100%;
+        @include flex-center;
+        color: map-get($color, 'black-midnight');
+      }
+      &:hover {
+        background: map-get($color, 'primary');
+        transition: 0.3s;
+        .media-link {
+          color: map-get($color, 'white-snow');
+          transition: 0.3s;
+        }
+      }
+    }
+  }
+  .footer-copy-right {
+    color: map-get($color, 'gray-smoke');
+    font-size: map-get($font-size, 'lg');
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+}
