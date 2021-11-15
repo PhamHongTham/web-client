@@ -17,7 +17,7 @@ const SlideItem = ({ index }: { index: number }) => {
           </div>
           <div className="post-content col-7 col-md-12">
             <p className="post-topic">
-              Business, Travel -{' '}
+              Business, Travel -
               <span className="post-create-at">July 2, 2020</span>
             </p>
             <h2 className="post-title">

@@ -129,7 +129,7 @@ const UpdateInfo = () => {
           )}
           <div className="form-btn">
             <button className="btn btn-primary" type="submit">
-              Update{' '}
+              Update
             </button>
           </div>
         </form>

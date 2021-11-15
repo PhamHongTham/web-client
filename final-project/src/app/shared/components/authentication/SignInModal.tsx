@@ -23,7 +23,7 @@ const SignInModal = ({
         </li>
       </ul>
       <span className="sign-up-action">
-        No account?{' '}
+        No account?
         <Link to="" className="create-account" onClick={handleShowSignUpEmail}>
           Create one
         </Link>
