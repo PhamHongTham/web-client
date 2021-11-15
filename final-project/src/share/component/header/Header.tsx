@@ -79,7 +79,9 @@ const Header = () => {
               </li>
             </ul>
           </nav>
-          <button className="user-avatar"><i className="fal fa-user-circle"></i></button>
+          <button className="user-avatar">
+            <i className="fal fa-user-circle"></i>
+          </button>
         </div>
       </div>
     </header>

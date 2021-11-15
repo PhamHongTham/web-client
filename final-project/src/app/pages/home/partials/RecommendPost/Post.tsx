@@ -17,7 +17,7 @@ const Post = ({article}:{article:articleOptions}) => {
           <img src={cover} alt="" className="post-image" />
         </div>
         <div className="card-body post-content">
-          <h2 className="card-title">{title}</h2>
+          <Link to="/"><h2 className="card-title">{title}</h2></Link>
           <p className="post-description" dangerouslySetInnerHTML={{ __html: description }}></p>
         </div>
         <div className="card-footer">
