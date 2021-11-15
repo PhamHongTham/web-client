@@ -10,4 +10,4 @@ export const login = (user: UserLoginOptions) :any => axiosClient.post('/users/l
 export const signUp = (user: UserLoginOptions) :any => axiosClient.post('/users/register', user);
 export const getUserInfo = () :any => axiosClient.get('/users/me');
 export const changePassword = (data: PasswordOptions) :any => axiosClient.put('/users/change-password', data);
-export const updateUserInfo = (data: UserInfoOptions, id: string) :any => axiosClient.put(`/users/${id}`, data);
+export const updateUserInfo = (data: UserInfoOptions) :any => axiosClient.put('/users/me', data);

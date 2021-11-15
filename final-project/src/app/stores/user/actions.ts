@@ -84,14 +84,11 @@ export const updateUserInfoRequest =
   (info: UserInfoOptions) => async (dispatch: any) => {
     dispatch({ type: UserConstant.UPDATE_USER_INFO_REQUEST });
     try {
-      const idUser = localStorage.getItem('USER_ID');
-      if (idUser) {
-        const data = await updateUserInfo(info, idUser);
-        dispatch({
-          type: UserConstant.UPDATE_USER_INFO_SUCCESS,
-          payload: data,
-        });
-      }
+      const data = await updateUserInfo(info);
+      dispatch({
+        type: UserConstant.UPDATE_USER_INFO_SUCCESS,
+        payload: data,
+      });
     } catch (error: any) {
       dispatch({
         type: UserConstant.UPDATE_USER_INFO_FAILURE,

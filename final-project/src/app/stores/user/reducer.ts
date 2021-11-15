@@ -85,7 +85,7 @@ export const userReducer = (state = initialState, action: any) => {
     case UserConstant.UPDATE_USER_INFO_SUCCESS: {
       return {
         isLoading: false,
-        message: action.payload,
+        userCurrent: action.payload,
       };
     }
     case UserConstant.UPDATE_USER_INFO_FAILURE: {
