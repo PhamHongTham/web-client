@@ -7,6 +7,7 @@ import AuthenticationModal from './authentication/AuthenticationModal';
 const Header = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const handleShowLoginModal = () => {
+    console.log('dsbsadg')
     setShowLoginModal(!showLoginModal);
   };
   return (
