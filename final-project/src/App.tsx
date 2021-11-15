@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Route, Switch } from 'react-router-dom';
-
 import 'stylesheets/styles.scss';
+
+import { Route, Switch } from 'react-router-dom';
 
 import Home from 'app/pages/home/Home';
 import Header from 'share/component/header/Header';
@@ -12,12 +12,9 @@ function App() {
     <div className="App">
       <Header />
       <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
+        <Route exact path="/" component={Home} />
       </Switch>
     </div>
   );
 }
-
 export default App;
