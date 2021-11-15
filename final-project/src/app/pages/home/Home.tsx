@@ -3,8 +3,9 @@ import { useDispatch } from 'react-redux';
 
 import Contact from './partials/Contact';
 import Slide from './partials/Slider';
-import Footer from 'app/shared/components/Footer';
 import { getUserInfoRequest } from 'app/stores/user/actions';
+
+import RecommendPost from './partials/RecommendPost/RecommendPost';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -15,9 +16,9 @@ const Home = () => {
   return (
     <>
       <Slide />
+      <RecommendPost />
       <Contact />
     </>
   );
 };
-
 export default Home;

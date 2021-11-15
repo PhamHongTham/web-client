@@ -9,7 +9,7 @@ h6 {
   line-height: 1.2;
 }
 .text-primary {
-  color: map-get($color, "primary");
+  color: map-get($color, "primary") !important;
 }
 .text-center {
   text-align: center;

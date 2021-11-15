@@ -7,8 +7,6 @@ import Home from './pages/home/Home';
 import Footer from './shared/components/Footer';
 import UpdateInfo from './pages/updateInfo/UpdateInfo';
 import ChangePassword from './pages/resetPassword/ChangePassword';
-import { useSelector } from 'react-redux';
-import { RootState } from './stores/app-reducer';
 
 function App() {
 
