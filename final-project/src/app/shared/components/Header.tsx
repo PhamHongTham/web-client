@@ -86,17 +86,16 @@ const Header = () => {
               </li>
             </ul>
           </nav>
-          <button className="user-avatar">
+          {/* <button className="user-avatar">
             <i className="fal fa-user-circle"></i>
-            {/* tam an lam sau */}
-            {/* <div className="user-action">
+            <div className="user-action">
               <ul className="action-list">
                 <li className="action-item"><Link to="/user/update">Update information</Link></li>
                 <li className="action-item"><Link to="/user/changepass">Update password</Link></li>
                 <li className="action-item"><Link to="">Sign out</Link></li>
               </ul>
-            </div> */}
-          </button>
+            </div>
+          </button> */}
         </div>
       </div>
 
