@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 const axiosClient = axios.create({
   baseURL: 'https://vast-lowlands-08945.herokuapp.com/api/v1',

@@ -15,12 +15,15 @@ import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
 const UpdateInfo = () => {
   const dispatch = useDispatch();
   const schema = yup.object().shape({
-    phone: yup.string().trim().matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/, 'Wrong phone number').required(),
+    phone: yup
+      .string()
+      .trim()
+      .matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/, 'Wrong phone number')
+      .required(),
   });
   const {
     register,
     handleSubmit,
-    watch,
     setError,
     clearErrors,
     formState: { errors },
@@ -31,9 +34,7 @@ const UpdateInfo = () => {
 
   const { handleAddNotification } = useContext(NotificationContext);
   const { handleShowLoading } = useContext(LoadingContext);
-  const { isLoading, userCurrent, error } = useSelector(
-    (state: RootState) => state.userState
-  );
+  const { isLoading, userCurrent, error } = useSelector((state: RootState) => state.userState);
 
   useEffect(() => {
     handleShowLoading(isLoading ? true : false);
@@ -46,20 +47,20 @@ const UpdateInfo = () => {
         message: 'Update user info success',
       });
     }
-  }, [isLoading, userCurrent, dispatch, error]);
+  }, [isLoading, userCurrent, dispatch, error, handleShowLoading, handleAddNotification]);
 
   useEffect(() => {
     let date = new Date(dateOfBirth);
     let currentDate = new Date();
     if (date.getTime() > currentDate.getTime()) {
       setError('dateOfBirth', {
-        type: "manual",
-        message: "Wrong date of birth",
-      })
+        type: 'manual',
+        message: 'Wrong date of birth',
+      });
     } else {
-      clearErrors('dateOfBirth')
+      clearErrors('dateOfBirth');
     }
-  }, [dateOfBirth])
+  }, [dateOfBirth, clearErrors, setError]);
 
   const onSubmit = (data: UserInfoOptions) => {
     const newUserInfo: UserInfoOptions = {
@@ -68,16 +69,16 @@ const UpdateInfo = () => {
       dob: dateOfBirth,
     };
     dispatch(updateUserInfoRequest(newUserInfo));
-    reset()
-    setDateOfBirth('')
+    reset();
+    setDateOfBirth('');
   };
   return (
     <section className="section-update-info">
       <div className="container">
         <h2 className="update-info-title">Update information</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="update-form">
-          <input placeholder="Firstname" {...register('firstName')} required></input>
-          <input placeholder="Lastname" {...register('lastName')} required></input>
+          <input placeholder="First name" {...register('firstName')} required></input>
+          <input placeholder="Last name" {...register('lastName')} required></input>
           <div className="select-gender">
             <label className="container-radio">
               Male
@@ -94,9 +95,7 @@ const UpdateInfo = () => {
               <input
                 type="radio"
                 name="radio"
-                onChange={(e: FormEvent<HTMLInputElement>) =>
-                  setGender('female')
-                }
+                onChange={(e: FormEvent<HTMLInputElement>) => setGender('female')}
                 required
               ></input>
               <span className="checkmark"></span>
@@ -106,27 +105,13 @@ const UpdateInfo = () => {
             mask="99/99/9999"
             placeholder="Enter birthdate"
             value={dateOfBirth}
-            onChange={(e: FormEvent<HTMLInputElement>) =>
-              setDateOfBirth(e.currentTarget.value)
-            }
+            onChange={(e: FormEvent<HTMLInputElement>) => setDateOfBirth(e.currentTarget.value)}
             required
           />
-          {errors.dateOfBirth ? (
-            <p className="error">{errors.dateOfBirth.message}</p>
-          ) : (
-            ''
-          )}
-          <input
-            placeholder="Display name"
-            {...register('displayName')}
-            required
-          ></input>
+          {errors.dateOfBirth ? <p className="error">{errors.dateOfBirth.message}</p> : ''}
+          <input placeholder="Display name" {...register('displayName')} required></input>
           <input placeholder="Phone" {...register('phone')} required></input>
-          {errors.phone ? (
-            <p className="error">{errors.phone.message}</p>
-          ) : (
-            ''
-          )}
+          {errors.phone ? <p className="error">{errors.phone.message}</p> : ''}
           <div className="form-btn">
             <button className="btn btn-primary" type="submit">
               Update
