@@ -1,22 +1,91 @@
+import { RootState } from 'app/stores/app-reducer';
+import { logoutRequest } from 'app/stores/user/actions';
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
+import { UserInfoOptions } from '../models/User';
 
 import AuthenticationModal from './authentication/AuthenticationModal';
 
 const Header = () => {
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  const dispatch = useDispatch();
+  const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
+  const [showMenu, setShowMenu] = useState<boolean>(false);
+  const [showUserAction, setShowUserAction] = useState<boolean>(false);
+  const { userCurrent }: { userCurrent: UserInfoOptions } = useSelector(
+    (state: RootState) => state.userState
+  );
+  const userCurrentId = localStorage.getItem('USER_ID');
+
   const handleShowLoginModal = () => {
-    console.log("Clicked")
     setShowLoginModal(!showLoginModal);
   };
-  const [showMenu, setShowMenu] = useState(false);
   const handleShowMobileMenu = () => {
     setShowMenu(true);
   };
   const handleHiddenMobileMenu = () => {
     setShowMenu(false);
   };
+  const handleShowUserAction = () => {
+    setShowUserAction(!showUserAction);
+  };
+  const handleSignOut = () => {
+    dispatch(logoutRequest());
+  };
+  const UserAction = () => (
+    <li className="user-avatar">
+      {userCurrent ? (
+        <img
+          src={
+            userCurrent.picture
+              ? `${userCurrent.picture}`
+              : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTht9-qZYmqErdGMhJVbRf7BfhLRGspNWaFnR8nddu3x7Da7nqh23vsG6VWtG_VE9G9kLU&usqp=CAU'
+          }
+          alt=""
+          className="avatar-image"
+          onClick={handleShowUserAction}
+        ></img>
+      ) : (
+        ''
+      )}
+      {showUserAction ? (
+        <div className="user-action">
+          <ul className="action-list">
+            <li className="action-item">
+              <Link
+                to="/user/update"
+                className="action-link"
+                onClick={handleShowUserAction}
+              >
+                Update information
+              </Link>
+            </li>
+            <li className="action-item">
+              <Link
+                to="/user/changepass"
+                className="action-link"
+                onClick={handleShowUserAction}
+              >
+                Update password
+              </Link>
+            </li>
+            <li className="action-item" onClick={handleSignOut}>
+              <Link
+                to=""
+                className="action-link"
+                onClick={handleShowUserAction}
+              >
+                Sign out
+              </Link>
+            </li>
+          </ul>
+        </div>
+      ) : (
+        ''
+      )}
+    </li>
+  );
   return (
     <header>
       <div className="page-header container">
@@ -43,22 +112,28 @@ const Header = () => {
                   Write
                 </Link>
               </li>
-              <li className="list-item menu-item">
-                <Link to="/" className="menu-link" onClick={handleShowLoginModal}>
-                  Sign In
-                </Link>
-              </li>
+              {userCurrentId ? (
+                <UserAction />
+              ) : (
+                <li className="list-item menu-item">
+                  <Link to="/" className="menu-link" onClick={() => { handleShowLoginModal(); handleHiddenMobileMenu() }}>
+                    Sign In
+                  </Link>
+                </li>
+              )}
               <li className="list-item menu-item menu-mobile">
-                <Link to="/" className="menu-link" onClick={handleShowMobileMenu}>
-                  <i className="fas fa-bars"></i>
-                </Link>
                 <ul
                   className={
-                    showMenu ? 'group-item menu-mobile-list active' : 'group-item menu-mobile-list'
+                    showMenu
+                      ? 'group-item menu-mobile-list active'
+                      : 'group-item menu-mobile-list'
                   }
                 >
                   <li className="list-item menu-mobile-item hide-menu">
-                    <button className="hide-menu-btn" onClick={handleHiddenMobileMenu}>
+                    <button
+                      className="hide-menu-btn"
+                      onClick={handleHiddenMobileMenu}
+                    >
                       <i className="fal fa-times"></i>
                     </button>
                   </li>
@@ -77,29 +152,35 @@ const Header = () => {
                       Write
                     </Link>
                   </li>
-                  <li className="list-item menu-mobile-item" onClick={handleShowLoginModal}>
-                    <Link to="" className="menu-mobile-link">
+                  {
+                    !userCurrentId ? (<li
+                    className="list-item menu-mobile-item"
+                    onClick={handleShowLoginModal}
+                  >
+                    <Link to="" className="menu-mobile-link" onClick={() => { handleShowLoginModal(); handleHiddenMobileMenu() }}>
                       Sign In
                     </Link>
-                  </li>
+                    </li>) : ''
+                  }
                 </ul>
+                <Link
+                  to="/"
+                  className="menu-link"
+                  onClick={handleShowMobileMenu}
+                >
+                  <i className="fas fa-bars"></i>
+                </Link>
               </li>
             </ul>
           </nav>
-          {/* <button className="user-avatar">
-            <i className="fal fa-user-circle"></i>
-            <div className="user-action">
-              <ul className="action-list">
-                <li className="action-item"><Link to="/user/update">Update information</Link></li>
-                <li className="action-item"><Link to="/user/changepass">Update password</Link></li>
-                <li className="action-item"><Link to="">Sign out</Link></li>
-              </ul>
-            </div>
-          </button> */}
         </div>
       </div>
 
-      {showLoginModal ? <AuthenticationModal showLoginModal={handleShowLoginModal} /> : ''}
+      {showLoginModal ? (
+        <AuthenticationModal showLoginModal={handleShowLoginModal} />
+      ) : (
+        ''
+      )}
     </header>
   );
 };
