@@ -15,7 +15,7 @@ export const userReducer = (state = initialState, action: any) => {
     case UserConstant.LOGIN_SUCCESS: {
       return {
         isLoading: false,
-        userCurrent: action.payload,
+        userCurrent: action.payload.userInfo,
       };
     }
     case UserConstant.LOGIN_FAILURE: {
@@ -86,6 +86,7 @@ export const userReducer = (state = initialState, action: any) => {
       return {
         isLoading: false,
         userCurrent: action.payload,
+        message: 'update user success',
       };
     }
     case UserConstant.UPDATE_USER_INFO_FAILURE: {

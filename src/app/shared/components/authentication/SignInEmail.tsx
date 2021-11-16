@@ -16,13 +16,18 @@ interface SignInEmailPropsOptions {
   showLoginModal: () => void;
 }
 
-const SignInEmail = ({ handleShowSignInModal, showLoginModal }: SignInEmailPropsOptions) => {
+const SignInEmail = ({
+  handleShowSignInModal,
+  showLoginModal,
+}: SignInEmailPropsOptions) => {
   const dispatch = useDispatch();
   const { register, handleSubmit, reset } = useForm();
 
   const { handleAddNotification } = useContext(NotificationContext);
   const { handleShowLoading } = useContext(LoadingContext);
-  const { isLoading, userCurrent, error } = useSelector((state: RootState) => state.userState);
+  const { isLoading, userCurrent, error } = useSelector(
+    (state: RootState) => state.userState
+  );
 
   useEffect(() => {
     handleShowLoading(isLoading ? true : false);
@@ -36,15 +41,7 @@ const SignInEmail = ({ handleShowSignInModal, showLoginModal }: SignInEmailProps
       });
       showLoginModal();
     }
-  }, [
-    isLoading,
-    userCurrent,
-    dispatch,
-    error,
-    showLoginModal,
-    handleAddNotification,
-    handleShowLoading,
-  ]);
+  }, [isLoading, userCurrent, dispatch, error]);
 
   const onSubmit = (data: UserLoginOptions) => {
     dispatch(loginRequest(data));
@@ -57,17 +54,25 @@ const SignInEmail = ({ handleShowSignInModal, showLoginModal }: SignInEmailProps
       </h2>
       <form className="modal-form" onSubmit={handleSubmit(onSubmit)}>
         <p className="input-description">Your email</p>
-        <input className="form-input" type="text" {...register('email')}></input>
+        <input
+          className="form-input"
+          type="text"
+          {...register('email')}
+        ></input>
         <p className="input-description">Your password</p>
-        <input className="form-input" type="password" {...register('password')}></input>
+        <input
+          className="form-input"
+          type="password"
+          {...register('password')}
+        ></input>
         <button className="btn btn-primary">Sign In</button>
       </form>
       <Link to="" className="back-all-action" onClick={handleShowSignInModal}>
         <i className="fal fa-chevron-left"></i> All sign in options
       </Link>
       <p className="sign-in-info">
-        Click “Sign In” to agree to Boogle’s Terms of Service and acknowledge that Boogle’s Privacy
-        Policy applies to you.
+        Click “Sign In” to agree to Boogle’s Terms of Service and acknowledge
+        that Boogle’s Privacy Policy applies to you.
       </p>
       {isLoading ? <Loading /> : ''}
     </div>

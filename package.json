@@ -47,7 +47,12 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "react-hooks/exhaustive-deps": "off",
+      "sort-keys": 0,
+      "react-hooks/rules-of-hooks": "off"
+    }
   },
   "browserslist": {
     "production": [

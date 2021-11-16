@@ -8,7 +8,7 @@ import * as yup from 'yup';
 
 import { RootState } from 'app/stores/app-reducer';
 import { UserInfoOptions } from 'app/shared/models/User';
-import { updateUserInfoRequest } from 'app/stores/user/actions';
+import { clearUserState, updateUserInfoRequest } from 'app/stores/user/actions';
 import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
 import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
 
@@ -34,20 +34,23 @@ const UpdateInfo = () => {
 
   const { handleAddNotification } = useContext(NotificationContext);
   const { handleShowLoading } = useContext(LoadingContext);
-  const { isLoading, userCurrent, error } = useSelector((state: RootState) => state.userState);
+  const { isLoading, message, error } = useSelector(
+    (state: RootState) => state.userState
+  );
 
   useEffect(() => {
     handleShowLoading(isLoading ? true : false);
     if (error) {
       handleAddNotification({ type: 'ERROR', message: error });
     }
-    if (userCurrent) {
+    if (message) {
+      console.log('success');
       handleAddNotification({
         type: 'SUCCESS',
         message: 'Update user info success',
       });
     }
-  }, [isLoading, userCurrent, dispatch, error, handleShowLoading, handleAddNotification]);
+  }, [isLoading, message, error]);
 
   useEffect(() => {
     let date = new Date(dateOfBirth);
@@ -77,8 +80,16 @@ const UpdateInfo = () => {
       <div className="container">
         <h2 className="update-info-title">Update information</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="update-form">
-          <input placeholder="First name" {...register('firstName')} required></input>
-          <input placeholder="Last name" {...register('lastName')} required></input>
+          <input
+            placeholder="First name"
+            {...register('firstName')}
+            required
+          ></input>
+          <input
+            placeholder="Last name"
+            {...register('lastName')}
+            required
+          ></input>
           <div className="select-gender">
             <label className="container-radio">
               Male
@@ -95,7 +106,9 @@ const UpdateInfo = () => {
               <input
                 type="radio"
                 name="radio"
-                onChange={(e: FormEvent<HTMLInputElement>) => setGender('female')}
+                onChange={(e: FormEvent<HTMLInputElement>) =>
+                  setGender('female')
+                }
                 required
               ></input>
               <span className="checkmark"></span>
@@ -105,11 +118,21 @@ const UpdateInfo = () => {
             mask="99/99/9999"
             placeholder="Enter birthdate"
             value={dateOfBirth}
-            onChange={(e: FormEvent<HTMLInputElement>) => setDateOfBirth(e.currentTarget.value)}
+            onChange={(e: FormEvent<HTMLInputElement>) =>
+              setDateOfBirth(e.currentTarget.value)
+            }
             required
           />
-          {errors.dateOfBirth ? <p className="error">{errors.dateOfBirth.message}</p> : ''}
-          <input placeholder="Display name" {...register('displayName')} required></input>
+          {errors.dateOfBirth ? (
+            <p className="error">{errors.dateOfBirth.message}</p>
+          ) : (
+            ''
+          )}
+          <input
+            placeholder="Display name"
+            {...register('displayName')}
+            required
+          ></input>
           <input placeholder="Phone" {...register('phone')} required></input>
           {errors.phone ? <p className="error">{errors.phone.message}</p> : ''}
           <div className="form-btn">
