@@ -122,6 +122,7 @@ header {
               &:hover {
                 background: #eee;
                 transition: 0.3s;
+                color: map-get($color, 'primary' );
               }
             }
           }
