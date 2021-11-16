@@ -16,7 +16,6 @@ const Header = () => {
   const { userCurrent }: { userCurrent: UserInfoOptions } = useSelector(
     (state: RootState) => state.userState
   );
-  console.log(userCurrent);
   const userCurrentId = localStorage.getItem('USER_ID');
 
   const handleShowLoginModal = () => {
@@ -155,7 +154,7 @@ const Header = () => {
                     className="list-item menu-mobile-item"
                     onClick={handleShowLoginModal}
                   >
-                    <Link to="" className="menu-mobile-link">
+                    <Link to="" className="menu-mobile-link" onClick={() => { handleShowLoginModal(); handleHiddenMobileMenu() }}>
                       Sign In
                     </Link>
                   </li>
@@ -167,7 +166,7 @@ const Header = () => {
             <UserAction />
           ) : (
             <li className="list-item menu-item">
-              <Link to="/" className="menu-link" onClick={handleShowLoginModal}>
+                <Link to="/" className="menu-link" onClick={() => { handleShowLoginModal(); handleHiddenMobileMenu() }}>
                 Sign In
               </Link>
             </li>
