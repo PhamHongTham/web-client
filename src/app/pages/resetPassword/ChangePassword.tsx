@@ -33,7 +33,9 @@ const ChangePassword = () => {
 
   const { handleAddNotification } = useContext(NotificationContext);
   const { handleShowLoading } = useContext(LoadingContext);
-  const { isLoading, message, error } = useSelector((state: RootState) => state.userState);
+  const { isLoading, message, error } = useSelector(
+    (state: RootState) => state.userState
+  );
 
   useEffect(() => {
     handleShowLoading(isLoading ? true : false);
@@ -43,7 +45,7 @@ const ChangePassword = () => {
     if (message) {
       handleAddNotification({ type: 'SUCCESS', message: message });
     }
-  }, [isLoading, message, error, handleAddNotification, handleShowLoading]);
+  }, [isLoading, message, error]);
 
   const onSubmit = (data: PasswordOptions) => {
     if (pass === repeatPass) {
@@ -67,13 +69,17 @@ const ChangePassword = () => {
             type="password"
             placeholder="Old password"
             {...register('oldPassword')}
-            onChange={(e: FormEvent<HTMLInputElement>) => setPass(e.currentTarget.value)}
+            onChange={(e: FormEvent<HTMLInputElement>) =>
+              setPass(e.currentTarget.value)
+            }
           ></input>
           <input
             className="password"
             type="password"
             placeholder="Repeat old password"
-            onChange={(e: FormEvent<HTMLInputElement>) => setRepeatPass(e.currentTarget.value)}
+            onChange={(e: FormEvent<HTMLInputElement>) =>
+              setRepeatPass(e.currentTarget.value)
+            }
           ></input>
           {errors.repeatPassword ? (
             <span className="error">{errors.repeatPassword.message}</span>
@@ -86,7 +92,11 @@ const ChangePassword = () => {
             placeholder="New password"
             {...register('newPassword')}
           ></input>
-          {errors.newPassword ? <span className="error">{errors.newPassword.message}</span> : ''}
+          {errors.newPassword ? (
+            <span className="error">{errors.newPassword.message}</span>
+          ) : (
+            ''
+          )}
           <div className="form-btn">
             <button className="btn btn-primary" type="submit">
               Change password
