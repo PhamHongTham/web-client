@@ -8,7 +8,7 @@ import * as yup from 'yup';
 
 import { RootState } from 'app/stores/app-reducer';
 import { UserInfoOptions } from 'app/shared/models/User';
-import { clearUserState, updateUserInfoRequest } from 'app/stores/user/actions';
+import { updateUserInfoRequest } from 'app/stores/user/actions';
 import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
 import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
 
