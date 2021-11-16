@@ -34,7 +34,7 @@ const Header = () => {
     dispatch(logoutRequest());
   };
   const UserAction = () => (
-    <div className="user-avatar">
+    <li className="user-avatar">
       {userCurrent ? (
         <img
           src={
@@ -84,7 +84,7 @@ const Header = () => {
       ) : (
         ''
       )}
-    </div>
+    </li>
   );
   return (
     <header>
@@ -112,14 +112,16 @@ const Header = () => {
                   Write
                 </Link>
               </li>
+              {userCurrentId ? (
+                <UserAction />
+              ) : (
+                <li className="list-item menu-item">
+                  <Link to="/" className="menu-link" onClick={() => { handleShowLoginModal(); handleHiddenMobileMenu() }}>
+                    Sign In
+                  </Link>
+                </li>
+              )}
               <li className="list-item menu-item menu-mobile">
-                <Link
-                  to="/"
-                  className="menu-link"
-                  onClick={handleShowMobileMenu}
-                >
-                  <i className="fas fa-bars"></i>
-                </Link>
                 <ul
                   className={
                     showMenu
@@ -150,27 +152,27 @@ const Header = () => {
                       Write
                     </Link>
                   </li>
-                  <li
+                  {
+                    !userCurrentId ? (<li
                     className="list-item menu-mobile-item"
                     onClick={handleShowLoginModal}
                   >
                     <Link to="" className="menu-mobile-link" onClick={() => { handleShowLoginModal(); handleHiddenMobileMenu() }}>
                       Sign In
                     </Link>
-                  </li>
+                    </li>) : ''
+                  }
                 </ul>
+                <Link
+                  to="/"
+                  className="menu-link"
+                  onClick={handleShowMobileMenu}
+                >
+                  <i className="fas fa-bars"></i>
+                </Link>
               </li>
             </ul>
           </nav>
-          {userCurrentId ? (
-            <UserAction />
-          ) : (
-            <li className="list-item menu-item">
-                <Link to="/" className="menu-link" onClick={() => { handleShowLoginModal(); handleHiddenMobileMenu() }}>
-                Sign In
-              </Link>
-            </li>
-          )}
         </div>
       </div>
 
