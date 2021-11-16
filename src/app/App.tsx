@@ -8,6 +8,7 @@ import Footer from './shared/components/Footer';
 import UpdateInfo from './pages/updateInfo/UpdateInfo';
 import ChangePassword from './pages/resetPassword/ChangePassword';
 import Detail from './pages/detail/Detail';
+import HandlePost from './pages/handlePost/HandlePost';
 
 function App() {
 
@@ -19,6 +20,8 @@ function App() {
         <Route path="/detail/:id" exact component={Detail} />
         <Route path="/user/update" component={UpdateInfo} />
         <Route path="/user/changepass" component={ChangePassword} />
+        <Route path="/post/handle" exact component={HandlePost} />
+        <Route path="/post/handle/:id" component={HandlePost} />
       </Switch>
       <Footer />
     </>
