@@ -1,0 +1,93 @@
+.detail-page {
+  margin: 3rem auto;
+  .row {
+    align-items: flex-start;
+    .author-interact {
+      margin-top: 5rem;
+      padding: 1rem 0;
+      position: -webkit-sticky;
+      position: -moz-sticky;
+      position: -o-sticky;
+      position: -ms-sticky;
+      position: sticky;
+      top: 5rem;
+      height: 12rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .author-name {
+        @include text-overflow(1);
+        text-align: center;
+      }
+      .interact-action {
+        @include align-center;
+        height: 4rem;
+        .btn {
+          height: 2rem;
+          margin-right: 0.5rem;
+        }
+      }
+      .interact-detail-list {
+        @include flex-center-between;
+        height: 4rem;
+        border-top: 1px solid #eee;
+        .interact-detail-item {
+          cursor: pointer;
+          width: 30%;
+          text-align: center;
+          overflow: hidden;
+        }
+      }
+    }
+    .article-detail {
+      .article-header {
+        margin-bottom: 1rem;
+        .article-title {
+          font-size: 320%;
+        }
+      }
+      .author-info-list {
+        @include align-center;
+        height: 3rem;
+        margin: 0.5rem auto;
+        .author-info-item {
+          cursor: pointer;
+          margin-right: 1rem;
+        }
+        .author-avatar {
+          width: 3rem;
+          height: 3rem;
+          border-radius: 50%;
+          overflow: hidden;
+          margin-right: 0.5rem;
+        }
+      }
+    }
+    .article-content {
+      font-size: map-get($font-size, 'xl');
+      line-height: 2rem;
+    }
+    .article-footer {
+      border-top: 1px solid #eee;
+      .interact-detail-list {
+        @include align-center;
+        justify-content: flex-end;
+        height: 3rem;
+        .interact-detail-item {
+          cursor: pointer;
+          margin-right: 1rem;
+        }
+      }
+    }
+  }
+}
+
+@media screen and(max-width: 992px) {
+  .detail-page{
+    .row{
+      .author-interact {
+        visibility: hidden;
+      }
+    }
+  }
+}
