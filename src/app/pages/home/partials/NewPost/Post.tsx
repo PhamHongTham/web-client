@@ -2,12 +2,12 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { articleOptions } from 'app/shared/models/article-interface';
+import { postOptions } from 'app/shared/models/post-interface';
 
 import { calculateTimeSince } from 'app/shared/helper/helper-function';
 
-const Post = ({article}:{article:articleOptions}) => {
-  const { id, title, comments, likes, user, cover, description, createdAt } = article;
+const Post = ({post}:{post:postOptions}) => {
+  const { id, title, comments, likes, user, cover, description, createdAt } = post;
   const timeSince = calculateTimeSince(createdAt) + ' ago';
 
   return (

@@ -4,19 +4,19 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSpecificArticleRequest } from 'app/stores/article/actions';
+import { fetchSpecificPostRequest } from 'app/stores/post/actions';
 import { RootState } from 'app/stores/app-reducer';
 
 import { calculateTimeSince } from 'app/shared/helper/helper-function';
 
 const Detail = () => {
-  const { currentArticle, isLoading }: any = useSelector((state: RootState) => state.article);
+  const { currentPost, isLoading }: any = useSelector((state: RootState) => state.post);
   const { id }: any = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchSpecificArticleRequest(id));
+    dispatch(fetchSpecificPostRequest(id));
   }, [dispatch, id]);
-  const timeSince = calculateTimeSince(currentArticle.createdAt) + ' ago';
+  const timeSince = calculateTimeSince(currentPost.createdAt) + ' ago';
   return (
     <>
       {isLoading ? (
@@ -27,7 +27,7 @@ const Detail = () => {
             <div className="row">
               <aside className="author-interact col-2">
                 <h3 className="author-name">
-                  <Link to="">{currentArticle.user?.displayName}</Link>
+                  <Link to="">{currentPost.user?.displayName}</Link>
                 </h3>
                 <div className="interact-action">
                   <button className="btn btn-primary">Follow</button>
@@ -38,10 +38,10 @@ const Detail = () => {
                 <div className="interact-detail">
                   <ul className="interact-detail-list">
                     <li className="interact-detail-item">
-                      {currentArticle.likes} <i className="far fa-thumbs-up"></i>
+                      {currentPost.likes} <i className="far fa-thumbs-up"></i>
                     </li>
                     <li className="interact-detail-item">
-                      {currentArticle.comments} <i className="fal fa-comment-alt-lines"></i>
+                      {currentPost.comments} <i className="fal fa-comment-alt-lines"></i>
                     </li>
                     <li className="interact-detail-item">
                       <i className="fal fa-bookmark"></i>
@@ -52,45 +52,45 @@ const Detail = () => {
               <article className="article-detail col-8">
                 {isLoading && <h2>Loading...</h2>}
                 <div className="article-header">
-                  <h2 className="article-title">{currentArticle.title}</h2>
+                  <h2 className="article-title">{currentPost.title}</h2>
                 </div>
                 <ul className="author-info-list">
                   <li className="author-info-item author-avatar">
                     <img
-                      src={currentArticle.user?.picture}
-                      alt={currentArticle.user?.displayName}
+                      src={currentPost.user?.picture}
+                      alt={currentPost.user?.displayName}
                     />
                   </li>
                   <li className="author-info-item author-name">
                     <Link to="" className="text-primary">
-                      {currentArticle.user?.displayName}
+                      {currentPost.user?.displayName}
                     </Link>
                   </li>
                   <li className="author-info-item article-create-at">{timeSince}</li>
                 </ul>
                 <div className="article-image">
-                  <img src={currentArticle.cover} alt="article-cover" />
+                  <img src={currentPost.cover} alt="article-cover" />
                 </div>
                 <div className="article-content">
                   <p
                     className="post-description"
-                    dangerouslySetInnerHTML={{ __html: currentArticle.content }}
+                    dangerouslySetInnerHTML={{ __html: currentPost.content }}
                   ></p>
                 </div>
                 <div className="article-footer">
                   <ul className="interact-detail-list">
                     <li className="interact-detail-item">
-                      {currentArticle.likes} <i className="far fa-thumbs-up"></i>
+                      {currentPost.likes} <i className="far fa-thumbs-up"></i>
                     </li>
                     <li className="interact-detail-item">
-                      {currentArticle.comments} <i className="fal fa-comment-alt-lines"></i>
+                      {currentPost.comments} <i className="fal fa-comment-alt-lines"></i>
                     </li>
                     <li className="interact-detail-item">
                       <i className="fal fa-bookmark"></i>
                     </li>
                   </ul>
                 </div>
-                <div className="interact-box">Responses ({currentArticle.comments})</div>
+                <div className="interact-box">Responses ({currentPost.comments})</div>
               </article>
             </div>
           </div>

@@ -5,7 +5,7 @@ import Contact from './partials/Contact';
 import Slide from './partials/Slider';
 import { getUserInfoRequest } from 'app/stores/user/actions';
 
-import RecommendPost from './partials/RecommendPost/RecommendPost';
+import NewPost from './partials/NewPost/NewPost';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <>
       <Slide />
-      <RecommendPost />
+      <NewPost />
       <Contact />
     </>
   );
