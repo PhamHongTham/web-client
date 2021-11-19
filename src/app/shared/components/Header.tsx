@@ -16,7 +16,6 @@ const Header = () => {
   const { userCurrent }: { userCurrent: UserInfoOptions } = useSelector(
     (state: RootState) => state.userState
   );
-  const userCurrentId = localStorage.getItem('USER_ID');
 
   const handleShowLoginModal = () => {
     setShowLoginModal(!showLoginModal);
@@ -112,7 +111,7 @@ const Header = () => {
                   Write
                 </Link>
               </li>
-              {userCurrentId ? (
+              {userCurrent ? (
                 <UserAction />
               ) : (
                 <li className="list-item menu-item">
@@ -153,7 +152,7 @@ const Header = () => {
                     </Link>
                   </li>
                   {
-                    !userCurrentId ? (<li
+                    !userCurrent ? (<li
                     className="list-item menu-mobile-item"
                     onClick={handleShowLoginModal}
                   >

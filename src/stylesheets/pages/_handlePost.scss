@@ -1,7 +1,142 @@
-.section-editor{
+.section-editor {
   .editor-title {
     font-size: 40px;
     text-align: center;
     margin: 3rem 0;
+  }
+  .form-handle-post {
+    input {
+      width: 100%;
+      border: none;
+      outline: none;
+      padding: 0 1rem;
+      margin-bottom: 1rem;
+    }
+    .input-post-title {
+      font-size: map-get($font-size, 'xxxxxl');
+    }
+    .input-post-description,
+    .input-tag,
+    .input-cover {
+      font-size: map-get($font-size, 'lg');
+    }
+    .status {
+      font-size: map-get($font-size, 'normal');
+      padding: 0.5rem 1rem;
+      background: map-get($color, 'primary');
+      color: map-get($color, 'white-snow');
+      border: 0;
+      border-radius: 8px;
+      outline: none;
+      margin-left: 1rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .handle-tag {
+      display: flex;
+      input {
+        max-width: 150px;
+      }
+      .add-tag {
+        width: 135px;
+        height: 30px;
+        color: map-get($color, 'white-snow');
+        font-weight: 400;
+        font-size: map-get($font-size, 'normal');
+        margin-bottom: 1rem;
+        margin-left: 1rem;
+        background: map-get($color, 'primary');
+        border: 1px solid map-get($color, 'primary');
+        border-radius: 8px;
+      }
+    }
+    .list-tags {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      margin-left: 1rem;
+      .tag-item {
+        display: flex;
+        align-items: center;
+        background: map-get($color, 'primary');
+        color: map-get($color, 'white-snow');
+        margin-right: 0.5rem;
+        padding: 0.3rem 0.6rem;
+        border-radius: 8px;
+        .tag-content {
+          font-size: map-get($font-size, 'normal');
+          padding-right: 0.5rem;
+        }
+        i {
+          cursor: pointer;
+        }
+      }
+      .error-tag {
+        color: red;
+        font-size: map-get($font-size, 'sm');
+        transition: 0.3s;
+      }
+    }
+    .cover-image {
+      display: flex;
+      align-items: center;
+      background: map-get($color, 'primary');
+      color: map-get($color, 'white-snow');
+      font-size: map-get($font-size, 'normal');
+      padding: 0.3rem 0.6rem;
+      margin-bottom: 1rem;
+      margin-left: 1rem;
+      border-radius: 8px;
+      width: 135px;
+      cursor: pointer;
+      .cover-image-content {
+        padding-right: 0.5rem;
+      }
+    }
+    .previewImage {
+      width: 100%;
+      display: flex;
+      align-items: flex-end;
+      height: 0;
+      padding-top: 56.25%;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .input-image {
+      display: none;
+    }
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .section-editor {
+    .editor-title {
+      font-size: map-get($font-size, 'xxl');
+      margin: 2rem 0;
+    }
+    .form-handle-post {
+      input {
+        padding: 0;
+      }
+      .input-post-title {
+        font-size: map-get($font-size, 'xxl');
+      }
+      .select-status,
+      .cover-image {
+        margin-left: 0;
+      }
+    }
+    .list-tags {
+      flex-wrap: wrap;
+      .tag-item {
+        margin-bottom: 1rem;
+        padding: 0;
+      }
+      .error-tag {
+        color: red;
+        font-size: map-get($font-size, 'sm');
+        transition: 0.3s;
+      }
+    }
   }
 }
