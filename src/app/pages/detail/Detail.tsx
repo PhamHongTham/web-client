@@ -10,7 +10,7 @@ import { RootState } from 'app/stores/app-reducer';
 import { calculateTimeSince } from 'app/shared/helper/helper-function';
 
 const Detail = () => {
-  const { currentArticle, isLoading }: any = useSelector((state: RootState) => state.article);
+  const { currentArticle, isLoading }: any = useSelector((state: RootState) => state.post);
   const { id }: any = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
