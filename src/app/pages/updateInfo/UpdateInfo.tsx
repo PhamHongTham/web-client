@@ -44,11 +44,13 @@ const UpdateInfo = () => {
       handleAddNotification({ type: 'ERROR', message: error });
     }
     if (message) {
-      console.log('success');
       handleAddNotification({
         type: 'SUCCESS',
         message: 'Update user info success',
       });
+    }
+    return () => {
+      dispatch(clearUserState())
     }
   }, [isLoading, message, error]);
 

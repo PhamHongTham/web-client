@@ -25,6 +25,7 @@
     font-weight: bold;
     line-height: 150%;
     margin: 0.5rem auto;
+    color: map-get($color, 'black-midnight');
   }
   &-content {
     color: map-get($color, 'gray');
