@@ -1,0 +1,138 @@
+.wall {
+  margin: 3rem auto;
+  .wall-list {
+    border-top: 1px solid #eee;
+    margin: 2rem auto;
+    .wall-item {
+      @include flex-center-between;
+      height: 10rem;
+      margin-bottom: 4rem;
+      align-items: flex-end;
+      .item-img {
+        width: 12.5rem;
+        height: 100%;
+        margin-right: 1rem;
+        .item-image {
+          height: 100%;
+          aspect-ratio: 4/3;
+          object-fit: cover;
+        }
+      }
+      .item-detail {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: space-between;
+        height: 100%;
+        flex: 1;
+        .item-title {
+          @include text-overflow(1);
+          height:20%;
+        }
+        .item-description {
+          @include text-overflow(2);
+          height:45%;
+        }
+        .sub-info-list {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          height:35%;
+          .sub-info-item {
+            font-size: map-get($font-size, 'sm');
+            color: map-get($color, 'gray-smoke');
+            margin-right: 1rem;
+            .tags {
+              cursor: pointer;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              max-width: 5rem;
+              margin:0 0.5rem;
+              border-radius: 99rem;
+              border: none;
+              outline: none;
+              padding: 0.25rem 0.5rem;
+              transition: 0.3s;
+              &:hover {
+                background-color: map-get($color, 'gray-stone');
+                transition: 0.3s;
+              }
+            }
+          }
+        }
+      }
+      .sign-optional {
+        @include flex-center;
+        position: relative;
+        cursor: pointer;
+        height: 1.5rem;
+        width: 3rem;
+        &:hover > .list-option {
+          visibility: visible;
+          opacity: 1;
+          transition: 0.3s;
+        }
+        .dot {
+          display: inline-block;
+          width: 0.4rem;
+          height: 0.4rem;
+          margin: 0 0.1rem;
+          border-radius: 50%;
+          background-color: map-get($color, 'primary');
+        }
+        .list-option {
+          @include box-shadow;
+          position: absolute;
+          top: 100%;
+          right: 0;
+          background-color: map-get($color, 'white-snow');
+          visibility: hidden;
+          opacity: 0;
+          .option-item {
+            padding: .5rem 1rem;
+            border-bottom: 1px dashed map-get($color , "gray-stone" );
+            white-space: nowrap;
+            transition: 0.3s;
+            &:hover {
+              background-color: map-get($color, 'gray-stone');
+              color: map-get($color, 'primary');
+              transition: 0.3s;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .wall {
+    .wall-list {
+      .wall-item {
+        height: 8rem;
+        .item-img {
+          width: 10rem;
+        }
+        .item-content {
+          .item-title {
+            @include text-overflow(1);
+            margin: 0.2rem 0;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 480px) {
+  .wall {
+    .wall-list {
+      .wall-item {
+        height: 8rem;
+        .item-img {
+          height: 6rem;
+          width: 7rem;
+        }
+      }
+    }
+  }
+}

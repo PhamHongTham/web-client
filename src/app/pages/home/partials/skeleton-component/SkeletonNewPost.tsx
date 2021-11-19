@@ -1,7 +1,7 @@
 import React from 'react';
 import SkeletonElement from './SkeletonElement';
 
-const SkeletonRecommendArticle = () => {
+const SkeletonNewPost = () => {
   return (
     <li className="list-item col-4 col-lg-6 col-md-12">
       <div className="card">
@@ -9,10 +9,10 @@ const SkeletonRecommendArticle = () => {
           <SkeletonElement type="image" />
         </div>
         <div className="card-body post-content">
-          <SkeletonElement type="title" />
+          <SkeletonElement type="sub-title" />
           <SkeletonElement type="text-long" />
           <SkeletonElement type="text-long" />
-          <SkeletonElement type="text-short" />
+          <SkeletonElement type="text-medium" />
         </div>
         <div className="card-footer">
           <div className="post-creator-info">
@@ -28,4 +28,4 @@ const SkeletonRecommendArticle = () => {
   );
 };
 
-export default SkeletonRecommendArticle;
+export default SkeletonNewPost;

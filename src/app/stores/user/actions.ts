@@ -10,8 +10,7 @@ import { UserLoginOptions } from 'app/shared/types/UserLogin';
 import { PasswordOptions } from 'app/shared/types/Password';
 import { UserInfoOptions } from 'app/shared/models/User';
 import {
-  addInfoLocalStorage,
-  removeInfoUserLocalStorage,
+  localStorageOption
 } from 'app/shared/helper/LocalAction';
 
 export const loginRequest =
@@ -19,9 +18,10 @@ export const loginRequest =
     dispatch({ type: UserConstant.LOGIN_REQUEST, payload: userInfo });
     try {
       const data = await login(userInfo);
+      console.log(data)
       dispatch({ type: UserConstant.LOGIN_SUCCESS, payload: data });
-      addInfoLocalStorage('USER_TOKEN', JSON.stringify(data.accessToken));
-      addInfoLocalStorage('USER_ID', JSON.stringify(data.userInfo.id));
+      localStorageOption.setUserToken(JSON.stringify(data.accessToken));
+      localStorageOption.setUserId(JSON.stringify(data.userInfo.id));
     } catch (error: any) {
       dispatch({
         type: UserConstant.LOGIN_FAILURE,
@@ -46,7 +46,7 @@ export const signUpRequest =
   };
 
 export const logoutRequest = () => {
-  removeInfoUserLocalStorage();
+  localStorageOption.remove();
   return {
     type: UserConstant.LOGOUT,
   };
@@ -59,7 +59,7 @@ export const getUserInfoRequest = () => async (dispatch: any) => {
     dispatch({ type: UserConstant.GET_USER_INFO_SUCCESS, payload: data });
   } catch (error: any) {
     if (error.response.status === 401) {
-      removeInfoUserLocalStorage();
+      localStorageOption.remove();
       dispatch({
         type: UserConstant.GET_USER_INFO_FAILURE,
         payload: error.response.statusText,
@@ -82,7 +82,7 @@ export const changePasswordRequest =
     } catch (error: any) {
       if (error.response.status === 401) {
         console.log(error.response.data);
-        removeInfoUserLocalStorage();
+        localStorageOption.remove();
         dispatch({
           type: UserConstant.CHANGE_PASSWORD_FAILURE,
           payload: error.response.statusText,
@@ -107,7 +107,7 @@ export const updateUserInfoRequest =
       });
     } catch (error: any) {
       if (error.response.status === 401) {
-        removeInfoUserLocalStorage();
+        localStorageOption.remove();
         dispatch({
           type: UserConstant.CHANGE_PASSWORD_FAILURE,
           payload: error.response.statusText,

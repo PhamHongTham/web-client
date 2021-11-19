@@ -90,7 +90,7 @@
     }
   }
 }
-.section-recommend-post {
+.section-new-post {
   margin-top: 5rem;
   .post-creator-info {
     @include align-center;
@@ -136,6 +136,29 @@
   .post-sub-info {
     font-size: map-get($font-size, 'sm');
   }
+  .load-more-wrap {
+    width: 200px;
+    height: 30px;
+    margin: 0 auto;
+    text-align: center;
+    .line {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      border-radius: 15px;
+      margin: 0 0.5rem;
+      background-color: map-get($color, 'primary');
+    }
+    .load-more .line:nth-last-child(1) {
+      animation: loadingC 0.6s 0.1s linear infinite;
+    }
+    .load-more .line:nth-last-child(2) {
+      animation: loadingC 0.6s 0.2s linear infinite;
+    }
+    .load-more .line:nth-last-child(3) {
+      animation: loadingC 0.6s 0.3s linear infinite;
+    }
+  }
 }
 .section-contact {
   background: map-get($color, 'gray-light');
@@ -146,7 +169,6 @@
     color: map-get($color, 'black');
   }
   .contact-form {
-    display: flex;
     margin-top: 1rem;
     .contact-input {
       height: 3.2rem;

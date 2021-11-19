@@ -1,26 +1,26 @@
 export function calculateTimeSince(date: string) {
-  var seconds = Math.floor((+new Date() - +new Date(date)) / 1000);
+  const seconds = Math.floor((+new Date() - +new Date(date)) / 1000);
 
-  var interval = seconds / 31536000;
+  let period = seconds / 31536000;
 
-  if (interval > 1) {
-    return Math.floor(interval) + ' years';
+  if (period > 1) {
+    return Math.floor(period) + ' years ago';
   }
-  interval = seconds / 2592000;
-  if (interval > 1) {
-    return Math.floor(interval) + ' months';
+  period = seconds / 2592000;
+  if (period > 1) {
+    return Math.floor(period) + ' months ago';
   }
-  interval = seconds / 86400;
-  if (interval > 1) {
-    return Math.floor(interval) + ' days';
+  period = seconds / 86400;
+  if (period > 1) {
+    return Math.floor(period) + ' days ago';
   }
-  interval = seconds / 3600;
-  if (interval > 1) {
-    return Math.floor(interval) + ' hours';
+  period = seconds / 3600;
+  if (period > 1) {
+    return Math.floor(period) + ' hours ago';
   }
-  interval = seconds / 60;
-  if (interval > 1) {
-    return Math.floor(interval) + ' minutes';
+  period = seconds / 60;
+  if (period > 1) {
+    return Math.floor(period) + ' minutes ago';
   }
-  return Math.floor(seconds) + ' seconds';
+  return Math.floor(seconds) + ' seconds ago';
 }
