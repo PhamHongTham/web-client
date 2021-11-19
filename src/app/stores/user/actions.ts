@@ -18,6 +18,7 @@ export const loginRequest =
     dispatch({ type: UserConstant.LOGIN_REQUEST, payload: userInfo });
     try {
       const data = await login(userInfo);
+      console.log(data)
       dispatch({ type: UserConstant.LOGIN_SUCCESS, payload: data });
       localStorageOption.setUserToken(JSON.stringify(data.accessToken));
       localStorageOption.setUserId(JSON.stringify(data.userInfo.id));

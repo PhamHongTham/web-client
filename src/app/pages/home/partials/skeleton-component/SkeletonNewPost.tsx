@@ -9,10 +9,10 @@ const SkeletonNewPost = () => {
           <SkeletonElement type="image" />
         </div>
         <div className="card-body post-content">
-          <SkeletonElement type="title" />
+          <SkeletonElement type="sub-title" />
           <SkeletonElement type="text-long" />
           <SkeletonElement type="text-long" />
-          <SkeletonElement type="text-short" />
+          <SkeletonElement type="text-medium" />
         </div>
         <div className="card-footer">
           <div className="post-creator-info">

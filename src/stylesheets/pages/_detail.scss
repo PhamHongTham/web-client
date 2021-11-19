@@ -39,10 +39,10 @@
         }
       }
     }
-    .article-detail {
-      .article-header {
+    .post-detail {
+      .post-header {
         margin-bottom: 1rem;
-        .article-title {
+        .post-title {
           font-size: 320%;
         }
       }
@@ -63,11 +63,14 @@
         }
       }
     }
-    .article-content {
+    .post-image{
+      margin-bottom: 1rem;
+    }
+    .post-content {
       font-size: map-get($font-size, 'xl');
       line-height: 2rem;
     }
-    .article-footer {
+    .post-footer {
       border-top: 1px solid #eee;
       .interact-detail-list {
         @include align-center;

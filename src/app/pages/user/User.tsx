@@ -1,21 +1,31 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchRecommendPostRequest } from 'app/stores/post/actions';
+import { fetchUserPostRequest, deleteUserPostRequest } from 'app/stores/post/actions';
 import { RootState } from 'app/stores/app-reducer';
-import NewFeedItem from './partials/NewsfeedItem';
+import NewFeedItem from '../newsfeed/partials/NewsfeedItem';
 import { postOptions } from 'app/shared/models/post-interface';
 import SkeletonPost from '../home/partials/skeleton-component/SkeletonPost';
+import { localStorageOption } from 'app/shared/helper/LocalAction';
 
-const Newsfeed = () => {
-  const { posts, isLoading, loadMore, message }: any = useSelector(
-    (state: RootState) => state.post
-  );
-  console.log(message);
+const UserPost = () => {
+  const { posts, isLoading, loadMore }: any = useSelector((state: RootState) => state.post);
+  // const [listPost, setListPost] = useState([]);
+  console.log(posts)
+  const currentUserId = localStorageOption.getUserId;
   const [pageNumber, setPageNumber] = useState(1);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchRecommendPostRequest(pageNumber));
-  }, [pageNumber]);
+    dispatch(fetchUserPostRequest(currentUserId));
+  }, []);
+
+  // useEffect(() => {
+  //   setListPost(() => posts);
+  // }, [posts]);
+
+  const handleDeletePost = (id: number) => {
+    dispatch(deleteUserPostRequest(id));
+    alert("deleted");
+  };
 
   const observer: any = useRef();
   const lastPostElementRef = useCallback(
@@ -43,10 +53,25 @@ const Newsfeed = () => {
     <div className="newsfeed container">
       <div className="row">
         <div className="newsfeed-container col-8 col-lg-12 offset-2 offset-lg-0">
-          <h3>RECOMMENDED FOR YOU</h3>
+          <h3>Your Stories</h3>
           <ul className="newsfeed-list">
             {posts?.map((post: postOptions) => {
-              return <NewFeedItem post={post} />;
+              return (
+                <>
+                  <div className="sign-optional">
+                    <div className="dot"></div>
+                    <div className="dot"></div>
+                    <div className="dot"></div>
+                    <ul className="list-option">
+                      <li className="option-item">Edit</li>
+                      <li className="option-item" onClick={() => handleDeletePost(post.id)}>
+                        Delete
+                      </li>
+                    </ul>
+                  </div>
+                  <NewFeedItem post={post} />
+                </>
+              );
             })}
             {isLoading && (
               <ul className="newsfeed-list">
@@ -70,4 +95,4 @@ const Newsfeed = () => {
     </div>
   );
 };
-export default Newsfeed;
+export default UserPost;

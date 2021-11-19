@@ -7,3 +7,9 @@ export const getSpecificPost = (params: { id: number }): any => axiosClient.get(
 
 export const getRecommendPost = (params: { page: number }): any =>
   axiosClient.get(`posts/recommend?page=${params}`);
+
+export const getUserPost = (params: { userId: number }): any =>
+  axiosClient.get(`users/${params}/posts`);
+
+  export const deleteUserPost = (params: { postId: number }): any =>
+  axiosClient.delete(`posts/${params}`);

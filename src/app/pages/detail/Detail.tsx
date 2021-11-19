@@ -1,27 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSpecificPostRequest } from 'app/stores/post/actions';
 import { RootState } from 'app/stores/app-reducer';
+import { fetchSpecificPostRequest } from 'app/stores/post/actions';
 
 import { calculateTimeSince } from 'app/shared/helper/helper-function';
+import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
 
 const Detail = () => {
   const { currentPost, isLoading }: any = useSelector((state: RootState) => state.post);
+  const [timeSince, setTimeSince] = useState<string>('');
   const { id }: any = useParams();
   const dispatch = useDispatch();
+
+  const { handleShowLoading } = useContext(LoadingContext);
   useEffect(() => {
     dispatch(fetchSpecificPostRequest(id));
   }, [dispatch, id]);
-  const timeSince = calculateTimeSince(currentPost.createdAt) + ' ago';
+  useEffect(() => {
+    if (isLoading) {
+      handleShowLoading();
+    }
+  }, [isLoading]);
+  useEffect(() => {
+    if (currentPost) {
+      setTimeSince(calculateTimeSince(currentPost.createdAt) + ' ago');
+    }
+  }, [currentPost]);
   return (
     <>
-      {isLoading ? (
-        <h2>Loading...</h2>
-      ) : (
+      {currentPost ? (
         <div className="detail-page">
           <div className="container">
             <div className="row">
@@ -49,15 +60,18 @@ const Detail = () => {
                   </ul>
                 </div>
               </aside>
-              <article className="article-detail col-8">
-                {isLoading && <h2>Loading...</h2>}
-                <div className="article-header">
-                  <h2 className="article-title">{currentPost.title}</h2>
+              <article className="post-detail col-8">
+                <div className="post-header">
+                  <h2 className="post-title">{currentPost.title}</h2>
                 </div>
                 <ul className="author-info-list">
                   <li className="author-info-item author-avatar">
                     <img
-                      src={currentPost.user?.picture}
+                      src={
+                        currentPost.user
+                          ? `${currentPost.user.picture}`
+                          : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTht9-qZYmqErdGMhJVbRf7BfhLRGspNWaFnR8nddu3x7Da7nqh23vsG6VWtG_VE9G9kLU&usqp=CAU'
+                      }
                       alt={currentPost.user?.displayName}
                     />
                   </li>
@@ -66,18 +80,18 @@ const Detail = () => {
                       {currentPost.user?.displayName}
                     </Link>
                   </li>
-                  <li className="author-info-item article-create-at">{timeSince}</li>
+                  <li className="author-info-item post-create-at">{timeSince}</li>
                 </ul>
-                <div className="article-image">
-                  <img src={currentPost.cover} alt="article-cover" />
+                <div className="post-image">
+                  <img src={currentPost?.cover} alt="" />
                 </div>
-                <div className="article-content">
+                <div className="post-content">
                   <p
                     className="post-description"
                     dangerouslySetInnerHTML={{ __html: currentPost.content }}
                   ></p>
                 </div>
-                <div className="article-footer">
+                <div className="post-footer">
                   <ul className="interact-detail-list">
                     <li className="interact-detail-item">
                       {currentPost.likes} <i className="far fa-thumbs-up"></i>
@@ -95,6 +109,8 @@ const Detail = () => {
             </div>
           </div>
         </div>
+      ) : (
+        ''
       )}
     </>
   );

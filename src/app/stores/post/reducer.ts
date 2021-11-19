@@ -21,6 +21,18 @@ const postReducer = (state: any = initialState, action: { type: string; payload:
         isLoading: false,
         posts: action.payload,
       };
+    case postConstant.FETCH_POST_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+
+    case postConstant.FETCH_MORE_POST_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
     case postConstant.FETCH_MORE_POST_SUCCESS:
       const newPosts = [...state.posts, ...action.payload.data];
       return {
@@ -29,10 +41,30 @@ const postReducer = (state: any = initialState, action: { type: string; payload:
         posts: newPosts,
         loadMore: action.payload.loadMore,
       };
-    case postConstant.FETCH_POST_FAILURE:
+    case postConstant.FETCH_MORE_POST_FAILURE:
       return {
         ...state,
         isLoading: false,
+        error: action.payload,
+      };
+
+    case postConstant.FETCH_USER_POST_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case postConstant.FETCH_USER_POST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        loadMore: false,
+        posts: action.payload,
+      };
+    case postConstant.FETCH_USER_POST_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        loadMore: false,
         error: action.payload,
       };
 
@@ -48,6 +80,26 @@ const postReducer = (state: any = initialState, action: { type: string; payload:
         currentPost: action.payload,
       };
     case postConstant.FETCH_SPECIFIC_POST_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+
+    case postConstant.DELETE_USER_POST_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case postConstant.DELETE_USER_POST_SUCCESS:
+      const newPost = state.posts.filter((post: any) => post.id !== action.payload.postId);
+      return {
+        ...state,
+        isLoading: false,
+        posts: newPost,
+        message: action.payload.message,
+      };
+    case postConstant.DELETE_USER_POST_FAILURE:
       return {
         ...state,
         isLoading: false,

@@ -3,13 +3,15 @@ import {
   getNewPost,
   getSpecificPost,
   getRecommendPost,
+  getUserPost,
+  deleteUserPost,
 } from 'app/shared/core/services/service-post';
 
-export const fetchPostRequest = () => async (dispatch: any) => {
+export const fetchPostRequest = (s: number) => async (dispatch: any) => {
   dispatch({ type: postConstant.FETCH_POST_REQUEST });
   const params: { page: number; size: number } = {
     page: 1,
-    size: 6,
+    size: s,
   };
   try {
     const res = await getNewPost(params);
@@ -38,17 +40,44 @@ export const fetchSpecificPostRequest = (id: any) => async (dispatch: any) => {
 };
 
 export const fetchRecommendPostRequest = (pageNumber: any) => async (dispatch: any) => {
-  dispatch({ type: postConstant.FETCH_POST_REQUEST });
+  dispatch({ type: postConstant.FETCH_MORE_POST_REQUEST });
   try {
     const res = await getRecommendPost(pageNumber);
-    console.log(res)
     dispatch({ type: postConstant.FETCH_MORE_POST_SUCCESS, payload: res });
-  } 
-  catch (error: any) {
+  } catch (error: any) {
     console.log(error);
     dispatch({
-      type: postConstant.FETCH_POST_FAILURE,
+      type: postConstant.FETCH_MORE_POST_FAILURE,
       payload: error.response.data,
+    });
+  }
+};
+
+export const fetchUserPostRequest = (userId: any) => async (dispatch: any) => {
+  dispatch({ type: postConstant.FETCH_USER_POST_REQUEST });
+  try {
+    const res = await getUserPost(userId);
+    dispatch({ type: postConstant.FETCH_USER_POST_SUCCESS, payload: res.Posts });
+  } catch (error: any) {
+    console.log(error);
+    dispatch({
+      type: postConstant.FETCH_USER_POST_FAILURE,
+      payload: error.response,
+    });
+  }
+};
+
+export const deleteUserPostRequest = (postId: any) => async (dispatch: any) => {
+  dispatch({ type: postConstant.DELETE_USER_POST_REQUEST });
+  try {
+    const res = await deleteUserPost(postId);
+    console.log(res)
+    dispatch({ type: postConstant.DELETE_USER_POST_SUCCESS, payload: {postId,message:res} });
+  } catch (error: any) {
+    console.log(error);
+    dispatch({
+      type: postConstant.DELETE_USER_POST_FAILURE,
+      payload: error.response,
     });
   }
 };

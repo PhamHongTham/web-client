@@ -9,6 +9,7 @@ import UpdateInfo from './pages/updateInfo/UpdateInfo';
 import ChangePassword from './pages/resetPassword/ChangePassword';
 import Detail from './pages/detail/Detail';
 import Newsfeed from './pages/newsfeed/Newsfeed';
+import User from './pages/user/User';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/detail/:id" exact component={Detail} />
         <Route path="/newsfeed" exact component={Newsfeed} />
         <Route path="/user/update" component={UpdateInfo} />
+        <Route path="/user" component={User} />
         <Route path="/user/changepass" component={ChangePassword} />
       </Switch>
       <Footer />

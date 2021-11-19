@@ -6,7 +6,7 @@ import { postOptions } from 'app/shared/models/post-interface';
 
 import { calculateTimeSince } from 'app/shared/helper/helper-function';
 
-const Post = ({post}:{post:postOptions}) => {
+const Post = ({ post }: { post: postOptions }) => {
   const { id, title, comments, likes, user, cover, description, createdAt } = post;
   const timeSince = calculateTimeSince(createdAt) + ' ago';
 
@@ -17,14 +17,24 @@ const Post = ({post}:{post:postOptions}) => {
           <img src={cover} alt="" className="post-image" />
         </div>
         <div className="card-body post-content">
-          <Link to={`/detail/${id}`}><h2 className="card-title">{title}</h2></Link>
+          <Link to={`/detail/${id}`}>
+            <h2 className="card-title">{title}</h2>
+          </Link>
           <p className="post-description" dangerouslySetInnerHTML={{ __html: description }}></p>
         </div>
         <div className="card-footer">
           <Link to="/" className="post-creator-info">
-            <img src={user.picture} alt="" className="author-avatar" />
+            <img
+              src={
+                user
+                  ? `${user.picture}`
+                  : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTht9-qZYmqErdGMhJVbRf7BfhLRGspNWaFnR8nddu3x7Da7nqh23vsG6VWtG_VE9G9kLU&usqp=CAU'
+              }
+              alt=""
+              className="author-avatar"
+            />
             <div className="author-info">
-              <h4 className="card-content author-name">{user.displayName}</h4>
+              <h4 className="card-content author-name">{user?.displayName}</h4>
               <p className="card-content post-sub-info">{timeSince}</p>
             </div>
           </Link>
