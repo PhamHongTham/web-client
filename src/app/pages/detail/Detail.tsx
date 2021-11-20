@@ -1,11 +1,9 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { RootState } from 'app/stores/app-reducer';
+import { useDispatch } from 'react-redux';
 import {
   commentPostRequest,
   fetchSpecificArticleRequest,
@@ -13,58 +11,31 @@ import {
   getCommentPostRequest,
   likePostRequest,
 } from 'app/stores/article/actions';
-
-import { calculateTimeSince } from 'app/shared/helper/helper-function';
-import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
-import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
 import { getUserInfoByIdRequest } from 'app/stores/user/actions';
 
 const Detail = () => {
   const dispatch = useDispatch();
   const { id }: any = useParams();
   const { register, handleSubmit, reset } = useForm();
-  const { anotherUser }: any = useSelector(
-    (state: RootState) => state.userState
-  );
 
-  const [userIdPost, setUserIdPost] = useState<string>('');
-  const [timeSince, setTimeSince] = useState<string>('');
+  const [post, setPost] = useState<any>()
+  const [comments, setComments] = useState<any>([])
   const [follow, setFollow] = useState<boolean>(false);
-
-  const [post, setPost] = useState<any>()zy
 
   useEffect(() => {
     dispatch(fetchSpecificArticleRequest(id)).then((res: any) => {
       setPost(res)
     })
-    dispatch(getCommentPostRequest(id));
+    dispatch(getCommentPostRequest(id)).then((res: any) => setComments(res));
   }, [id]);
 
   useEffect(() => {
-    if (isLoading) {
-      handleShowLoading();
+    if (post) {
+      dispatch(getUserInfoByIdRequest(String(post.userId))).then((res: any) => {
+        setFollow(res.isFollowed)
+      });
     }
-  }, [isLoading]);
-
-  useEffect(() => {
-    if (anotherUser) {
-      setFollow(anotherUser.isFollowed);
-    }
-  }, [anotherUser]);
-
-  useEffect(() => {
-    if (userIdPost) {
-      console.log(userIdPost);
-      dispatch(getUserInfoByIdRequest(String(userIdPost)));
-    }
-  }, [userIdPost]);
-
-  // useEffect(() => {
-  //   if (post) {
-  //     setTimeSince(calculateTimeSince(post.createdAt) + ' ago');
-  //     setUserIdPost(post.userId);
-  //   }
-  // }, [post]);
+  }, [post]);
 
   const handleLikePost = () => {
     if (post.isLiked) {
@@ -74,24 +45,18 @@ const Detail = () => {
       post.likes = +post.likes + 1;
       post.isLiked = true;
     }
-    // setLike(true);
-    // setCountLike((like: number) => +like + 1);
     setPost({ ...post });
     dispatch(likePostRequest(id));
   };
 
-  // const handleDeleteLikePost = () => {
-  //   dispatch(likePostRequest(id));
-  // };
-
   const onSubmit = (data: CommentHanldeOptions) => {
-    dispatch(commentPostRequest(id, data));
+    dispatch(commentPostRequest(id, data)).then((res: any) => setComments((comments: any) => [...comments, res]));
     reset();
   };
 
   const handleFollowUser = () => {
     let data = {
-      followingId: userIdPost,
+      followingId: post.userId,
     };
     setFollow(!follow);
     dispatch(followUserRequest(data));
@@ -160,9 +125,6 @@ const Detail = () => {
                       {post.user?.displayName}
                     </Link>
                   </li>
-                  <li className="author-info-item article-create-at">
-                    {timeSince}
-                  </li>
                 </ul>
                 <div className="article-image">
                   <img src={post.cover} alt="article-cover" />
@@ -190,7 +152,7 @@ const Detail = () => {
                       )}
                     </li>
                     <li className="interact-detail-item">
-                      {post.comments}{' '}
+                      {comments.length}{' '}
                       <i className="fal fa-comment-alt-lines"></i>
                     </li>
                     <li className="interact-detail-item">
@@ -199,7 +161,7 @@ const Detail = () => {
                   </ul>
                 </div>
                 <div className="interact-box">
-                  Responses ({post.comments})
+                  Responses ({comments.length})
                 </div>
                 <form
                   className="form-comment"
