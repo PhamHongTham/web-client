@@ -10,97 +10,40 @@ import { NotificationContext } from 'app/shared/components/notifications/Notific
 import {
   createNewPostRequest,
   fetchSpecificArticleRequest,
+  saveInfoPost,
   updatePostRequest,
 } from 'app/stores/article/actions';
 import axios from 'axios';
 import axiosClient from 'app/shared/core/services/axios-client';
-import HandleTag from './partials/HandleTag';
-import HandleImage from './partials/HandleImage';
 import Editor from './partials/Editor';
+import PopupPublish from './partials/PopupPublish';
 
 const HandlePost = (props: any) => {
   const dispatch = useDispatch();
-  const { register, handleSubmit, watch, control, formState: { errors } } = useForm({});
+  const { register, handleSubmit, watch, control, formState: { errors }, reset } = useForm({});
   const { id }: { id: string } = useParams();
+  const [post, setPost] = useState<any>('')
 
-  // const { isLoading, message, error } = useSelector(
-  //   (state: RootState) => state.article
-  // );
-  const { currentArticle } = useSelector((state: RootState) => state.article);
-
-  // const [listTags, setListTags] = useState<string[]>([]);
-  const [status, setStatus] = useState<string>('public');
-  // const [contentPost, setContentPost] = useState<string>('');
-  // const [imageFile, setImageFile] = useState<File | null>(null);
-  // const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(
-  //   null
-  // );
-  // const [clearContentPost, setClearContentPost] = useState<boolean>(false);
-
-  // const { handleAddNotification } = useContext(NotificationContext);
-  // const { handleShowLoading } = useContext(LoadingContext);
+  const [showPopupPublish, setShowPopupPublish] = useState<boolean>(false);
 
   // useEffect(() => {
-  //   if (id) {
-  //     dispatch(fetchSpecificArticleRequest(id));
+  //   return () => {
+  //     setShowPopupPublish(false)
   //   }
-  // }, [id]);
+  // }, [])
 
   // useEffect(() => {
-  //   if (id && currentArticle) {
-  //     setContentPost(currentArticle.content);
-  //     setStatus(currentArticle.status);
-  //     setListTags(currentArticle.tags);
-  //     setPreviewImage(currentArticle.cover);
-  //   }
-  // }, [currentArticle, dispatch]);
-
-  // useEffect(() => {
-  //   handleShowLoading(isLoading ? true : false);
-  //   if (error) {
-  //     handleAddNotification({ type: 'ERROR', message: error });
-  //   }
-  //   if (message) {
-  //     handleAddNotification({
-  //       type: 'SUCCESS',
-  //       message: 'create post success',
-  //     });
-  //   }
-  // }, [isLoading, error, message]);
-
-  // useEffect(() => {
-  //   reset({
-  //     tags: []
+  //   dispatch(fetchSpecificArticleRequest(id)).then((res: any) => {
+  //     setPost(res)
+  //     reset({
+  //       content: res?.content
+  //     })
   //   })
   // }, [])
 
-  // const getUrlImage = async () => {
-  //   const signUrlOption = {
-  //     typeUpload: 'cover-post',
-  //     fileName: imageFile?.name,
-  //     fileType: imageFile?.type,
-  //   };
-  //   const urlImage = await axiosClient.get(
-  //     `/signatures?type_upload=${signUrlOption.typeUpload}&file_name=${signUrlOption.fileName}&file_type=${signUrlOption.fileType}`
-  //   );
-  //   return urlImage;
-  // };
-
-  const handleChangeTag = (value: string[]) => {
-    console.log(value)
-  };
-
-  const handleChangeImage = (value: File) => {
-    console.log(value)
-  }
-
-  const handleChangeEditor = (value: string) => {
-    console.log(value)
-  }
-
-  const onSubmit = async (data: { title: string; description: string }) => {
-    console.log(data)
-    let newPost;
+  const onSubmit = (data: { title: string, description: string, content: string }) => {
+    setShowPopupPublish(true)
+    dispatch(saveInfoPost(data))
     // CHECK CREATE OR UPDATE
     // if (currentArticle?.cover) {
     //   // CHECK IMAGE CHANGE
@@ -141,57 +84,43 @@ const HandlePost = (props: any) => {
 
   return (
     <section className="section-editor">
-      <div className="container">
+      {
+        showPopupPublish ? (<PopupPublish showPopupPublish={showPopupPublish} setShowPopupPublish={setShowPopupPublish} />) : <div className="container">
         <h2 className="editor-title">Boogle Editor</h2>
         <form className="form-handle-post" onSubmit={handleSubmit(onSubmit)}>
           <input
             type="text"
             placeholder="Title"
             className="input-post-title"
-            // defaultValue={currentArticle?.title}
+              defaultValue={post?.title}
             {...register('title')}
             required
           />
-          <input
+            <input
             type="text"
             placeholder="Description"
-            className="input-post-description"
-            // defaultValue={currentArticle?.description}
-            {...register('description')}
-            required
-          />
-          <select
-            {...register('status')}
-            className="status"
-            value={status}
-            onChange={(e: any) => setStatus(e.target.value)}
-            required
-          >
-            <option value="private" className="status-item">
-              Private
-            </option>
-            <option value="public" className="status-item">
-              Public
-            </option>
-          </select>
-          <Controller
-            control={control}
-            name="tags"
-            render={({
-              field: { onChange, onBlur, value, name, ref },
-              fieldState: { invalid, isTouched, isDirty, error },
-              formState,
-            }) => (
-              <HandleTag value={value} onChange={onChange} />
-            )}
-          />
-          <HandleImage value={''} onChange={handleChangeImage} />
-          <Editor value={''} onChange={handleChangeEditor} />
-          <button className="btn btn-primary">
-            {id ? 'Update Post' : 'Create Post'}
-          </button>
+              className="input-post-description"
+              defaultValue={post?.description}
+              {...register('description')}
+              required
+            />
+            <Controller
+              control={control}
+              name="content"
+              rules={{ required: true }}
+              render={({
+                field: { onChange, onBlur, value, name, ref },
+                formState,
+              }) => (
+                <Editor value={''} onChange={onChange} />
+              )}
+            />
+            <button className="btn btn-primary">
+              Publish
+            </button>
         </form>
       </div>
+      }
     </section>
   );
 };

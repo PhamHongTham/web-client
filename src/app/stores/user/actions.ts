@@ -14,6 +14,7 @@ import {
   addInfoLocalStorage,
   removeInfoUserLocalStorage,
 } from 'app/shared/helper/LocalAction';
+import { apiWrapper } from 'app/shared/core/services/apiWrapper';
 
 export const loginRequest =
   (userInfo: UserLoginOptions) => async (dispatch: any) => {
@@ -119,25 +120,10 @@ export const updateUserInfoRequest =
       }
     }
   };
-  export const getUserInfoByIdRequest = (id: string) => async (dispatch: any) => {
-    dispatch({ type: UserConstant.GET_USER_INFO_BY_ID_REQUEST });
-    try {
-      const data = await getUserInfoById(id);
-      dispatch({ type: UserConstant.GET_USER_INFO_BY_ID_SUCCESS, payload: data });
-    } catch (error: any) {
-      if (error.response.status === 401) {
-        removeInfoUserLocalStorage();
-        dispatch({
-          type: UserConstant.GET_USER_INFO_BY_ID_FAILURE,
-          payload: error.response.statusText,
-        });
-      } else {
-        dispatch({
-          type: UserConstant.GET_USER_INFO_BY_ID_FAILURE,
-          payload: error.response.data.errors[0],
-        });
-      }
-    }
+
+export const getUserInfoByIdRequest: any =
+  (id: string) => async (dispatch: any) => {
+    return apiWrapper(() => getUserInfoById(id), dispatch);
   };
 
 export const clearUserState = () => {

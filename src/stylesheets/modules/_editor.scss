@@ -1,5 +1,5 @@
 .medium-editor-element {
-  min-height: 430px !important;
+  min-height: 360px !important;
   border-top: 1px solid #e5e5e5;
   border-bottom: 1px solid #e5e5e5;
   padding: 1rem;
@@ -14,5 +14,6 @@
   color: map-get($color, 'white-snow');
 }
 .editable{
+  width: 100%;
   margin-bottom: 1rem;
 }

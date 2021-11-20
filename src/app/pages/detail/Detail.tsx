@@ -1,11 +1,9 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { RootState } from 'app/stores/app-reducer';
+import { useDispatch } from 'react-redux';
 import {
   commentPostRequest,
   fetchSpecificArticleRequest,
@@ -13,84 +11,52 @@ import {
   getCommentPostRequest,
   likePostRequest,
 } from 'app/stores/article/actions';
-
-import { calculateTimeSince } from 'app/shared/helper/helper-function';
-import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
-import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
 import { getUserInfoByIdRequest } from 'app/stores/user/actions';
 
 const Detail = () => {
   const dispatch = useDispatch();
   const { id }: any = useParams();
   const { register, handleSubmit, reset } = useForm();
-  const { currentArticle, isLoading }: any = useSelector(
-    (state: RootState) => state.article
-  );
-  const { anotherUser }: any = useSelector(
-    (state: RootState) => state.userState
-  );
 
-  const [userIdPost, setUserIdPost] = useState<string>('');
-  const [timeSince, setTimeSince] = useState<string>('');
-  const [like, setLike] = useState<boolean>(currentArticle?.liked);
-  const [countLike, setCountLike] = useState<number>(0);
+  const [post, setPost] = useState<any>()
+  const [comments, setComments] = useState<any>([])
   const [follow, setFollow] = useState<boolean>(false);
 
-  const { handleShowLoading } = useContext(LoadingContext);
+  useEffect(() => {
+    dispatch(fetchSpecificArticleRequest(id)).then((res: any) => {
+      setPost(res)
+    })
+    dispatch(getCommentPostRequest(id)).then((res: any) => setComments(res));
+  }, [id]);
 
   useEffect(() => {
-    dispatch(fetchSpecificArticleRequest(id));
-    dispatch(getCommentPostRequest(id));
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    if (isLoading) {
-      handleShowLoading();
+    if (post) {
+      dispatch(getUserInfoByIdRequest(String(post.userId))).then((res: any) => {
+        setFollow(res.isFollowed)
+      });
     }
-  }, [isLoading]);
-
-  useEffect(() => {
-    if (anotherUser) {
-      setFollow(anotherUser.isFollowed);
-    }
-  }, [anotherUser]);
-
-  useEffect(() => {
-    if (userIdPost) {
-      console.log(userIdPost);
-      dispatch(getUserInfoByIdRequest(String(userIdPost)));
-    }
-  }, [userIdPost]);
-
-  useEffect(() => {
-    if (currentArticle) {
-      setTimeSince(calculateTimeSince(currentArticle.createdAt) + ' ago');
-      setLike(currentArticle.isLiked);
-      setCountLike(currentArticle.likes);
-      setUserIdPost(currentArticle.userId);
-    }
-  }, [currentArticle]);
+  }, [post]);
 
   const handleLikePost = () => {
-    setLike(true);
-    setCountLike((like: number) => +like + 1);
-    dispatch(likePostRequest(id));
-  };
-
-  const handleDeleteLikePost = () => {
-    setLike(false);
-    setCountLike((like: number) => +like - 1);
+    if (post.isLiked) {
+      post.likes = +post.likes - 1;
+      post.isLiked = false;
+    } else {
+      post.likes = +post.likes + 1;
+      post.isLiked = true;
+    }
+    setPost({ ...post });
     dispatch(likePostRequest(id));
   };
 
   const onSubmit = (data: CommentHanldeOptions) => {
-    dispatch(commentPostRequest(id, data));
+    dispatch(commentPostRequest(id, data)).then((res: any) => setComments((comments: any) => [...comments, res]));
     reset();
   };
 
   const handleFollowUser = () => {
     let data = {
-      followingId: userIdPost,
+      followingId: post.userId,
     };
     setFollow(!follow);
     dispatch(followUserRequest(data));
@@ -98,13 +64,13 @@ const Detail = () => {
 
   return (
     <>
-      {currentArticle ? (
+      {post ? (
         <div className="detail-page">
           <div className="container">
             <div className="row">
               <aside className="author-interact col-2">
                 <h3 className="author-name">
-                  <Link to="">{currentArticle.user?.displayName}</Link>
+                  <Link to="">{post.user?.displayName}</Link>
                 </h3>
                 <div className="interact-action">
                   {follow ? (
@@ -129,11 +95,11 @@ const Detail = () => {
                 <div className="interact-detail">
                   <ul className="interact-detail-list">
                     <li className="interact-detail-item">
-                      {currentArticle.likes}{' '}
+                      {post.likes}{' '}
                       <i className="far fa-thumbs-up"></i>
                     </li>
                     <li className="interact-detail-item">
-                      {currentArticle.comments}{' '}
+                      {post.comments}{' '}
                       <i className="fal fa-comment-alt-lines"></i>
                     </li>
                     <li className="interact-detail-item">
@@ -143,43 +109,40 @@ const Detail = () => {
                 </div>
               </aside>
               <article className="article-detail col-8">
-                {isLoading && <h2>Loading...</h2>}
+                {/* {isLoading && <h2>Loading...</h2>} */}
                 <div className="article-header">
-                  <h2 className="article-title">{currentArticle.title}</h2>
+                  <h2 className="article-title">{post.title}</h2>
                 </div>
                 <ul className="author-info-list">
                   <li className="author-info-item author-avatar">
                     <img
-                      src={currentArticle.user?.picture}
-                      alt={currentArticle.user?.displayName}
+                      src={post.user?.picture}
+                      alt={post.user?.displayName}
                     />
                   </li>
                   <li className="author-info-item author-name">
                     <Link to="" className="text-primary">
-                      {currentArticle.user?.displayName}
+                      {post.user?.displayName}
                     </Link>
-                  </li>
-                  <li className="author-info-item article-create-at">
-                    {timeSince}
                   </li>
                 </ul>
                 <div className="article-image">
-                  <img src={currentArticle.cover} alt="article-cover" />
+                  <img src={post.cover} alt="article-cover" />
                 </div>
                 <div className="article-content">
                   <p
                     className="post-description"
-                    dangerouslySetInnerHTML={{ __html: currentArticle.content }}
+                    dangerouslySetInnerHTML={{ __html: post.content }}
                   ></p>
                 </div>
                 <div className="article-footer">
                   <ul className="interact-detail-list">
                     <li className="interact-detail-item">
-                      {countLike}
-                      {like ? (
+                      {post.likes}
+                      {post.isLiked ? (
                         <i
                           className="fas fa-heart"
-                          onClick={handleDeleteLikePost}
+                          onClick={handleLikePost}
                         ></i>
                       ) : (
                         <i
@@ -189,7 +152,7 @@ const Detail = () => {
                       )}
                     </li>
                     <li className="interact-detail-item">
-                      {currentArticle.comments}{' '}
+                      {comments.length}{' '}
                       <i className="fal fa-comment-alt-lines"></i>
                     </li>
                     <li className="interact-detail-item">
@@ -198,7 +161,7 @@ const Detail = () => {
                   </ul>
                 </div>
                 <div className="interact-box">
-                  Responses ({currentArticle.comments})
+                  Responses ({comments.length})
                 </div>
                 <form
                   className="form-comment"

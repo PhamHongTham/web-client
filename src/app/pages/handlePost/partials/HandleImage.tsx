@@ -7,13 +7,6 @@ interface HandleImageOptions {
 
 const HandleImage = ({ value, onChange }: HandleImageOptions) => {
   const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>('')
-  // useEffect(() => {
-  //   if (imageFile) {
-  //     setImageFile(imageFile);
-  //   } else {
-  //     setPreviewImage(null);
-  //   }
-  // }, [imageFile]);
 
   useEffect(() => {
     if (value) {
@@ -35,10 +28,6 @@ const HandleImage = ({ value, onChange }: HandleImageOptions) => {
 
   return (
     <>
-      <label htmlFor="input-image" className="cover-image">
-        <span className="cover-image-content">Cover Image</span>
-        <i className="fal fa-image"></i>
-      </label>
       <input
         type="file"
         id="input-image"
@@ -50,7 +39,10 @@ const HandleImage = ({ value, onChange }: HandleImageOptions) => {
           <img src={previewImage as string} alt=""></img>
         </div>
       ) : (
-        ''
+          <label htmlFor="input-image" >
+            <div className="select-image" >
+            </div>
+          </label>
       )}
     </>
   );

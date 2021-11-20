@@ -11,14 +11,16 @@ export const getRecommendPost = (params: { page: number; size: number }): any =>
 export const getSpecificArticle = (params: { id: number }): any =>
   axiosClient.get(`posts/${params}`);
 
-export const getSignUrl = (
-  typeUpload: string,
-  fileName: string,
-  fileType: string
-): Promise<articleOptions[]> =>
+export const getUrlImage = (imageFile: File) => {
+  const signUrlOption = {
+    typeUpload: 'cover-post',
+    fileName: imageFile.name,
+    fileType: imageFile.type,
+  };
   axiosClient.get(
-    `/signatures?type_upload=${typeUpload}&file_name=${fileName}&file_type=${fileType}`
+    `/signatures?type_upload=${signUrlOption.typeUpload}&file_name=${signUrlOption.fileName}&file_type=${signUrlOption.fileType}`
   );
+}
 
 export const upLoadImage = (url: string, fileImage: File): any =>
   axios.put(url, fileImage);

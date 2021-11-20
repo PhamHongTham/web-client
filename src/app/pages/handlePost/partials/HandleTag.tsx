@@ -1,80 +1,33 @@
 import React, { FormEvent, useEffect, useState } from 'react';
+import Creatable, { useCreatable } from 'react-select/creatable';
+
+interface MyOptionType {
+  label: string,
+  value: string,
+}
 
 interface HandleTagOptions {
-  value: string[];
+  value: string[]
   onChange: (value: string[]) => void
 }
 
 const HandleTag = ({ value, onChange }: HandleTagOptions) => {
-  const [listTags, setListTags] = useState<string[]>(value)
-  const [newTag, setNewTag] = useState<string>('');
-  const [errorTag, setErrorTag] = useState<string | null>(null);
+  const [tags, setTags] = React.useState<MyOptionType[]>([]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setErrorTag('');
-    }, 3000);
-  }, [errorTag]);
-
-  useEffect(() => {
-    onChange(listTags)
-  }, [listTags])
-
-  const handleAddTag = () => {
-    if (newTag === '') {
-      return;
-    } else if (value && value.length <= 4) {
-      const existsTag = value.find((item: string) => item === newTag);
-      if (existsTag) {
-        setErrorTag('Tag is exists');
-      } else {
-        setListTags((prevState: string[]) => [...prevState, newTag])
-      }
-    } else {
-      setErrorTag('You can only add 5 new tags');
-    }
-    setNewTag('');
-  };
-
-  const handleDeleteTag = (tag: string) => {
-    setListTags((listTags: string[]) =>
-      listTags.filter((item: string) => item !== tag)
-    );
-  };
-
+  const handleChangeTags = (option: any, meta: any) => {
+    let newListTags = [...option]
+    newListTags = newListTags.map((item: any) => {
+      delete item['__isNew__'];
+      return { ...item }
+    })
+    setTags(newListTags)
+    let tagsData = newListTags.map((item: MyOptionType) => item.value)
+    onChange(tagsData)
+  }
   return (
-    <>
-      <div className="handle-tag">
-        <input
-          type="text"
-          placeholder="New tag"
-          className="input-tag"
-          value={newTag}
-          onChange={(e: FormEvent<HTMLInputElement>) =>
-            setNewTag(e.currentTarget.value)
-          }
-        />
-        <button className="btn add-tag" type="button" onClick={handleAddTag}>
-          Add new tag
-        </button>
-      </div>
-      {listTags?.length > 0 ? (
-        <ul className="list-tags">
-          {listTags.map((tag: string, index: number) => (
-            <li className="tag-item" key={index}>
-              <span className="tag-content">{tag}</span>
-              <i
-                className="fal fa-times"
-                onClick={() => handleDeleteTag(tag)}
-              ></i>
-            </li>
-          ))}
-          {errorTag ? <span className="error-tag">{errorTag}</span> : ''}
-        </ul>
-      ) : (
-        ''
-      )}
-    </>
+    <div className="select-tags">
+      <Creatable isMulti placeholder="Create tags" options={tags} value={tags} onChange={handleChangeTags} createOptionPosition={'last'} />
+    </div>
   );
 };
 
