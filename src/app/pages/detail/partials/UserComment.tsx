@@ -2,8 +2,6 @@ import React from 'react';
 
 const UserComment = ({ props }: { props: any }) => {
   const { id, comment, user } = props;
-  console.log(props);
-  // console.log("id",props.id)
   return (
     <li key={id} className="user-comment-item">
       <div className="user-picture">
@@ -18,9 +16,9 @@ const UserComment = ({ props }: { props: any }) => {
       </div>
       <div className="comment-detail">
         <h4>{user && user.displayName ? user.displayName : ''}</h4>
-        <p className="user-content">
+        <div className="user-content">
           {comment}
-        </p>
+        </div>
       </div>
     </li>
   );

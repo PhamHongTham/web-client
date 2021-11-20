@@ -22,7 +22,6 @@ const PostItem = ({ post, handleDeletePost }: { post: postOptions; handleDeleteP
           </Link>
           <div className="item-description">{description}</div>
         </div>
-
         <ul className="sub-info-list">
           <li className="sub-info-item">
             Tags:
@@ -38,12 +37,10 @@ const PostItem = ({ post, handleDeletePost }: { post: postOptions; handleDeleteP
         </ul>
       </div>
       <div className="sign-optional">
-        <div className="dot"></div>
-        <div className="dot"></div>
-        <div className="dot"></div>
+        <i className="far fa-ellipsis-h dot"></i>
         <ul className="list-option">
           <li className="option-item">
-            <i className="fal fa-pencil-alt"></i> Edit
+            <i className="fal fa-pencil-alt option-item-icon"></i> Edit
           </li>
           <li
             className="option-item"
@@ -51,10 +48,10 @@ const PostItem = ({ post, handleDeletePost }: { post: postOptions; handleDeleteP
               handleDeletePost(id);
             }}
           >
-            <i className="fal fa-trash-alt"></i> Delete
+            <i className="fal fa-trash-alt option-item-icon"></i> Delete
           </li>
           <li className="option-item">
-            <i className="fal fa-bookmark"></i> Add to bookmark
+            <i className="fal fa-bookmark option-item-icon"></i> Add to bookmark
           </li>
         </ul>
       </div>

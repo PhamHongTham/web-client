@@ -25,31 +25,28 @@ const Wall = () => {
   return (
     <div className="wall container">
       <div className="row">
-      <aside className="author-interact col-2">
-                <h3 className="author-name">
-                  <Link to="">{}</Link>
-                </h3>
-                <ul className="interact-action-list">
-                  <li className="interact-action-item">
-                    <span className="item-icon">
-                      <i className="fal fa-heart"></i>
-                    </span>
-                    <p>LIKE</p>
-                  </li>
-                  <li className="interact-action-item">
-                    <span className="item-icon">
-                      <i className="fal fa-user-plus"></i>
-                    </span>
-                    <p>FOLLOW ME</p>
-                  </li>
-                  <li className="interact-action-item">
-                    <span className="item-icon">
-                      <i className="fal fa-bookmark"></i>
-                    </span>
-                    <p>BOOKMARK</p>
-                  </li>
-                </ul>
-              </aside>
+        <aside className="author-interact">
+          <h3 className="author-name">
+            <Link to="">{}</Link>
+          </h3>
+          <ul className="interact-action-list">
+            <li className="interact-action-item">
+              <span className="item-icon">
+                <i className="fal fa-heart"></i>
+              </span>
+            </li>
+            <li className="interact-action-item">
+              <span className="item-icon">
+                <i className="fal fa-user-plus"></i>
+              </span>
+            </li>
+            <li className="interact-action-item">
+              <span className="item-icon">
+                <i className="fal fa-bookmark"></i>
+              </span>
+            </li>
+          </ul>
+        </aside>
         <div className="wall-container col-8 col-lg-12 offset-2 offset-lg-0">
           <ul className="wall-list">
             {posts?.map((post: postOptions) => {
