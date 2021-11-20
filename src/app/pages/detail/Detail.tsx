@@ -4,14 +4,15 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import {
-  commentPostRequest,
-  fetchSpecificArticleRequest,
-  followUserRequest,
-  getCommentPostRequest,
-  likePostRequest,
-} from 'app/stores/article/actions';
+// import {
+//   commentPostRequest,
+//   fetchSpecificArticleRequest,
+//   followUserRequest,
+//   getCommentPostRequest,
+//   likePostRequest,
+// } from 'app/stores/article/actions';
 import { getUserInfoByIdRequest } from 'app/stores/user/actions';
+import { commentPostRequest, fetchSpecificArticleRequest, followUserRequest, getCommentPostRequest, likePostRequest } from 'app/stores/post/actions';
 
 const Detail = () => {
   const dispatch = useDispatch();

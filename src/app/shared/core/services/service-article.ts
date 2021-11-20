@@ -16,10 +16,9 @@ export const getUrlImage = (imageFile: File) => {
     fileName: imageFile.name,
     fileType: imageFile.type,
   };
-  axiosClient.get(
+  return axiosClient.get(
     `/signatures?type_upload=${signUrlOption.typeUpload}&file_name=${signUrlOption.fileName}&file_type=${signUrlOption.fileType}`
   );
-  return signUrlOption;
 }
 
 export const upLoadImage = (url: string, fileImage: File): any =>

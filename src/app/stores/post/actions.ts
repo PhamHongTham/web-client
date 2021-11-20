@@ -1,4 +1,5 @@
 import { postConstant } from 'app/shared/constants/postConstant';
+import { commentPost, createNewPost, followUser, getCommentPost, getUrlImage, likePost, updatePost } from 'app/shared/core/services/service-article';
 import {
   getNewPost,
   getSpecificPost,
@@ -6,6 +7,9 @@ import {
   getUserPost,
   deleteUserPost,
 } from 'app/shared/core/services/service-post';
+import { HandleFollowOptions } from 'app/shared/types/HandleFollow';
+import { PostHandleOptions } from 'app/shared/types/PostHandle';
+
 
 
 const apiWrapper = async (api: any, dispatch: any) => {
@@ -102,4 +106,50 @@ export const deleteUserPostRequest = (postId: any) => async (dispatch: any) => {
       payload: error.response,
     });
   }
+};
+
+export const getUrlImageRequest: any =
+  (imageFile: File) => async (dispatch: any) => {
+    return apiWrapper(() => getUrlImage(imageFile), dispatch);
+  };
+
+export const createNewPostRequest: any =
+  (post: PostHandleOptions) => async (dispatch: any) => {
+    return apiWrapper(() => createNewPost(post), dispatch);
+  };
+
+export const updatePostRequest: any =
+  (post: PostHandleOptions, postId: string) => async (dispatch: any) => {
+    return apiWrapper(() => updatePost(post, postId), dispatch);
+  };
+
+export const likePostRequest: any =
+  (postId: string) => async (dispatch: any) => {
+    return apiWrapper(() => likePost(postId), dispatch);
+  };
+
+export const getCommentPostRequest: any =
+  (postId: string) => async (dispatch: any) => {
+    return apiWrapper(() => getCommentPost(postId), dispatch);
+  };
+
+export const commentPostRequest: any =
+  (postId: string, post: CommentHanldeOptions) => async (dispatch: any) => {
+    return apiWrapper(() => commentPost(postId, post), dispatch);
+  };
+
+export const followUserRequest: any =
+  (followId: HandleFollowOptions) => async (dispatch: any) => {
+    return apiWrapper(() => followUser(followId), dispatch);
+  };
+
+export const saveInfoPost = (infoPost: {
+  title: string;
+  description: string;
+  content: string;
+}) => {
+  return {
+    type: postConstant.SAVE_INFO_POST,
+    payload: infoPost,
+  };
 };

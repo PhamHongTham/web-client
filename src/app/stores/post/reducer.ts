@@ -8,7 +8,10 @@ const initialState = {
   loadMore: true,
 };
 
-const postReducer = (state: any = initialState, action: { type: string; payload: any }) => {
+const postReducer = (
+  state: any = initialState,
+  action: { type: string; payload: any }
+) => {
   switch (action.type) {
     case postConstant.FETCH_POST_REQUEST:
       return {
@@ -92,7 +95,9 @@ const postReducer = (state: any = initialState, action: { type: string; payload:
         isLoading: true,
       };
     case postConstant.DELETE_USER_POST_SUCCESS:
-      const newPost = state.posts.filter((post: any) => post.id !== action.payload.postId);
+      const newPost = state.posts.filter(
+        (post: any) => post.id !== action.payload.postId
+      );
       return {
         ...state,
         isLoading: false,
@@ -104,6 +109,12 @@ const postReducer = (state: any = initialState, action: { type: string; payload:
         ...state,
         isLoading: false,
         error: action.payload,
+      };
+
+    case postConstant.SAVE_INFO_POST:
+      return {
+        ...state,
+        infoPost: action.payload,
       };
 
     default:

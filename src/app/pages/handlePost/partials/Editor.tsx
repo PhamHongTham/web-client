@@ -5,7 +5,7 @@ import 'medium-editor/dist/css/medium-editor.min.css';
 import 'medium-editor/dist/css/themes/default.css';
 
 interface HandleEditorOptions {
-  value: string;
+  value: any;
   onChange: (value: string) => void;
 }
 

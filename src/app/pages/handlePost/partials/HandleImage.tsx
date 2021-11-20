@@ -1,22 +1,23 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 
 interface HandleImageOptions {
-  value: File | string;
-  onChange: (value: File) => void
+  value: string;
+  onChange: (value: string) => void
 }
 
 const HandleImage = ({ value, onChange }: HandleImageOptions) => {
   const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>('')
 
   useEffect(() => {
-    if (value) {
+    if (value && typeof value === 'string') {
       setPreviewImage(String(value))
+      onChange(value)
     }
   }, [value])
 
   const handleFileInputImageChange = (e: FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
-    const imageFile: File = (target.files as FileList)[0];
+    const imageFile: any = (target.files as FileList)[0];
     onChange(imageFile);
 
     const reader = new FileReader();
@@ -35,9 +36,11 @@ const HandleImage = ({ value, onChange }: HandleImageOptions) => {
         onChange={handleFileInputImageChange}
       ></input>
       {previewImage ? (
-        <div className="previewImage">
+        <label htmlFor="input-image" >
+          <div className="previewImage">
           <img src={previewImage as string} alt=""></img>
-        </div>
+          </div>
+        </label>
       ) : (
           <label htmlFor="input-image" >
             <div className="select-image" >

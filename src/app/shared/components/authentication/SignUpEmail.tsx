@@ -71,10 +71,6 @@ const SignUpEmail = ({
     isLoading,
     message,
     error,
-    dispatch,
-    handleShowSignInEmail,
-    handleAddNotification,
-    handleShowLoading,
   ]);
 
   useEffect(() => {

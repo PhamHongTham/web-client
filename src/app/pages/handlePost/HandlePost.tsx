@@ -1,91 +1,59 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import { useForm, Controller } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { RootState } from 'app/stores/app-reducer';
-import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
-import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
-import {
-  createNewPostRequest,
-  fetchSpecificArticleRequest,
-  saveInfoPost,
-  updatePostRequest,
-} from 'app/stores/article/actions';
-import axios from 'axios';
-import axiosClient from 'app/shared/core/services/axios-client';
 import Editor from './partials/Editor';
 import PopupPublish from './partials/PopupPublish';
+import { fetchSpecificArticleRequest, saveInfoPost } from 'app/stores/post/actions';
+import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
 
-const HandlePost = (props: any) => {
+const HandlePost = () => {
   const dispatch = useDispatch();
-  const { register, handleSubmit, watch, control, formState: { errors }, reset } = useForm({});
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+    reset,
+  } = useForm({});
   const { id }: { id: string } = useParams();
-  const [post, setPost] = useState<any>('')
+  const [post, setPost] = useState<any>(null);
 
   const [showPopupPublish, setShowPopupPublish] = useState<boolean>(false);
+  const { handleShowLoading } = useContext(LoadingContext)
 
-  // useEffect(() => {
-  //   return () => {
-  //     setShowPopupPublish(false)
-  //   }
-  // }, [])
+  useEffect(() => {
+    handleShowLoading(true)
+    dispatch(fetchSpecificArticleRequest(id)).then((res: any) => {
+      setPost(res)
+      reset({
+        content: res?.content
+      })
+      handleShowLoading(false)
+    })
+  }, [])
 
-  // useEffect(() => {
-  //   dispatch(fetchSpecificArticleRequest(id)).then((res: any) => {
-  //     setPost(res)
-  //     reset({
-  //       content: res?.content
-  //     })
-  //   })
-  // }, [])
-
-  const onSubmit = (data: { title: string, description: string, content: string }) => {
-    setShowPopupPublish(true)
-    dispatch(saveInfoPost(data))
-    // CHECK CREATE OR UPDATE
-    // if (currentArticle?.cover) {
-    //   // CHECK IMAGE CHANGE
-    //   if (imageFile) {
-    //     let { signedRequest, url }: any = await getUrlImage();
-    //     newPost = {
-    //       ...data,
-    //       tags: listTags,
-    //       cover: url as string,
-    //       content: contentPost,
-    //     };
-    //     dispatch(updatePostRequest(newPost, id));
-    //     axios.put(signedRequest, imageFile);
-    //   } else {
-    //     newPost = {
-    //       ...data,
-    //       tags: listTags,
-    //       cover: currentArticle?.cover,
-    //       content: contentPost,
-    //     };
-    //     dispatch(updatePostRequest(newPost, id));
-    //   }
-    // } else {
-    //   if (imageFile) {
-    //     let { signedRequest, url }: any = await getUrlImage();
-    //     newPost = {
-    //       ...data,
-    //       tags: listTags,
-    //       cover: url as string,
-    //       content: contentPost,
-    //     };
-    //     await dispatch(createNewPostRequest(newPost));
-    //     clearFormHandlePost();
-    //     axios.put(signedRequest, imageFile);
-    //   }
-    // }
+  const onSubmit = (data: {
+    title: string;
+    description: string;
+    content: string;
+  }) => {
+    setShowPopupPublish(true);
+    dispatch(saveInfoPost(data));
   };
 
   return (
     <section className="section-editor">
-      {
-        showPopupPublish ? (<PopupPublish showPopupPublish={showPopupPublish} setShowPopupPublish={setShowPopupPublish} />) : <div className="container">
+      {showPopupPublish ? (
+        <PopupPublish
+          post={post}
+          showPopupPublish={showPopupPublish}
+          setShowPopupPublish={setShowPopupPublish}
+        />
+      ) : ''}
+      <div className="container">
         <h2 className="editor-title">Boogle Editor</h2>
         <form className="form-handle-post" onSubmit={handleSubmit(onSubmit)}>
           <input
@@ -111,16 +79,11 @@ const HandlePost = (props: any) => {
               render={({
                 field: { onChange, onBlur, value, name, ref },
                 formState,
-              }) => (
-                <Editor value={''} onChange={onChange} />
-              )}
+              }) => <Editor value={post ? post.content : ''} onChange={onChange} />}
             />
-            <button className="btn btn-primary">
-              Publish
-            </button>
+          <button className="btn btn-primary">Publish</button>
         </form>
       </div>
-      }
     </section>
   );
 };
