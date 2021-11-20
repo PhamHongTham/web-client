@@ -1,0 +1,18 @@
+.medium-editor-element {
+  min-height: 430px !important;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 1rem;
+  outline: none;
+}
+.medium-editor-toolbar li .medium-editor-button-active {
+  background: map-get($color, 'primary') !important;
+  color: map-get($color, 'black-midnight') !important;
+}
+::selection {
+  background: map-get($color, 'primary');
+  color: map-get($color, 'white-snow');
+}
+.editable{
+  margin-bottom: 1rem;
+}

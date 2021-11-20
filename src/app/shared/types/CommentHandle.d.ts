@@ -1,0 +1,3 @@
+interface CommentHanldeOptions {
+  content: string;
+}

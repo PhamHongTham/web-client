@@ -9,6 +9,7 @@ import UpdateInfo from './pages/updateInfo/UpdateInfo';
 import ChangePassword from './pages/resetPassword/ChangePassword';
 import Detail from './pages/detail/Detail';
 import Wall from './pages/user/Wall';
+import HandlePost from './pages/handlePost/HandlePost';
 
 function App() {
 
@@ -21,6 +22,8 @@ function App() {
         <Route path="/user/update" component={UpdateInfo} />
         <Route path="/wall" component={Wall} />
         <Route path="/user/changepass" component={ChangePassword} />
+        <Route path="/post/handle" exact component={HandlePost} />
+        <Route path="/post/handle/:id" component={HandlePost} />
       </Switch>
       <Footer />
     </>
