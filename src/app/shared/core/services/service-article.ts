@@ -1,9 +1,8 @@
-import { articleOptions } from 'app/shared/models/article-interface';
 import { PostHandleOptions } from 'app/shared/types/PostHandle';
 import axiosClient from './axios-client';
 import axios from 'axios';
-import { HandleThunkActionCreator } from 'react-redux';
 import { HandleFollowOptions } from 'app/shared/types/HandleFollow';
+import { postOptions } from 'app/shared/models/post-interface';
 
 export const getRecommendPost = (params: { page: number; size: number }): any =>
   axiosClient.get('posts/public', { params });
@@ -15,7 +14,7 @@ export const getSignUrl = (
   typeUpload: string,
   fileName: string,
   fileType: string
-): Promise<articleOptions[]> =>
+): Promise<postOptions[]> =>
   axiosClient.get(
     `/signatures?type_upload=${typeUpload}&file_name=${fileName}&file_type=${fileType}`
   );
