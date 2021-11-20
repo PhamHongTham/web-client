@@ -109,7 +109,6 @@ const Detail = () => {
                 </div>
               </aside>
               <article className="article-detail col-8">
-                {/* {isLoading && <h2>Loading...</h2>} */}
                 <div className="article-header">
                   <h2 className="article-title">{post.title}</h2>
                 </div>

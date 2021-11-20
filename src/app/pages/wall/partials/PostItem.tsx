@@ -21,7 +21,6 @@ const PostItem = ({ post, handleDeletePost }: { post: postOptions; handleDeleteP
         </Link>
         <div className="item-description">{description}</div>
         <ul className="sub-info-list">
-          <li className="sub-info-item">{timeSince}</li>
           <li className="sub-info-item">
             {' '}
             Tags:
@@ -33,6 +32,7 @@ const PostItem = ({ post, handleDeletePost }: { post: postOptions; handleDeleteP
               );
             })}
           </li>
+          <li className="sub-info-item">{timeSince}</li>
         </ul>
       </div>
       <div className="sign-optional">
