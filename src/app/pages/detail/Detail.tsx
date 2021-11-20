@@ -1,6 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
 
-import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
