@@ -1,4 +1,4 @@
-import { removeInfoUserLocalStorage } from "app/shared/helper/LocalAction";
+import { localStorageOption } from "app/shared/helper/LocalAction";
 
 export const apiWrapper = async (api: any, dispatch: any) => {
   try {
@@ -6,7 +6,7 @@ export const apiWrapper = async (api: any, dispatch: any) => {
     return res;
   } catch (error: any) {
     if (error.response.status === 401) {
-      removeInfoUserLocalStorage();
+      localStorageOption.remove();
       dispatch({
         type: 'CLEAR_SESSION',
         payload: error.response.data,

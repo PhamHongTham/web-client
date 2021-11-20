@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   error: null,
   message: null,
+  infoPost: null,
 };
 
 const articleReducer = (

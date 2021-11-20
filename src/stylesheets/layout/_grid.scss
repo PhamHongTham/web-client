@@ -13,7 +13,23 @@
     }
   }
 }
+@mixin create-offset-system($sizeScreen) {
+  @for $i from 0 through 12 {
+    @if (str-length($sizeScreen) > 0) {
+      .offset-#{$sizeScreen}-#{$i} {
+        margin-left: percentage($i / 12);
+        padding: 0 1.5rem;
+      }
+    } @else {
+      .offset-#{$i} {
+        margin-left: percentage($i / 12);
+        padding: 0 1.5rem;
+      }
+    }
+  }
+}
 @include create-grid-system('');
+@include create-offset-system('');
 .row {
   display: flex;
   align-items: center;
@@ -39,6 +55,7 @@
 }
 @media screen and (max-width: 992px) {
   @include create-grid-system('lg');
+  @include create-offset-system('lg');
   .container {
     max-width: 720px;
   }
@@ -49,8 +66,8 @@
     max-width: 540px;
   }
 }
-@media screen and (max-width: 400px) {
-  @include create-grid-system('md');
+@media screen and (max-width: 480px) {
+  @include create-grid-system('sm');
   .container {
     max-width: 320px;
   }

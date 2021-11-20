@@ -17,7 +17,7 @@ const PopupPublish = ({ showPopupPublish, setShowPopupPublish }: PopupPublish) =
   const { register, handleSubmit, watch, control, formState: { errors } } = useForm({});
   const [urlImage, setUrlImage] = useState<any>('')
   console.log(urlImage)
-  const { infoPost } = useSelector((state: RootState) => state.article)
+  const { infoPost } = useSelector((state: RootState) => state.post)
 
   const onSubmit = (data: any) => {
     const postData = {

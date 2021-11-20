@@ -13,7 +13,6 @@ import {
   followUser,
   getUrlImage,
 } from 'app/shared/core/services/service-article';
-import { removeInfoUserLocalStorage } from 'app/shared/helper/LocalAction';
 import { HandleFollowOptions } from 'app/shared/types/HandleFollow';
 import { PostHandleOptions } from 'app/shared/types/PostHandle';
 

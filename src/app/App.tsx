@@ -5,10 +5,9 @@ import '../stylesheets/styles.scss';
 import Header from './shared/components/Header';
 import Home from './pages/home/Home';
 import Footer from './shared/components/Footer';
-import UpdateInfo from './pages/updateInfo/UpdateInfo';
 import ChangePassword from './pages/resetPassword/ChangePassword';
 import Detail from './pages/detail/Detail';
-import HandlePost from './pages/handlePost/HandlePost';
+import Wall from './pages/user/Wall';
 
 function App() {
 
@@ -18,10 +17,8 @@ function App() {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/detail/:id" exact component={Detail} />
-        <Route path="/user/update" component={UpdateInfo} />
+        <Route path="/wall" component={Wall} />
         <Route path="/user/changepass" component={ChangePassword} />
-        <Route path="/post/handle" exact component={HandlePost} />
-        <Route path="/post/handle/:id" component={HandlePost} />
       </Switch>
       <Footer />
     </>
