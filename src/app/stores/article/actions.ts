@@ -1,10 +1,10 @@
 import { articleConstant } from 'app/shared/constants/articleConstant';
 import { apiWrapper } from 'app/shared/core/services/apiWrapper';
-import axiosClient from 'app/shared/core/services/axios-client';
+// import axiosClient from 'app/shared/core/services/axios-client';
 import {
   getRecommendPost,
   getSpecificArticle,
-  upLoadImage,
+  // upLoadImage,
   createNewPost,
   updatePost,
   likePost,
@@ -64,7 +64,7 @@ export const getCommentPostRequest: any =
   };
 
 export const commentPostRequest: any =
-  (postId: string, post: CommentHanldeOptions) => async (dispatch: any) => {
+  (postId: string, post: CommentHandleOptions) => async (dispatch: any) => {
     return apiWrapper(() => commentPost(postId, post), dispatch);
   };
 

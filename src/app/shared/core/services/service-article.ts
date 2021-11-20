@@ -2,7 +2,7 @@ import { PostHandleOptions } from 'app/shared/types/PostHandle';
 import axiosClient from './axios-client';
 import axios from 'axios';
 import { HandleFollowOptions } from 'app/shared/types/HandleFollow';
-import { postOptions } from 'app/shared/models/post-interface';
+// import { postOptions } from 'app/shared/models/post-interface';
 
 export const getRecommendPost = (params: { page: number; size: number }): any =>
   axiosClient.get('posts/public', { params });
@@ -37,7 +37,7 @@ export const likePost = (postId: string): any =>
 export const getCommentPost = (postId: string): any =>
   axiosClient.get(`posts/${postId}/comments`);
 
-export const commentPost = (postId: string, post: CommentHanldeOptions): any =>
+export const commentPost = (postId: string, post: CommentHandleOptions): any =>
   axiosClient.post(`posts/${postId}/comments`, post);
 
 export const followUser = (data: HandleFollowOptions): any =>

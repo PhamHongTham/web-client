@@ -5,7 +5,7 @@
     border-bottom: 1px solid map-get($color, 'gray-stone');
   }
   .wall-list {
-    .wall-item {
+    .post-item {
       @include flex-center-between;
       height: 10rem;
       margin: 2rem auto;
@@ -29,19 +29,16 @@
         height: 100%;
         flex: 1;
         .item-title {
-          @include text-overflow(1);
-          height: 25%;
+          @include text-overflow(2);
         }
         .item-description {
-          @include text-overflow(2);
-          height: 40%;
+          @include text-overflow(3);
         }
         .sub-info-list {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
           justify-content: space-between;
-          height: 35%;
           .sub-info-item {
             font-size: map-get($font-size, 'sm');
             color: map-get($color, 'gray-smoke');
@@ -109,18 +106,28 @@
     }
   }
 }
+@media screen and (max-width: 992px) {
+  .wall {
+    .author-interact {
+      display: none;
+    }
+  }
+}
 @media screen and (max-width: 768px) {
   .wall {
     .wall-list {
-      .wall-item {
+      .post-item {
         height: 8rem;
         .item-img {
           width: 10rem;
         }
-        .item-content {
+        .item-detail {
           .item-title {
             @include text-overflow(1);
             margin: 0.2rem 0;
+          }
+          .item-description {
+            @include text-overflow(2);
           }
         }
       }

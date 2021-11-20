@@ -3,7 +3,7 @@ import SkeletonElement from './SkeletonElement';
 
 const SkeletonPost = () => {
   return (
-    <li className="wall-item">
+    <li className="post-item">
       <div className="item-img">
         <SkeletonElement type="image" />
       </div>

@@ -1,3 +1,3 @@
-interface CommentHanldeOptions {
+interface CommentHandleOptions {
   content: string;
 }

@@ -26,11 +26,11 @@ const Post = ({ post }: { post: postOptions }) => {
           <Link to="/" className="post-creator-info">
             <img
               src={
-                user&&user.picture
+                user && user.picture
                   ? `${user.picture}`
                   : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTht9-qZYmqErdGMhJVbRf7BfhLRGspNWaFnR8nddu3x7Da7nqh23vsG6VWtG_VE9G9kLU&usqp=CAU'
               }
-              alt=""
+              alt={user?.displayName}
               className="author-avatar"
             />
             <div className="author-info">
