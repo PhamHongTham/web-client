@@ -115,6 +115,23 @@
         }
       }
     }
+    .form-comment{
+      display: flex;
+      align-items: center;
+      margin-top: 1rem;
+      .comment-input{
+        border: 1px solid #e5e5e5;
+        width: 100%;
+        padding: .6rem 1rem;
+        outline: none;
+        font-size: map-get($font-size, 'lg');
+        margin-right: 1rem;
+      }
+      button{
+        width: 150px;
+        height: 40px;
+      }
+    }
   }
 }
 @media screen and(max-width: 992px) {

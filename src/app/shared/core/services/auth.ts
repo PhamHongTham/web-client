@@ -8,3 +8,4 @@ export const signUp = (user: UserLoginOptions) :any => axiosClient.post('/users/
 export const getUserInfo = () :any => axiosClient.get('/users/me');
 export const changePassword = (data: PasswordOptions) :any => axiosClient.put('/users/change-password', data);
 export const updateUserInfo = (data: UserInfoOptions) :any => axiosClient.put('/users/me', data);
+export const getUserInfoById = (id: string) :any => axiosClient.get(`/users/${id}`);
