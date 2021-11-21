@@ -12,7 +12,6 @@ import { localStorageOption } from 'app/shared/helper/LocalAction';
 
 const Wall = () => {
   const { posts, isLoading }: any = useSelector((state: RootState) => state.post);
-  console.log(posts);
   const currentUserId = localStorageOption.getUserId;
   const dispatch = useDispatch();
   useEffect(() => {

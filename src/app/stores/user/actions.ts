@@ -17,7 +17,6 @@ export const loginRequest = (userInfo: UserLoginOptions) => async (dispatch: any
   dispatch({ type: UserConstant.LOGIN_REQUEST, payload: userInfo });
   try {
     const data = await login(userInfo);
-    console.log(data);
     dispatch({ type: UserConstant.LOGIN_SUCCESS, payload: data });
     localStorageOption.setUserToken(JSON.stringify(data.accessToken));
     localStorageOption.setUserId(JSON.stringify(data.userInfo.id));
@@ -78,7 +77,6 @@ export const changePasswordRequest = (info: PasswordOptions) => async (dispatch:
     dispatch({ type: UserConstant.CHANGE_PASSWORD_SUCCESS, payload: data });
   } catch (error: any) {
     if (error.response.status === 401) {
-      console.log(error.response.data);
       localStorageOption.remove();
       dispatch({
         type: UserConstant.CHANGE_PASSWORD_FAILURE,
