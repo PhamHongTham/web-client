@@ -47,12 +47,11 @@ const HandlePost = () => {
   useEffect(() => {
     handleShowLoading(true);
     dispatch(fetchSpecificArticleRequest(id)).then((res: any) => {
-      console.log(res)
       setPost(res);
       reset(res);
       handleShowLoading(false);
     });
-  }, []);
+  }, [id]);
 
   const onSubmit = (data: {
     title: string;

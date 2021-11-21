@@ -10,7 +10,7 @@ interface HandleEditorOptions {
 }
 
 const Editor = ({ value, onChange }: HandleEditorOptions) => {
-  const refEditor: any = useRef();
+  const refEditor: any = useRef(null);
 
   useEffect(() => {
     let editor = new MediumEditor('.editable', {
@@ -62,7 +62,6 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
       'editableInput',
       function (event: any, editable: any) {
         if (onChange && typeof onChange === 'function') {
-          console.log(editable.innerHTML)
           onChange(editable.innerHTML);
         }
       }
@@ -70,14 +69,12 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
   }, []);
 
   useEffect(() => {
-    if (value && typeof value === 'string') {
-      refEditor.current.setContent(value);
-    }
-  }, [value]);
+    refEditor.current.setContent(value);
+  }, [value])
 
   return (
     <>
-      <div className="editable" ref={refEditor}></div>
+      <div className="editable"></div>
     </>
   );
 };
