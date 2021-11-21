@@ -1,19 +1,21 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 
 interface HandleImageOptions {
-  value: string;
-  onChange: (value: string) => void
+  value: any;
+  onChange: (value: any) => void;
 }
 
 const HandleImage = ({ value, onChange }: HandleImageOptions) => {
-  const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>('')
+  const [previewImage, setPreviewImage] = useState<string | ArrayBuffer | null>(
+    ''
+  );
 
   useEffect(() => {
     if (value && typeof value === 'string') {
-      setPreviewImage(String(value))
-      onChange(value)
+      setPreviewImage(String(value));
+      onChange(value);
     }
-  }, [value])
+  }, [value]);
 
   const handleFileInputImageChange = (e: FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -36,14 +38,15 @@ const HandleImage = ({ value, onChange }: HandleImageOptions) => {
         onChange={handleFileInputImageChange}
       ></input>
       {previewImage ? (
-        <label htmlFor="input-image" >
+        <label htmlFor="input-image">
           <div className="previewImage">
-          <img src={previewImage as string} alt=""></img>
+            <img src={previewImage as string} alt=""></img>
           </div>
         </label>
       ) : (
-          <label htmlFor="input-image" >
-            <div className="select-image" >
+          <label htmlFor="input-image">
+            <div className="select-image">
+              <i className="fal fa-camera"></i>
             </div>
           </label>
       )}

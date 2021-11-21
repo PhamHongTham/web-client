@@ -1,5 +1,14 @@
 import { postConstant } from 'app/shared/constants/postConstant';
-import { commentPost, createNewPost, followUser, getCommentPost, getUrlImage, likePost, updatePost } from 'app/shared/core/services/service-article';
+import {
+  commentPost,
+  createNewPost,
+  followUser,
+  getCommentPost,
+  getUrlImage,
+  likePost,
+  updatePost,
+  upLoadImage,
+} from 'app/shared/core/services/service-article';
 import {
   getNewPost,
   getSpecificPost,
@@ -9,8 +18,6 @@ import {
 } from 'app/shared/core/services/service-post';
 import { HandleFollowOptions } from 'app/shared/types/HandleFollow';
 import { PostHandleOptions } from 'app/shared/types/PostHandle';
-
-
 
 const apiWrapper = async (api: any, dispatch: any) => {
   try {
@@ -30,19 +37,18 @@ const apiWrapper = async (api: any, dispatch: any) => {
       });
     }
   }
-}
+};
 export const fetchSpecificArticleRequest: any =
   (id: any) => async (dispatch: any) => {
-    return apiWrapper(() => getSpecificPost(id), dispatch)
+    return apiWrapper(() => getSpecificPost(id), dispatch);
   };
 
 export const fetchPostRequest = (size: any) => async (dispatch: any) => {
   dispatch({ type: postConstant.FETCH_POST_REQUEST });
   try {
     const res = await getNewPost(size);
-    dispatch({ type: postConstant.FETCH_POST_SUCCESS, payload: res});
+    dispatch({ type: postConstant.FETCH_POST_SUCCESS, payload: res });
   } catch (error: any) {
-    console.log(error);
     dispatch({
       type: postConstant.FETCH_POST_FAILURE,
       payload: error.response.data,
@@ -56,7 +62,6 @@ export const fetchSpecificPostRequest = (id: any) => async (dispatch: any) => {
     const res = await getSpecificPost(id);
     dispatch({ type: postConstant.FETCH_SPECIFIC_POST_SUCCESS, payload: res });
   } catch (error: any) {
-    console.log(error);
     dispatch({
       type: postConstant.FETCH_SPECIFIC_POST_FAILURE,
       payload: error.response.data,
@@ -64,27 +69,29 @@ export const fetchSpecificPostRequest = (id: any) => async (dispatch: any) => {
   }
 };
 
-export const fetchRecommendPostRequest = (pageNumber: any) => async (dispatch: any) => {
-  dispatch({ type: postConstant.FETCH_MORE_POST_REQUEST });
-  try {
-    const res = await getRecommendPost(pageNumber);
-    dispatch({ type: postConstant.FETCH_MORE_POST_SUCCESS, payload: res });
-  } catch (error: any) {
-    console.log(error);
-    dispatch({
-      type: postConstant.FETCH_MORE_POST_FAILURE,
-      payload: error.response.data,
-    });
-  }
-};
+export const fetchRecommendPostRequest =
+  (pageNumber: any) => async (dispatch: any) => {
+    dispatch({ type: postConstant.FETCH_MORE_POST_REQUEST });
+    try {
+      const res = await getRecommendPost(pageNumber);
+      dispatch({ type: postConstant.FETCH_MORE_POST_SUCCESS, payload: res });
+    } catch (error: any) {
+      dispatch({
+        type: postConstant.FETCH_MORE_POST_FAILURE,
+        payload: error.response.data,
+      });
+    }
+  };
 
 export const fetchUserPostRequest = (userId: any) => async (dispatch: any) => {
   dispatch({ type: postConstant.FETCH_USER_POST_REQUEST });
   try {
     const res = await getUserPost(userId);
-    dispatch({ type: postConstant.FETCH_USER_POST_SUCCESS, payload: res.Posts });
+    dispatch({
+      type: postConstant.FETCH_USER_POST_SUCCESS,
+      payload: res.Posts,
+    });
   } catch (error: any) {
-    console.log(error);
     dispatch({
       type: postConstant.FETCH_USER_POST_FAILURE,
       payload: error.response,
@@ -94,13 +101,13 @@ export const fetchUserPostRequest = (userId: any) => async (dispatch: any) => {
 
 export const deleteUserPostRequest = (postId: any) => async (dispatch: any) => {
   dispatch({ type: postConstant.DELETE_USER_POST_REQUEST });
-  console.log(postId)
   try {
     const res = await deleteUserPost(postId);
-    console.log(res)
-    dispatch({ type: postConstant.DELETE_USER_POST_SUCCESS, payload: {postId,message:res} });
+    dispatch({
+      type: postConstant.DELETE_USER_POST_SUCCESS,
+      payload: { postId, message: res },
+    });
   } catch (error: any) {
-    console.log(error);
     dispatch({
       type: postConstant.DELETE_USER_POST_FAILURE,
       payload: error.response,
@@ -112,6 +119,14 @@ export const getUrlImageRequest: any =
   (imageFile: File) => async (dispatch: any) => {
     return apiWrapper(() => getUrlImage(imageFile), dispatch);
   };
+
+export const uploadImage: any = (imageFile: File) => async (dispatch: any) => {
+  return apiWrapper(async () => {
+    const { signedRequest, url }: any = await getUrlImage(imageFile);
+    await upLoadImage(signedRequest, imageFile);
+    return url;
+  }, dispatch);
+};
 
 export const createNewPostRequest: any =
   (post: PostHandleOptions) => async (dispatch: any) => {
@@ -134,7 +149,7 @@ export const getCommentPostRequest: any =
   };
 
 export const commentPostRequest: any =
-  (postId: string, post: CommentHanldeOptions) => async (dispatch: any) => {
+  (postId: string, post: CommentHandleOptions) => async (dispatch: any) => {
     return apiWrapper(() => commentPost(postId, post), dispatch);
   };
 

@@ -21,7 +21,7 @@ const NewPost = () => {
     } else {
       dispatch(fetchPostRequest(elementQuantity));
     }
-  }, [elementQuantity,userCurrent]);
+  }, [elementQuantity, userCurrent]);
   const observer: any = useRef();
   const lastPostElementRef = useCallback(
     (node) => {

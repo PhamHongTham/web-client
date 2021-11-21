@@ -1,87 +1,80 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+
 import { useForm, Controller } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { useHistory } from 'react-router';
+
 import HandleTag from './HandleTag';
 import HandleStatus from './HandleStatus';
 import HandleImage from './HandleImage';
-import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'app/stores/app-reducer';
+import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
+import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
 import {
   createNewPostRequest,
-  getUrlImageRequest,
   updatePostRequest,
+  uploadImage,
 } from 'app/stores/post/actions';
-import axios from 'axios';
-import { useHistory } from 'react-router';
-import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
-import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider'
 
 interface PopupPublish {
-  post: any;
   showPopupPublish: boolean;
   setShowPopupPublish: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const PopupPublish = ({
-  post,
   showPopupPublish,
   setShowPopupPublish,
 }: PopupPublish) => {
-  console.log(post)
   const dispatch = useDispatch();
   const history = useHistory();
+  const schema = yup.object().shape({
+    cover: yup.mixed().required('File is required'),
+    tags: yup.array().required('Tags is require'),
+    status: yup.string().required('Satus is require'),
+  });
   const {
-    register,
     handleSubmit,
-    watch,
     control,
     formState: { errors },
-  } = useForm({});
+    reset,
+  } = useForm({ resolver: yupResolver(schema) });
   const { infoPost }: any = useSelector((state: RootState) => state.post);
 
-  const { handleShowLoading } = useContext(LoadingContext)
-  const { handleAddNotification } = useContext(NotificationContext)
+  useEffect(() => {
+    if (infoPost) {
+      reset(infoPost);
+    }
+  }, [infoPost]);
+
+  const { handleShowLoading } = useContext(LoadingContext);
+  const { handleAddNotification } = useContext(NotificationContext);
 
   const onSubmit = async (data: any) => {
-    handleShowLoading(true)
+    handleShowLoading(true);
     const postData = {
       ...infoPost,
       ...data,
     };
-    // CHECK UPDATE OR CREATE
-    if (post) {
-      // CHECK IMAGE COVER CHANGE
-      if (typeof postData.cover === 'string') {
-        await dispatch(updatePostRequest(postData, String(post.id)));
-      } else {
-        await dispatch(getUrlImageRequest(postData.cover)).then((res: any) => {
-          let { signedRequest, url }: any = res;
-          let postData = {
-            ...infoPost,
-            ...data,
-            cover: url,
-          };
-          dispatch(updatePostRequest(postData, String(post.id)));
-          axios.put(signedRequest, data?.cover);
-        });
-      }
-      handleAddNotification({ type: 'SUCCESS', message: 'Updated new post' })
-    } else {
-      await dispatch(getUrlImageRequest(postData.cover)).then((res: any) => {
-        let { signedRequest, url }: any = res;
-        let postData = {
-          ...infoPost,
-          ...data,
-          cover: url,
-        };
-        console.log(postData);
-        dispatch(createNewPostRequest(postData)).then((res: any) =>
-          console.log(res)
-        );
-        axios.put(signedRequest, data?.cover);
-      });
-      handleAddNotification({ type: 'SUCCESS', message: 'Created new post' })
+    if (postData.cover instanceof File) {
+      const url = await dispatch(uploadImage(postData.cover));
+      postData.cover = url;
     }
-    handleShowLoading(false)
+    if (infoPost?.id) {
+      await dispatch(updatePostRequest(postData, String(infoPost.id))).then(
+        () => {
+          history.push(`/detail/${infoPost.id}`);
+        }
+      );
+      handleAddNotification({ type: 'SUCCESS', message: 'Updated new post' });
+    } else {
+      await dispatch(createNewPostRequest(postData)).then((res: any) => {
+        history.push(`/detail/${res.id}`);
+      });
+      handleAddNotification({ type: 'SUCCESS', message: 'Created new post' });
+    }
+    handleShowLoading(false);
   };
 
   return (
@@ -101,12 +94,14 @@ const PopupPublish = ({
                 control={control}
                 name="cover"
                 render={({ field: { onChange, onBlur, value, name, ref } }) => (
-                  <HandleImage
-                    value={post ? post.cover : value}
-                    onChange={onChange}
-                  />
+                  <HandleImage value={value} onChange={onChange} />
                 )}
               />
+              {errors.cover ? (
+                <p className="error">{errors.cover.message}</p>
+              ) : (
+                ''
+              )}
             </div>
             <div className="col-6 col-md-12">
               <h3 className="publish-description">
@@ -116,12 +111,14 @@ const PopupPublish = ({
                 control={control}
                 name="status"
                 render={({ field: { onChange, onBlur, value, name, ref } }) => (
-                  <HandleStatus
-                    value={post ? post.status : value}
-                    onChange={onChange}
-                  />
+                  <HandleStatus value={value} onChange={onChange} />
                 )}
               />
+              {errors.status ? (
+                <p className="error">{errors.status.message}</p>
+              ) : (
+                ''
+              )}
               <p className="select-tags-description">
                 Note: You can only add 5 tags
               </p>
@@ -129,12 +126,14 @@ const PopupPublish = ({
                 control={control}
                 name="tags"
                 render={({ field: { onChange, onBlur, value, name, ref } }) => (
-                  <HandleTag
-                    value={post ? post.tags : []}
-                    onChange={onChange}
-                  />
+                  <HandleTag value={value} onChange={onChange} />
                 )}
               />
+              {errors.tags ? (
+                <p className="error">{errors.tags.message}</p>
+              ) : (
+                ''
+              )}
               <button className="btn btn-primary">Publish Now</button>
             </div>
           </div>

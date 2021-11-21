@@ -1,17 +1,20 @@
 .wall {
   margin: 3rem auto;
+  .section-header {
+    height: 3rem;
+    border-bottom: 1px solid map-get($color, 'gray-stone');
+  }
   .wall-list {
-    border-top: 1px solid #eee;
-    margin: 2rem auto;
-    .wall-item {
+    .post-item {
       @include flex-center-between;
       height: 10rem;
-      margin-bottom: 4rem;
+      margin: 2rem auto;
       align-items: flex-end;
       .item-img {
         width: 12.5rem;
         height: 100%;
         margin-right: 1rem;
+        overflow: hidden;
         .item-image {
           height: 100%;
           aspect-ratio: 4/3;
@@ -26,19 +29,16 @@
         height: 100%;
         flex: 1;
         .item-title {
-          @include text-overflow(1);
-          height:20%;
+          @include text-overflow(2);
         }
         .item-description {
-          @include text-overflow(2);
-          height:45%;
+          @include text-overflow(3);
         }
         .sub-info-list {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
           justify-content: space-between;
-          height:35%;
           .sub-info-item {
             font-size: map-get($font-size, 'sm');
             color: map-get($color, 'gray-smoke');
@@ -49,7 +49,7 @@
               overflow: hidden;
               text-overflow: ellipsis;
               max-width: 5rem;
-              margin:0 0.5rem;
+              margin: 0 0.5rem;
               border-radius: 99rem;
               border: none;
               outline: none;
@@ -91,8 +91,8 @@
           visibility: hidden;
           opacity: 0;
           .option-item {
-            padding: .5rem 1rem;
-            border-bottom: 1px dashed map-get($color , "gray-stone" );
+            padding: 0.5rem 1rem;
+            border-bottom: 1px dashed map-get($color, 'gray-stone');
             white-space: nowrap;
             transition: 0.3s;
             &:hover {
@@ -106,18 +106,28 @@
     }
   }
 }
+@media screen and (max-width: 992px) {
+  .wall {
+    .author-interact {
+      display: none;
+    }
+  }
+}
 @media screen and (max-width: 768px) {
   .wall {
     .wall-list {
-      .wall-item {
+      .post-item {
         height: 8rem;
         .item-img {
           width: 10rem;
         }
-        .item-content {
+        .item-detail {
           .item-title {
             @include text-overflow(1);
             margin: 0.2rem 0;
+          }
+          .item-description {
+            @include text-overflow(2);
           }
         }
       }

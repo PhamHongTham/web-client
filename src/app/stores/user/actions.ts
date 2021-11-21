@@ -19,7 +19,6 @@ export const loginRequest =
     dispatch({ type: UserConstant.LOGIN_REQUEST, payload: userInfo });
     try {
       const data = await login(userInfo);
-      console.log(data);
       dispatch({ type: UserConstant.LOGIN_SUCCESS, payload: data });
       localStorageOption.setUserToken(JSON.stringify(data.accessToken));
       localStorageOption.setUserId(JSON.stringify(data.userInfo.id));
@@ -82,7 +81,6 @@ export const changePasswordRequest =
       dispatch({ type: UserConstant.CHANGE_PASSWORD_SUCCESS, payload: data });
     } catch (error: any) {
       if (error.response.status === 401) {
-        console.log(error.response.data);
         localStorageOption.remove();
         dispatch({
           type: UserConstant.CHANGE_PASSWORD_FAILURE,
@@ -126,6 +124,13 @@ export const getUserInfoByIdRequest: any =
   (id: string) => async (dispatch: any) => {
     return apiWrapper(() => getUserInfoById(id), dispatch);
   };
+
+export const showModalSignInRequest = (value: boolean) => {
+  return {
+    type: UserConstant.SHOW_MODAL_SIGN_IN,
+    payload: value,
+  };
+};
 
 export const clearUserState = () => {
   return {

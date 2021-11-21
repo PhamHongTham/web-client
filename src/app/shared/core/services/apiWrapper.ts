@@ -1,4 +1,4 @@
-import { localStorageOption } from "app/shared/helper/LocalAction";
+import { localStorageOption } from 'app/shared/helper/LocalAction';
 
 export const apiWrapper = async (api: any, dispatch: any) => {
   try {
@@ -18,4 +18,4 @@ export const apiWrapper = async (api: any, dispatch: any) => {
       });
     }
   }
-}
+};

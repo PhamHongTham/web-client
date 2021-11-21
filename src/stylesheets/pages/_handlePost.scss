@@ -3,20 +3,25 @@
     font-size: 40px;
     text-align: center;
     margin: 2rem 0;
+    color: map-get($color, 'black-midnight');
   }
   .form-handle-post {
     display: flex;
     flex-direction: column;
-    align-items: center;
     input {
       width: 100%;
       border: none;
       outline: none;
       padding: 0 1rem;
       margin-bottom: 1rem;
+      font-family: $font-family;
+      &::placeholder{
+        color: map-get($color, 'gray-smoke');
+      }
     }
     .input-post-title {
       font-size: map-get($font-size, 'xxxxxl');
+      font-weight: 300;
     }
     .input-post-description,
     .input-tag,
@@ -25,6 +30,14 @@
     }
     button {
       width: 200px;
+      margin: 0 auto;
+    }
+    .error{
+      color: red;
+      font-size: map-get($font-size, 'sm');
+      margin-top: -1rem;
+      margin-bottom: .5rem;
+      margin-left: 1rem;
     }
   }
   .publish-post {
@@ -73,21 +86,32 @@
       }
       .select-image{
         height: 280px;
-        background: #eee;
+        border: 1px solid #ddd;
         width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        i{
+          font-size: map-get($font-size, 'xxxxxl');
+          color: map-get($color, 'gray-smoke');
+        }
       }
       .select-tags-description {
         font-size: map-get($font-size, 'normal');
         color: map-get($color, 'black-midnight');
         margin-bottom: 0.5rem;
+        margin-top: 2rem;
       }
-      .select-status,
-      .select-tags {
-        margin-bottom: 3rem;
+      .error{
+        color: red;
+        font-size: map-get($font-size, 'sm');
+        padding: .3rem 0;
       }
       button {
         width: 150px;
         height: 40px;
+        margin-top: 2rem;
       }
     }
   }

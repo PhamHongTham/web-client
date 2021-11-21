@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import MediumEditor from 'medium-editor';
 import 'medium-editor/dist/css/medium-editor.min.css';
@@ -62,7 +62,7 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
       'editableInput',
       function (event: any, editable: any) {
         if (onChange && typeof onChange === 'function') {
-          onChange(editable.innerHTML)
+          onChange(editable.innerHTML);
         }
       }
     );
@@ -70,9 +70,9 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
 
   useEffect(() => {
     if (value && typeof value === 'string') {
-      refEditor.current.setContent(value)
+      refEditor.current.setContent(value);
     }
-  }, [value])
+  }, []);
 
   return (
     <>

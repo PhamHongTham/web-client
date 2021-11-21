@@ -10,7 +10,6 @@ const Newsfeed = () => {
   const { posts, isLoading, loadMore, message }: any = useSelector(
     (state: RootState) => state.post
   );
-  console.log(message);
   const [pageNumber, setPageNumber] = useState(1);
   const dispatch = useDispatch();
   useEffect(() => {

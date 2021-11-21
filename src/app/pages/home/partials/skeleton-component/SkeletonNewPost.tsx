@@ -1,7 +1,7 @@
 import React from 'react';
 import SkeletonElement from './SkeletonElement';
 
-const SkeletonNewPost = () => {
+const SkeletonNewPort = () => {
   return (
     <li className="list-item col-4 col-lg-6 col-md-12">
       <div className="card">
@@ -9,10 +9,10 @@ const SkeletonNewPost = () => {
           <SkeletonElement type="image" />
         </div>
         <div className="card-body post-content">
-          <SkeletonElement type="sub-title" />
+          <SkeletonElement type="title" />
           <SkeletonElement type="text-long" />
           <SkeletonElement type="text-long" />
-          <SkeletonElement type="text-medium" />
+          <SkeletonElement type="text-short" />
         </div>
         <div className="card-footer">
           <div className="post-creator-info">
@@ -28,4 +28,4 @@ const SkeletonNewPost = () => {
   );
 };
 
-export default SkeletonNewPost;
+export default SkeletonNewPort;

@@ -18,7 +18,9 @@ const HandleStatus = ({ value, onChange }: HandleStatusOptions) => {
         options={options}
         value={options.filter((item: any) => item.value === value)}
         placeholder="Select status"
-        onChange={(value: any) => onChange(value)}
+        onChange={(item: any) => {
+          onChange(item.value);
+        }}
       />
     </div>
   );

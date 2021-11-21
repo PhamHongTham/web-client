@@ -4,7 +4,8 @@ const initialState = {
   userCurrent: null,
   error: null,
   message: null,
-  anotherUser: null
+  anotherUser: null,
+  showModalSignIn: false,
 };
 export const userReducer = (state = initialState, action: any) => {
   switch (action.type) {
@@ -106,7 +107,7 @@ export const userReducer = (state = initialState, action: any) => {
       return {
         ...state,
         isLoading: false,
-        anotherUser: action.payload
+        anotherUser: action.payload,
       };
     }
     case UserConstant.GET_USER_INFO_BY_ID_FAILURE: {
@@ -121,6 +122,12 @@ export const userReducer = (state = initialState, action: any) => {
         userCurrent: null,
         error: null,
         message: null,
+      };
+    }
+    case UserConstant.SHOW_MODAL_SIGN_IN: {
+      return {
+        ...state,
+        showModalSignIn: action.payload,
       };
     }
 
