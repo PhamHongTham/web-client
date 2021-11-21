@@ -13,6 +13,7 @@ const NewPost = () => {
   const [posts, setPosts] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [elementQuantity, setElementQuantity] = useState(6);
+  const observer: any = useRef();
   const dispatch = useDispatch();
   useEffect(() => {
     if (userCurrent) {
@@ -29,7 +30,7 @@ const NewPost = () => {
       });
     }
   }, [elementQuantity, userCurrent]);
-  const observer: any = useRef();
+  
   const lastPostElementRef = useCallback(
     (node) => {
       if (loading) return;

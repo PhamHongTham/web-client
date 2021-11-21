@@ -31,7 +31,6 @@ const Detail = () => {
     dispatch(fetchSpecificPostRequest(id)).then((res: any) => {
       setPost(res);
       setBookmark(res.isInBookmark);
-      console.log(res);
     });
     dispatch(getCommentPostRequest(id)).then((res: any) => setComments(res));
   }, [id]);
@@ -76,7 +75,6 @@ const Detail = () => {
   };
 
   const handleAddBookmark = () => {
-    console.log(post.id);
     let data = {
       postId: String(post.id),
     };
