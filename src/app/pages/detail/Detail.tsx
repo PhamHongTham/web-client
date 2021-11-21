@@ -4,17 +4,18 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import UserComment from './partials/UserComment';
+
+import { formatNumber } from 'app/shared/helper/helper-function';
+import { getUserInfoByIdRequest } from 'app/stores/user/actions';
 import {
   commentPostRequest,
-  fetchSpecificArticleRequest,
+  fetchSpecificPostRequest,
   followUserRequest,
   addBookmarkRequest,
   getCommentPostRequest,
   likePostRequest,
-} from 'app/stores/article/actions';
-import { getUserInfoByIdRequest } from 'app/stores/user/actions';
-import UserComment from './partials/UserComment';
-import { formatNumber } from 'app/shared/helper/helper-function';
+} from 'app/stores/post/actions';
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -25,8 +26,9 @@ const Detail = () => {
   const [comments, setComments] = useState<any>([]);
   const [follow, setFollow] = useState<boolean>(false);
   const [bookmark, setBookmark] = useState<boolean>(false);
+  const [showComment, setShowComment] = useState<boolean>(false);
   useEffect(() => {
-    dispatch(fetchSpecificArticleRequest(id)).then((res: any) => {
+    dispatch(fetchSpecificPostRequest(id)).then((res: any) => {
       setPost(res);
       setBookmark(res.isInBookmark);
       console.log(res);
@@ -52,6 +54,10 @@ const Detail = () => {
     }
     setPost({ ...post });
     dispatch(likePostRequest(id));
+  };
+
+  const handleShowComment = () => {
+    setShowComment(!showComment);
   };
 
   const onSubmit = (data: CommentHandleOptions) => {
@@ -88,37 +94,31 @@ const Detail = () => {
               <aside className="author-interact">
                 <ul className="interact-action-list">
                   <li className="interact-action-item" onClick={handleLikePost}>
-                    {post.isLiked ? (
-                      <span className="item-icon">
+                    <span className="item-icon">
+                      {post.isLiked ? (
                         <i className="fas fa-heart"></i>
-                      </span>
-                    ) : (
-                      <span className="item-icon">
+                      ) : (
                         <i className="fal fa-heart"></i>
-                      </span>
-                    )}
+                      )}
+                    </span>
                   </li>
                   <li className="interact-action-item" onClick={handleFollowUser}>
-                    {follow ? (
-                      <span className="item-icon">
+                    <span className="item-icon">
+                      {follow ? (
                         <i className="fal fa-user-minus"></i>
-                      </span>
-                    ) : (
-                      <span className="item-icon">
+                      ) : (
                         <i className="fal fa-user-plus"></i>
-                      </span>
-                    )}
+                      )}
+                    </span>
                   </li>
                   <li className="interact-action-item" onClick={handleAddBookmark}>
-                    {bookmark ? (
-                      <span className="item-icon">
+                    <span className="item-icon">
+                      {bookmark ? (
                         <i className="fas fa-bookmark"></i>
-                      </span>
-                    ) : (
-                      <span className="item-icon">
+                      ) : (
                         <i className="fal fa-bookmark"></i>
-                      </span>
-                    )}
+                      )}
+                    </span>
                   </li>
                 </ul>
               </aside>
@@ -161,7 +161,6 @@ const Detail = () => {
                     </li>
                   </ul>
                 </div>
-
                 <div className="post-image">
                   <img src={post.cover} alt="post-cover" />
                 </div>
@@ -181,24 +180,27 @@ const Detail = () => {
                         <i className="fal fa-heart"></i>
                       )}
                     </li>
-                    <li className="interact-detail-item">
+                    <li className="interact-detail-item" onClick={handleShowComment}>
                       {formatNumber(comments.length)} <i className="fal fa-comment-alt-lines"></i>
                     </li>
                   </ul>
                 </div>
-                <div className="interact-box">Responses ({formatNumber(comments.length)})</div>
+                <div className="interact-title" onClick={handleShowComment}>
+                  Responses ({formatNumber(comments.length)})
+                </div>
                 <form className="form-comment" onSubmit={handleSubmit(onSubmit)}>
                   <input type="text" className="comment-input" {...register('content')}></input>
                   <button className="btn btn-primary">Comment</button>
                 </form>
               </article>
               <ul className="list-user-comment col-8 offset-2 col-lg-12 offset-lg-0">
-                {comments
-                  ?.slice(0)
-                  .reverse()
-                  .map((props: any) => {
-                    return <UserComment props={props} />;
-                  })}
+                {showComment &&
+                  comments
+                    ?.slice(0)
+                    .reverse()
+                    .map((props: any) => {
+                      return <UserComment props={props} />;
+                    })}
               </ul>
             </div>
           </div>

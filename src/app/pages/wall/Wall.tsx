@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
+
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import PostItem from './partials/PostItem';
+import SkeletonPost from '../home/partials/skeleton-component/SkeletonPost';
+
 import { fetchUserPostRequest, deleteUserPostRequest } from 'app/stores/post/actions';
 import { RootState } from 'app/stores/app-reducer';
-import PostItem from './partials/PostItem';
 import { postOptions } from 'app/shared/models/post-interface';
-import SkeletonPost from '../home/partials/skeleton-component/SkeletonPost';
 import { localStorageOption } from 'app/shared/helper/LocalAction';
-import { Link } from 'react-router-dom';
 
 const Wall = () => {
   const { posts, isLoading }: any = useSelector((state: RootState) => state.post);
