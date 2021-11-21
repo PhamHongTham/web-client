@@ -70,11 +70,10 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
   }, []);
 
   useEffect(() => {
-    console.log(value)
     if (value && typeof value === 'string') {
       refEditor.current.setContent(value);
     }
-  }, []);
+  }, [value]);
 
   return (
     <>
