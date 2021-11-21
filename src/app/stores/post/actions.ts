@@ -8,7 +8,7 @@ import {
   likePost,
   updatePost,
   upLoadImage,
-} from 'app/shared/core/services/service-article';
+} from 'app/shared/core/services/service-post';
 import {
   getNewPost,
   getSpecificPost,

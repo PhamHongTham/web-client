@@ -70,6 +70,7 @@ const PopupPublish = ({
       handleAddNotification({ type: 'SUCCESS', message: 'Updated new post' });
     } else {
       await dispatch(createNewPostRequest(postData)).then((res: any) => {
+        console.log(res)
         history.push(`/detail/${res.id}`);
       });
       handleAddNotification({ type: 'SUCCESS', message: 'Created new post' });

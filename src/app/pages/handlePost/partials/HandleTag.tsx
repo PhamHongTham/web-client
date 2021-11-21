@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Creatable from 'react-select/creatable';
 
 interface MyOptionType {
-  label: string;
-  value: string;
+  label: any;
+  value: any;
 }
 
 interface HandleTagOptions {
@@ -26,12 +26,24 @@ const HandleTag = ({ value, onChange }: HandleTagOptions) => {
       onChange(tagsData);
     }
   };
+
+  useEffect(() => {
+    if (value) {
+      let defaultValue = [...value].map((item: any) => {
+        let newItem = {
+          label: value,
+          value: value,
+        }
+        return newItem
+      })
+      setTags(defaultValue);
+    }
+  }, [value])
   return (
     <div className="select-tags">
       <Creatable
         isMulti
         placeholder="Create tags"
-        options={tags}
         value={tags}
         onChange={handleChangeTags}
         createOptionPosition={'last'}

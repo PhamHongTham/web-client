@@ -41,12 +41,13 @@ const HandlePost = () => {
   const { id }: { id: string } = useParams();
   const [post, setPost] = useState<any>(null);
 
-  const [showPopupPublish, setShowPopupPublish] = useState<boolean>(true);
+  const [showPopupPublish, setShowPopupPublish] = useState<boolean>(false);
   const { handleShowLoading } = useContext(LoadingContext);
 
   useEffect(() => {
     handleShowLoading(true);
     dispatch(fetchSpecificArticleRequest(id)).then((res: any) => {
+      console.log(res)
       setPost(res);
       reset(res);
       handleShowLoading(false);

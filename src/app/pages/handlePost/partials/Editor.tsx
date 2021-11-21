@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import MediumEditor from 'medium-editor';
 import 'medium-editor/dist/css/medium-editor.min.css';
@@ -62,6 +62,7 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
       'editableInput',
       function (event: any, editable: any) {
         if (onChange && typeof onChange === 'function') {
+          console.log(editable.innerHTML)
           onChange(editable.innerHTML);
         }
       }
@@ -69,6 +70,7 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
   }, []);
 
   useEffect(() => {
+    console.log(value)
     if (value && typeof value === 'string') {
       refEditor.current.setContent(value);
     }
@@ -76,7 +78,7 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
 
   return (
     <>
-      <div className="editable"></div>
+      <div className="editable" ref={refEditor}></div>
     </>
   );
 };
