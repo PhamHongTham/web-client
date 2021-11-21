@@ -12,7 +12,7 @@ const NewPost = () => {
   const { userCurrent }: any = useSelector((state: RootState) => state.userState);
   const [posts, setPosts] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [elementQuantity, setElementQuantity] = useState(6);
+  const [elementQuantity, setElementQuantity] = useState<number>(6);
   const observer: any = useRef();
   const dispatch = useDispatch();
   useEffect(() => {
