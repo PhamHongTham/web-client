@@ -8,6 +8,7 @@ import {
   createNewPost,
   updatePost,
   likePost,
+  addBookmark,
   commentPost,
   getCommentPost,
   followUser,
@@ -33,51 +34,44 @@ export const fetchArticleRequest = () => async (dispatch: any) => {
   }
 };
 
-export const fetchSpecificArticleRequest: any =
-  (id: any) => async (dispatch: any) => {
-    return apiWrapper(() => getSpecificArticle(id), dispatch);
-  };
+export const fetchSpecificArticleRequest: any = (id: any) => async (dispatch: any) => {
+  return apiWrapper(() => getSpecificArticle(id), dispatch);
+};
 
-export const getUrlImageRequest: any =
-  (imageFile: File) => async (dispatch: any) => {
-    return apiWrapper(() => getUrlImage(imageFile), dispatch);
-  };
+export const getUrlImageRequest: any = (imageFile: File) => async (dispatch: any) => {
+  return apiWrapper(() => getUrlImage(imageFile), dispatch);
+};
 
-export const createNewPostRequest: any =
-  (post: PostHandleOptions) => async (dispatch: any) => {
-    return apiWrapper(() => createNewPost(post), dispatch);
-  };
+export const createNewPostRequest: any = (post: PostHandleOptions) => async (dispatch: any) => {
+  return apiWrapper(() => createNewPost(post), dispatch);
+};
 
 export const updatePostRequest: any =
   (post: PostHandleOptions, postId: string) => async (dispatch: any) => {
     return apiWrapper(() => updatePost(post, postId), dispatch);
   };
 
-export const likePostRequest: any =
-  (postId: string) => async (dispatch: any) => {
-    return apiWrapper(() => likePost(postId), dispatch);
-  };
+export const likePostRequest: any = (postId: string) => async (dispatch: any) => {
+  return apiWrapper(() => likePost(postId), dispatch);
+};
+export const addBookmarkRequest: any = (postId: {postId:string}) => async (dispatch: any) => {
+  return apiWrapper(() => addBookmark(postId), dispatch);
+};
 
-export const getCommentPostRequest: any =
-  (postId: string) => async (dispatch: any) => {
-    return apiWrapper(() => getCommentPost(postId), dispatch);
-  };
+export const getCommentPostRequest: any = (postId: string) => async (dispatch: any) => {
+  return apiWrapper(() => getCommentPost(postId), dispatch);
+};
 
 export const commentPostRequest: any =
   (postId: string, post: CommentHandleOptions) => async (dispatch: any) => {
     return apiWrapper(() => commentPost(postId, post), dispatch);
   };
 
-export const followUserRequest: any =
-  (followId: HandleFollowOptions) => async (dispatch: any) => {
-    return apiWrapper(() => followUser(followId), dispatch);
-  };
+export const followUserRequest: any = (followId: HandleFollowOptions) => async (dispatch: any) => {
+  return apiWrapper(() => followUser(followId), dispatch);
+};
 
-export const saveInfoPost = (infoPost: {
-  title: string;
-  description: string;
-  content: string;
-}) => {
+export const saveInfoPost = (infoPost: { title: string; description: string; content: string }) => {
   return {
     type: articleConstant.SAVE_INFO_POST,
     payload: infoPost,

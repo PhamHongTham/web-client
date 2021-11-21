@@ -34,6 +34,7 @@
         .item-description {
           @include text-overflow(2);
           margin-top: 0.5rem;
+          line-break: anywhere;
         }
         .sub-info-list {
           display: flex;

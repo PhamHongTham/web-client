@@ -20,27 +20,24 @@ export const getUrlImage = (imageFile: File) => {
     `/signatures?type_upload=${signUrlOption.typeUpload}&file_name=${signUrlOption.fileName}&file_type=${signUrlOption.fileType}`
   );
   return signUrlOption;
-}
+};
 
-export const upLoadImage = (url: string, fileImage: File): any =>
-  axios.put(url, fileImage);
+export const upLoadImage = (url: string, fileImage: File): any => axios.put(url, fileImage);
 
-export const createNewPost = (post: PostHandleOptions): any =>
-  axiosClient.post('posts', post);
+export const createNewPost = (post: PostHandleOptions): any => axiosClient.post('posts', post);
 
 export const updatePost = (post: PostHandleOptions, postId: string): any =>
   axiosClient.put(`posts/${postId}`, post);
 
-export const likePost = (postId: string): any =>
-  axiosClient.put(`posts/${postId}/likes`);
+export const likePost = (postId: string): any => axiosClient.put(`posts/${postId}/likes`);
 
-export const getCommentPost = (postId: string): any =>
-  axiosClient.get(`posts/${postId}/comments`);
+export const addBookmark = (bookmarkState: {postId:string}): any =>
+  axiosClient.post(`bookmarks/`, bookmarkState);
+
+export const getCommentPost = (postId: string): any => axiosClient.get(`posts/${postId}/comments`);
 
 export const commentPost = (postId: string, post: CommentHandleOptions): any =>
   axiosClient.post(`posts/${postId}/comments`, post);
 
 export const followUser = (data: HandleFollowOptions): any =>
   axiosClient.post(`/friends/follow`, data);
-
-

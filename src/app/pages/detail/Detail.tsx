@@ -8,6 +8,7 @@ import {
   commentPostRequest,
   fetchSpecificArticleRequest,
   followUserRequest,
+  addBookmarkRequest,
   getCommentPostRequest,
   likePostRequest,
 } from 'app/stores/article/actions';
@@ -23,9 +24,12 @@ const Detail = () => {
   const [post, setPost] = useState<any>();
   const [comments, setComments] = useState<any>([]);
   const [follow, setFollow] = useState<boolean>(false);
+  const [bookmark, setBookmark] = useState<boolean>(false);
   useEffect(() => {
     dispatch(fetchSpecificArticleRequest(id)).then((res: any) => {
       setPost(res);
+      setBookmark(res.isInBookmark);
+      console.log(res);
     });
     dispatch(getCommentPostRequest(id)).then((res: any) => setComments(res));
   }, [id]);
@@ -65,6 +69,16 @@ const Detail = () => {
     dispatch(followUserRequest(data));
   };
 
+  const handleAddBookmark = () => {
+    console.log(post.id);
+    let data = {
+      postId: String(post.id),
+    };
+    dispatch(addBookmarkRequest(data)).then((res: any) => {
+      setBookmark(res.isInBookmark);
+    });
+  };
+
   return (
     <>
       {post ? (
@@ -73,36 +87,38 @@ const Detail = () => {
             <div className="row">
               <aside className="author-interact">
                 <ul className="interact-action-list">
-                  {post.isLiked ? (
-                    <li className="interact-action-item" onClick={handleLikePost}>
+                  <li className="interact-action-item" onClick={handleLikePost}>
+                    {post.isLiked ? (
                       <span className="item-icon">
                         <i className="fas fa-heart"></i>
                       </span>
-                    </li>
-                  ) : (
-                    <li className="interact-action-item" onClick={handleLikePost}>
+                    ) : (
                       <span className="item-icon">
                         <i className="fal fa-heart"></i>
                       </span>
-                    </li>
-                  )}
-                  {follow ? (
-                    <li className="interact-action-item" onClick={handleFollowUser}>
+                    )}
+                  </li>
+                  <li className="interact-action-item" onClick={handleFollowUser}>
+                    {follow ? (
                       <span className="item-icon">
-                        <i className="fas fa-user"></i>
+                        <i className="fal fa-user-minus"></i>
                       </span>
-                    </li>
-                  ) : (
-                    <li className="interact-action-item" onClick={handleFollowUser}>
+                    ) : (
                       <span className="item-icon">
-                        <i className="fal fa-user"></i>
+                        <i className="fal fa-user-plus"></i>
                       </span>
-                    </li>
-                  )}
-                  <li className="interact-action-item">
-                    <span className="item-icon">
-                      <i className="fal fa-bookmark"></i>
-                    </span>
+                    )}
+                  </li>
+                  <li className="interact-action-item" onClick={handleAddBookmark}>
+                    {bookmark ? (
+                      <span className="item-icon">
+                        <i className="fas fa-bookmark"></i>
+                      </span>
+                    ) : (
+                      <span className="item-icon">
+                        <i className="fal fa-bookmark"></i>
+                      </span>
+                    )}
                   </li>
                 </ul>
               </aside>
@@ -110,23 +126,42 @@ const Detail = () => {
                 <div className="post-header">
                   <h2 className="post-title">{post.title}</h2>
                 </div>
-                <ul className="author-info-list">
-                  <li className="author-info-item author-avatar">
-                    <img
-                      src={
-                        post.user.picture
-                          ? `${post.user.picture}`
-                          : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTht9-qZYmqErdGMhJVbRf7BfhLRGspNWaFnR8nddu3x7Da7nqh23vsG6VWtG_VE9G9kLU&usqp=CAU'
-                      }
-                      alt={post.user?.displayName}
-                    />
-                  </li>
-                  <li className="author-info-item author-name">
-                    <Link to="" className="text-primary">
-                      <h3>{post.user?.displayName}</h3>
-                    </Link>
-                  </li>
-                </ul>
+                <div className="author-detail">
+                  <ul className="author-info-list">
+                    <li className="author-info-item author-avatar">
+                      <img
+                        src={
+                          post.user.picture
+                            ? `${post.user.picture}`
+                            : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTht9-qZYmqErdGMhJVbRf7BfhLRGspNWaFnR8nddu3x7Da7nqh23vsG6VWtG_VE9G9kLU&usqp=CAU'
+                        }
+                        alt={post.user?.displayName}
+                      />
+                    </li>
+                    <li className="author-info-item author-name">
+                      <Link to="" className="text-primary">
+                        <h3>{post.user?.displayName}</h3>
+                      </Link>
+                    </li>
+                  </ul>
+                  <ul className="interact-detail-list">
+                    <li className="interact-detail-item" onClick={handleAddBookmark}>
+                      {bookmark ? (
+                        <i className="fas fa-bookmark"></i>
+                      ) : (
+                        <i className="fal fa-bookmark"></i>
+                      )}
+                    </li>
+                    <li className="interact-detail-item" onClick={handleFollowUser}>
+                      {follow ? (
+                        <i className="fal fa-user-minus"></i>
+                      ) : (
+                        <i className="fal fa-user-plus"></i>
+                      )}
+                    </li>
+                  </ul>
+                </div>
+
                 <div className="post-image">
                   <img src={post.cover} alt="post-cover" />
                 </div>
@@ -138,26 +173,16 @@ const Detail = () => {
                 </div>
                 <div className="post-footer">
                   <ul className="interact-detail-list">
-                    <li className="interact-detail-item">
+                    <li className="interact-detail-item" onClick={handleLikePost}>
                       {formatNumber(post.likes)}{' '}
                       {post.isLiked ? (
-                        <i className="fas fa-heart" onClick={handleLikePost}></i>
+                        <i className="fas fa-heart"></i>
                       ) : (
-                        <i className="fal fa-heart" onClick={handleLikePost}></i>
+                        <i className="fal fa-heart"></i>
                       )}
                     </li>
                     <li className="interact-detail-item">
                       {formatNumber(comments.length)} <i className="fal fa-comment-alt-lines"></i>
-                    </li>
-                    <li className="interact-detail-item">
-                      <i className="fal fa-bookmark"></i>
-                    </li>
-                    <li className="interact-detail-item">
-                      {follow ? (
-                        <i className="fa fa-user" onClick={handleFollowUser}></i>
-                      ) : (
-                        <i className="fal fa-user" onClick={handleFollowUser}></i>
-                      )}
                     </li>
                   </ul>
                 </div>
@@ -168,9 +193,12 @@ const Detail = () => {
                 </form>
               </article>
               <ul className="list-user-comment col-8 offset-2 col-lg-12 offset-lg-0">
-                {comments?.slice(0).reverse().map((props: any) => {
-                  return <UserComment props={props} />;
-                })}
+                {comments
+                  ?.slice(0)
+                  .reverse()
+                  .map((props: any) => {
+                    return <UserComment props={props} />;
+                  })}
               </ul>
             </div>
           </div>
