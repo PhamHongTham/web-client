@@ -8,7 +8,7 @@ interface modalUIOptions {
 }
 
 const AuthenticationModal = ({ showLoginModal }: modalUIOptions) => {
-  const [UIModalOptions, setUIModalOptions] = useState({
+  const [UIModalOptions, setUIModalOptions] = useState<any>({
     signInModal: true,
     signInEmail: false,
     signUpEmail: false,

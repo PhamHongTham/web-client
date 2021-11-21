@@ -11,19 +11,19 @@ const PostItem = ({ post, handleDeletePost }: { post: postOptions; handleDeleteP
   const timeSince = calculateTimeSince(createdAt);
 
   return (
-    <li key={id} className="wall-item">
+    <li key={id} className="post-item">
       <div className="item-img">
         <img src={cover} alt="" className="item-image" />
       </div>
       <div className="item-detail">
-        <Link to={`/detail/${id}`} className="item-title">
-          <h2>{title}</h2>
-        </Link>
-        <div className="item-description">{description}</div>
+        <div className="item-content">
+          <Link to={`/detail/${id}`} className="item-title">
+            <h2>{title}</h2>
+          </Link>
+          <div className="item-description">{description}</div>
+        </div>
         <ul className="sub-info-list">
-          <li className="sub-info-item">{timeSince}</li>
           <li className="sub-info-item">
-            {' '}
             Tags:
             {tags?.map((item, index) => {
               return (
@@ -33,15 +33,14 @@ const PostItem = ({ post, handleDeletePost }: { post: postOptions; handleDeleteP
               );
             })}
           </li>
+          <li className="sub-info-item">{timeSince}</li>
         </ul>
       </div>
       <div className="sign-optional">
-        <div className="dot"></div>
-        <div className="dot"></div>
-        <div className="dot"></div>
+        <i className="far fa-ellipsis-h dot"></i>
         <ul className="list-option">
           <li className="option-item">
-            <i className="fal fa-pencil-alt"></i> Edit
+            <i className="fal fa-pencil-alt option-item-icon"></i> Edit
           </li>
           <li
             className="option-item"
@@ -49,10 +48,10 @@ const PostItem = ({ post, handleDeletePost }: { post: postOptions; handleDeleteP
               handleDeletePost(id);
             }}
           >
-            <i className="fal fa-trash-alt"></i> Delete
+            <i className="fal fa-trash-alt option-item-icon"></i> Delete
           </li>
           <li className="option-item">
-            <i className="fal fa-bookmark"></i> Add to bookmark
+            <i className="fal fa-bookmark option-item-icon"></i> Add to bookmark
           </li>
         </ul>
       </div>

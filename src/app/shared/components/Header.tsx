@@ -102,11 +102,6 @@ const Header = () => {
                 </Link>
               </li>
               <li className="list-item menu-item">
-                <Link to="/" className="menu-link" href="/#">
-                  Membership
-                </Link>
-              </li>
-              <li className="list-item menu-item">
                 <Link to="/" className="menu-link">
                   Write
                 </Link>

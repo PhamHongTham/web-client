@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
+
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import PostItem from './partials/PostItem';
+import SkeletonPost from '../home/partials/skeleton-component/SkeletonPost';
+
 import { fetchUserPostRequest, deleteUserPostRequest } from 'app/stores/post/actions';
 import { RootState } from 'app/stores/app-reducer';
-import PostItem from './partials/PostItem';
 import { postOptions } from 'app/shared/models/post-interface';
-import SkeletonPost from '../home/partials/skeleton-component/SkeletonPost';
 import { localStorageOption } from 'app/shared/helper/LocalAction';
 
 const Wall = () => {
   const { posts, isLoading }: any = useSelector((state: RootState) => state.post);
-  console.log(posts);
   const currentUserId = localStorageOption.getUserId;
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,8 +26,29 @@ const Wall = () => {
   return (
     <div className="wall container">
       <div className="row">
+        <aside className="author-interact">
+          <h3 className="author-name">
+            <Link to="">{}</Link>
+          </h3>
+          <ul className="interact-action-list">
+            <li className="interact-action-item">
+              <span className="item-icon">
+                <i className="fal fa-heart"></i>
+              </span>
+            </li>
+            <li className="interact-action-item">
+              <span className="item-icon">
+                <i className="fal fa-user-plus"></i>
+              </span>
+            </li>
+            <li className="interact-action-item">
+              <span className="item-icon">
+                <i className="fal fa-bookmark"></i>
+              </span>
+            </li>
+          </ul>
+        </aside>
         <div className="wall-container col-8 col-lg-12 offset-2 offset-lg-0">
-          <h3>Your Stories</h3>
           <ul className="wall-list">
             {posts?.map((post: postOptions) => {
               return <PostItem post={post} handleDeletePost={handleDeletePost} />;

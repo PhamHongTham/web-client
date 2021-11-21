@@ -1,0 +1,42 @@
+.list-user-comment {
+  margin: 1rem auto;
+  padding: 1rem;
+  .user-comment-item {
+    margin-bottom: 1rem;
+    width: 100%;
+    display: flex;
+    .user-picture {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 0.5rem;
+      img{
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .comment-detail {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      border-radius: 1rem;
+      padding: 1rem;
+      background-color: map-get($color, 'gray-light');
+      .comment-header{
+        @include flex-center-between;
+        .comment-moment{
+          font-size: map-get($font-size, "sm" );
+          color: map-get($color , "gray-bold" );
+        }
+      }
+      .user-content {
+        background-color: transparent;
+        margin-top: 0.5rem;
+        resize: none;
+        border: none;
+        line-break: anywhere;
+      }
+    }
+  }
+}

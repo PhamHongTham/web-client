@@ -1,105 +1,83 @@
 import { postConstant } from 'app/shared/constants/postConstant';
+import { apiWrapper } from 'app/shared/core/services/apiWrapper';
+import { HandleFollowOptions } from 'app/shared/types/HandleFollow';
+import { PostHandleOptions } from 'app/shared/types/PostHandle';
 import {
   getNewPost,
-  getSpecificPost,
-  getRecommendPost,
   getUserPost,
   deleteUserPost,
+  getRecommendPost,
+  getSpecificArticle,
+  createNewPost,
+  updatePost,
+  likePost,
+  addBookmark,
+  commentPost,
+  getCommentPost,
+  followUser,
+  getUrlImage,
 } from 'app/shared/core/services/service-post';
 
+export const fetchSpecificPostRequest: any = (id: any) => async (dispatch: any) => {
+  return apiWrapper(() => getSpecificArticle(id), dispatch);
+};
 
-const apiWrapper = async (api: any, dispatch: any) => {
-  try {
-    const res = await api();
-    return res;
-  } catch (error: any) {
-    if (error.response.status === 401) {
-      // removeInfoUserLocalStorage();
-      dispatch({
-        type: 'CLEAR_SESSION',
-        payload: error.response.data,
-      });
-    } else {
-      dispatch({
-        type: 'OPEN_POPUP',
-        payload: error.response.data.errors[0],
-      });
-    }
-  }
-}
-export const fetchSpecificArticleRequest: any =
-  (id: any) => async (dispatch: any) => {
-    return apiWrapper(() => getSpecificPost(id), dispatch)
+export const getUrlImageRequest: any = (imageFile: File) => async (dispatch: any) => {
+  return apiWrapper(() => getUrlImage(imageFile), dispatch);
+};
+
+export const createNewPostRequest: any = (post: PostHandleOptions) => async (dispatch: any) => {
+  return apiWrapper(() => createNewPost(post), dispatch);
+};
+
+export const updatePostRequest: any =
+  (post: PostHandleOptions, postId: string) => async (dispatch: any) => {
+    return apiWrapper(() => updatePost(post, postId), dispatch);
   };
 
-export const fetchPostRequest = (size: any) => async (dispatch: any) => {
-  dispatch({ type: postConstant.FETCH_POST_REQUEST });
-  try {
-    const res = await getNewPost(size);
-    dispatch({ type: postConstant.FETCH_POST_SUCCESS, payload: res});
-  } catch (error: any) {
-    console.log(error);
-    dispatch({
-      type: postConstant.FETCH_POST_FAILURE,
-      payload: error.response.data,
-    });
-  }
+export const likePostRequest: any = (postId: string) => async (dispatch: any) => {
+  return apiWrapper(() => likePost(postId), dispatch);
+};
+export const addBookmarkRequest: any = (postId: { postId: string }) => async (dispatch: any) => {
+  return apiWrapper(() => addBookmark(postId), dispatch);
 };
 
-export const fetchSpecificPostRequest = (id: any) => async (dispatch: any) => {
-  dispatch({ type: postConstant.FETCH_SPECIFIC_POST_REQUEST });
-  try {
-    const res = await getSpecificPost(id);
-    dispatch({ type: postConstant.FETCH_SPECIFIC_POST_SUCCESS, payload: res });
-  } catch (error: any) {
-    console.log(error);
-    dispatch({
-      type: postConstant.FETCH_SPECIFIC_POST_FAILURE,
-      payload: error.response.data,
-    });
-  }
+export const getCommentPostRequest: any = (postId: string) => async (dispatch: any) => {
+  return apiWrapper(() => getCommentPost(postId), dispatch);
 };
 
-export const fetchRecommendPostRequest = (pageNumber: any) => async (dispatch: any) => {
-  dispatch({ type: postConstant.FETCH_MORE_POST_REQUEST });
-  try {
-    const res = await getRecommendPost(pageNumber);
-    dispatch({ type: postConstant.FETCH_MORE_POST_SUCCESS, payload: res });
-  } catch (error: any) {
-    console.log(error);
-    dispatch({
-      type: postConstant.FETCH_MORE_POST_FAILURE,
-      payload: error.response.data,
-    });
-  }
+export const commentPostRequest: any =
+  (postId: string, post: CommentHandleOptions) => async (dispatch: any) => {
+    return apiWrapper(() => commentPost(postId, post), dispatch);
+  };
+
+export const followUserRequest: any = (followId: HandleFollowOptions) => async (dispatch: any) => {
+  return apiWrapper(() => followUser(followId), dispatch);
 };
 
-export const fetchUserPostRequest = (userId: any) => async (dispatch: any) => {
-  dispatch({ type: postConstant.FETCH_USER_POST_REQUEST });
-  try {
-    const res = await getUserPost(userId);
-    dispatch({ type: postConstant.FETCH_USER_POST_SUCCESS, payload: res.Posts });
-  } catch (error: any) {
-    console.log(error);
-    dispatch({
-      type: postConstant.FETCH_USER_POST_FAILURE,
-      payload: error.response,
-    });
-  }
+export const saveInfoPost: any = (infoPost: {
+  title: string;
+  description: string;
+  content: string;
+}) => {
+  return {
+    type: postConstant.SAVE_INFO_POST,
+    payload: infoPost,
+  };
 };
 
-export const deleteUserPostRequest = (postId: any) => async (dispatch: any) => {
-  dispatch({ type: postConstant.DELETE_USER_POST_REQUEST });
-  console.log(postId)
-  try {
-    const res = await deleteUserPost(postId);
-    console.log(res)
-    dispatch({ type: postConstant.DELETE_USER_POST_SUCCESS, payload: {postId,message:res} });
-  } catch (error: any) {
-    console.log(error);
-    dispatch({
-      type: postConstant.DELETE_USER_POST_FAILURE,
-      payload: error.response,
-    });
-  }
+export const fetchPostRequest: any = (size: any) => async (dispatch: any) => {
+  return apiWrapper(() => getNewPost(size), dispatch);
+};
+
+export const fetchRecommendPostRequest: any = (pageNumber: any) => async (dispatch: any) => {
+  return apiWrapper(() => getRecommendPost(pageNumber), dispatch);
+};
+
+export const fetchUserPostRequest: any = (userId: any) => async (dispatch: any) => {
+  return apiWrapper(() => getUserPost(userId), dispatch);
+};
+
+export const deleteUserPostRequest: any = (postId: any) => async (dispatch: any) => {
+  return apiWrapper(() => deleteUserPost(postId), dispatch);
 };
