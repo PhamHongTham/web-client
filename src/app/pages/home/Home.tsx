@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { useDispatch } from 'react-redux';
 import Slide from './partials/Slider';
-import NewPost from './partials/NewPost/NewPost';
+import NewPost from './partials/NewPost/NewsFeed';
 
 import { getUserInfoRequest } from 'app/stores/user/actions';
 
