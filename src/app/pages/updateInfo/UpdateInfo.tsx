@@ -101,12 +101,12 @@ const UpdateInfo = () => {
             ''
           )}
           <input
-            placeholder="Firstname"
+            placeholder="First name"
             {...register('firstName')}
             required
           ></input>
           <input
-            placeholder="Lastname"
+            placeholder="Last name"
             {...register('lastName')}
             required
           ></input>
