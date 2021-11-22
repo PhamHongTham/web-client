@@ -18,6 +18,7 @@ const Header = () => {
   }: { userCurrent: UserInfoOptions; showModalSignIn: boolean } = useSelector(
     (state: RootState) => state.userState
   );
+  const token = localStorage.getItem('USER_TOKEN');
 
   useEffect(() => {
     if (showModalSignIn) {
@@ -44,20 +45,16 @@ const Header = () => {
   };
   const UserAction = () => (
     <li className="user-avatar">
-      {userCurrent ? (
-        <img
-          src={
-            userCurrent.picture
-              ? `${userCurrent.picture}`
-              : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTht9-qZYmqErdGMhJVbRf7BfhLRGspNWaFnR8nddu3x7Da7nqh23vsG6VWtG_VE9G9kLU&usqp=CAU'
-          }
-          alt=""
-          className="avatar-image"
-          onClick={handleShowUserAction}
-        ></img>
-      ) : (
-        ''
-      )}
+      <img
+        src={
+          userCurrent?.picture
+            ? `${userCurrent.picture}`
+            : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTht9-qZYmqErdGMhJVbRf7BfhLRGspNWaFnR8nddu3x7Da7nqh23vsG6VWtG_VE9G9kLU&usqp=CAU'
+        }
+        alt=""
+        className="avatar-image"
+        onClick={handleShowUserAction}
+      ></img>
       {showUserAction ? (
         <div className="user-action">
           <ul className="action-list">
@@ -120,12 +117,16 @@ const Header = () => {
                   Home
                 </Link>
               </li>
-              <li className="list-item menu-item">
-                <Link to="/" className="menu-link">
-                  Write
-                </Link>
-              </li>
-              {userCurrent ? (
+              {token ? (
+                <li className="list-item menu-item">
+                  <Link to="/post/new" className="menu-link">
+                    Write
+                  </Link>
+                </li>
+              ) : (
+                ''
+              )}
+              {token ? (
                 <UserAction />
               ) : (
                 <li className="list-item menu-item">
