@@ -76,10 +76,12 @@ const UpdateInfo = () => {
       picture: data.picture,
     };
     if (data.picture instanceof File) {
-      const url = await dispatch(uploadImage(data.picture));
+      const url = await dispatch(uploadImage(data.picture, 'avatar'));
+      console.log(url)
       infoData.picture = url;
     }
-    await dispatch(updateUserInfoRequest(infoData))
+    console.log(infoData)
+    dispatch(updateUserInfoRequest(infoData))
   };
 
   return (

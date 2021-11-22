@@ -6,9 +6,9 @@ import { PostHandleOptions } from 'app/shared/types/PostHandle';
 export const getSpecificArticle = (params: { id: number }): any =>
   axiosClient.get(`posts/${params}`);
 
-export const getUrlImage = async (imageFile: File) => {
+export const getUrlImage = async (imageFile: File, typeUpload: string) => {
   const signUrlOption = {
-    typeUpload: 'cover-post',
+    typeUpload: typeUpload,
     fileName: imageFile.name,
     fileType: imageFile.type,
   };

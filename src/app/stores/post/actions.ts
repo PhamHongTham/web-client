@@ -24,11 +24,6 @@ export const fetchSpecificPostRequest: any =
     return apiWrapper(() => getSpecificArticle(id), dispatch);
   };
 
-export const getUrlImageRequest: any =
-  (imageFile: File) => async (dispatch: any) => {
-    return apiWrapper(() => getUrlImage(imageFile), dispatch);
-  };
-
 export const createNewPostRequest: any =
   (post: PostHandleOptions) => async (dispatch: any) => {
     return apiWrapper(() => createNewPost(post), dispatch);
@@ -94,9 +89,9 @@ export const deleteUserPostRequest: any =
     return apiWrapper(() => deleteUserPost(postId), dispatch);
   };
 
-export const uploadImage: any = (imageFile: File) => async (dispatch: any) => {
+export const uploadImage: any = (imageFile: File, typeUpload: string) => async (dispatch: any) => {
   return apiWrapper(async () => {
-    const { signedRequest, url }: any = await getUrlImage(imageFile);
+    const { signedRequest, url }: any = await getUrlImage(imageFile, typeUpload);
     await axios.put(signedRequest, imageFile);
     return url;
   }, dispatch);
