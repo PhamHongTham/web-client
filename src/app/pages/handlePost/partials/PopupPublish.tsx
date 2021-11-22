@@ -58,7 +58,7 @@ const PopupPublish = ({
       ...data,
     };
     if (postData.cover instanceof File) {
-      const url = await dispatch(uploadImage(postData.cover));
+      const url = await dispatch(uploadImage(postData.cover, 'cover-post'));
       postData.cover = url;
     }
     if (infoPost?.id) {
