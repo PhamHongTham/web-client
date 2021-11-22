@@ -2,7 +2,6 @@ import {
   changePassword,
   getUserInfo,
   getUserInfoById,
-  // getUserInfoById,
   login,
   signUp,
   updateUserInfo,
@@ -30,20 +29,19 @@ export const loginRequest =
     }
   };
 
-export const signUpRequest =
-  (userInfo: any, callback: () => void) => async (dispatch: any) => {
-    dispatch({ type: UserConstant.SIGN_UP_REQUEST, payload: userInfo });
-    try {
-      const data = await signUp(userInfo);
-      dispatch({ type: UserConstant.SIGN_UP_SUCCESS, payload: data });
-      callback();
-    } catch (error: any) {
-      dispatch({
-        type: UserConstant.SIGN_UP_FAILURE,
-        payload: error.response.data.errors[0],
-      });
-    }
-  };
+export const signUpRequest = (userInfo: any, callback: () => void) => async (dispatch: any) => {
+  dispatch({ type: UserConstant.SIGN_UP_REQUEST, payload: userInfo });
+  try {
+    const data = await signUp(userInfo);
+    dispatch({ type: UserConstant.SIGN_UP_SUCCESS, payload: data });
+    callback();
+  } catch (error: any) {
+    dispatch({
+      type: UserConstant.SIGN_UP_FAILURE,
+      payload: error.response.data.errors[0],
+    });
+  }
+};
 
 export const logoutRequest = () => {
   localStorageOption.remove();
@@ -73,57 +71,54 @@ export const getUserInfoRequest = () => async (dispatch: any) => {
   }
 };
 
-export const changePasswordRequest =
-  (info: PasswordOptions) => async (dispatch: any) => {
-    dispatch({ type: UserConstant.CHANGE_PASSWORD_REQUEST });
-    try {
-      const data = await changePassword(info);
-      dispatch({ type: UserConstant.CHANGE_PASSWORD_SUCCESS, payload: data });
-    } catch (error: any) {
-      if (error.response.status === 401) {
-        localStorageOption.remove();
-        dispatch({
-          type: UserConstant.CHANGE_PASSWORD_FAILURE,
-          payload: error.response.statusText,
-        });
-      } else {
-        dispatch({
-          type: UserConstant.CHANGE_PASSWORD_FAILURE,
-          payload: error.response.data.errors[0],
-        });
-      }
-    }
-  };
-
-export const updateUserInfoRequest =
-  (info: UserInfoOptions) => async (dispatch: any) => {
-    dispatch({ type: UserConstant.UPDATE_USER_INFO_REQUEST });
-    try {
-      const data = await updateUserInfo(info);
+export const changePasswordRequest = (info: PasswordOptions) => async (dispatch: any) => {
+  dispatch({ type: UserConstant.CHANGE_PASSWORD_REQUEST });
+  try {
+    const data = await changePassword(info);
+    dispatch({ type: UserConstant.CHANGE_PASSWORD_SUCCESS, payload: data });
+  } catch (error: any) {
+    if (error.response.status === 401) {
+      localStorageOption.remove();
       dispatch({
-        type: UserConstant.UPDATE_USER_INFO_SUCCESS,
-        payload: data,
+        type: UserConstant.CHANGE_PASSWORD_FAILURE,
+        payload: error.response.statusText,
       });
-    } catch (error: any) {
-      if (error.response.status === 401) {
-        localStorageOption.remove();
-        dispatch({
-          type: UserConstant.CHANGE_PASSWORD_FAILURE,
-          payload: error.response.statusText,
-        });
-      } else {
-        dispatch({
-          type: UserConstant.UPDATE_USER_INFO_FAILURE,
-          payload: error.response.data.errors[0],
-        });
-      }
+    } else {
+      dispatch({
+        type: UserConstant.CHANGE_PASSWORD_FAILURE,
+        payload: error.response.data.errors[0],
+      });
     }
-  };
+  }
+};
 
-export const getUserInfoByIdRequest: any =
-  (id: string) => async (dispatch: any) => {
-    return apiWrapper(() => getUserInfoById(id), dispatch);
-  };
+export const updateUserInfoRequest = (info: UserInfoOptions) => async (dispatch: any) => {
+  dispatch({ type: UserConstant.UPDATE_USER_INFO_REQUEST });
+  try {
+    const data = await updateUserInfo(info);
+    dispatch({
+      type: UserConstant.UPDATE_USER_INFO_SUCCESS,
+      payload: data,
+    });
+  } catch (error: any) {
+    if (error.response.status === 401) {
+      localStorageOption.remove();
+      dispatch({
+        type: UserConstant.CHANGE_PASSWORD_FAILURE,
+        payload: error.response.statusText,
+      });
+    } else {
+      dispatch({
+        type: UserConstant.UPDATE_USER_INFO_FAILURE,
+        payload: error.response.data.errors[0],
+      });
+    }
+  }
+};
+
+export const getUserInfoByIdRequest: any = (id: string) => async (dispatch: any) => {
+  return apiWrapper(() => getUserInfoById(id), dispatch);
+};
 
 export const showModalSignInRequest = (value: boolean) => {
   return {

@@ -63,6 +63,15 @@ const Header = () => {
           <ul className="action-list">
             <li className="action-item">
               <Link
+                to="/wall"
+                className="action-link"
+                onClick={handleShowUserAction}
+              >
+                Profile
+              </Link>
+            </li>
+            <li className="action-item">
+              <Link
                 to="/user/update"
                 className="action-link"
                 onClick={handleShowUserAction}
@@ -109,11 +118,6 @@ const Header = () => {
               <li className="list-item menu-item">
                 <Link to="/" className="text-primary menu-link">
                   Home
-                </Link>
-              </li>
-              <li className="list-item menu-item">
-                <Link to="/" className="menu-link" href="/#">
-                  Membership
                 </Link>
               </li>
               <li className="list-item menu-item">

@@ -11,6 +11,10 @@
       border-radius: 50%;
       overflow: hidden;
       margin-right: 0.5rem;
+      img{
+        height: 100%;
+        object-fit: cover;
+      }
     }
     .comment-detail {
       display: flex;
@@ -19,11 +23,19 @@
       border-radius: 1rem;
       padding: 1rem;
       background-color: map-get($color, 'gray-light');
+      .comment-header{
+        @include flex-center-between;
+        .comment-moment{
+          font-size: map-get($font-size, "sm" );
+          color: map-get($color , "gray-bold" );
+        }
+      }
       .user-content {
         background-color: transparent;
         margin-top: 0.5rem;
         resize: none;
         border: none;
+        line-break: anywhere;
       }
     }
   }

@@ -3,13 +3,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { postOptions } from 'app/shared/models/post-interface';
-
-import { calculateTimeSince } from 'app/shared/helper/helper-function';
+import { calculateTimeSince, formatNumber } from 'app/shared/helper/helper-function';
 
 const Post = ({ post }: { post: postOptions }) => {
   const { id, title, comments, likes, user, cover, description, createdAt } = post;
-  const timeSince = calculateTimeSince(createdAt) + ' ago';
-
+  const countLike = formatNumber(likes);
+  const countComment = formatNumber(+comments);
+  const timeSince = calculateTimeSince(createdAt);
   return (
     <li key={id} className="list-item col-4 col-lg-6 col-md-12">
       <div className="card">
@@ -41,10 +41,10 @@ const Post = ({ post }: { post: postOptions }) => {
           <div className="post-status-info">
             <div className="post-interact ">
               <p>
-                {likes} <i className="fal fa-heart"></i>
+                {countLike} <i className="fal fa-heart"></i>
               </p>
               <p>
-                {comments} <i className="fal fa-comment"></i>
+                {countComment} <i className="fal fa-comment"></i>
               </p>
             </div>
           </div>

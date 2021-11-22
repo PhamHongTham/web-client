@@ -1,8 +1,10 @@
 import React from 'react';
 
-const UserComment = ({ props }: { props: any }) => {
-  const { id, comment, user } = props;
+import { calculateTimeSince } from 'app/shared/helper/helper-function';
 
+const UserComment = ({ props }: { props: any }) => {
+  const { id, comment, createdAt, user } = props;
+  const timeSince = calculateTimeSince(createdAt);
   return (
     <li key={id} className="user-comment-item">
       <div className="user-picture">
@@ -16,8 +18,11 @@ const UserComment = ({ props }: { props: any }) => {
         />
       </div>
       <div className="comment-detail">
-        <h4>{user && user.displayName ? user.displayName : ''}</h4>
-        <p className="user-content">{comment}</p>
+        <div className="comment-header">
+          <h4>{user && user.displayName ? user.displayName : ''}</h4>
+          <p className="comment-moment">{timeSince}</p>
+        </div>
+        <div className="user-content">{comment}</div>
       </div>
     </li>
   );

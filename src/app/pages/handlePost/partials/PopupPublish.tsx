@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,7 +18,7 @@ import {
   uploadImage,
 } from 'app/stores/post/actions';
 
-interface PopupPublish {
+interface PopupPublishOptions {
   showPopupPublish: boolean;
   setShowPopupPublish: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -26,7 +26,7 @@ interface PopupPublish {
 const PopupPublish = ({
   showPopupPublish,
   setShowPopupPublish,
-}: PopupPublish) => {
+}: PopupPublishOptions) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const schema = yup.object().shape({

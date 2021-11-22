@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import SlideItem from './SlideItem';
 
 const Slide = () => {
@@ -21,16 +22,12 @@ const Slide = () => {
             <SlideItem index={index} />
           </ul>
           <div className="slide-dots">
-            <span
-              className={index === 0 ? 'dot-item active' : 'dot-item'}
-            ></span>
+            <span className={index === 0 ? 'dot-item active' : 'dot-item'}></span>
             <span
               className={index === 1 ? 'dot-item active' : 'dot-item'}
               onClick={() => setIndex(1)}
             ></span>
-            <span
-              className={index === 2 ? 'dot-item active' : 'dot-item'}
-            ></span>
+            <span className={index === 2 ? 'dot-item active' : 'dot-item'}></span>
           </div>
         </div>
       </div>

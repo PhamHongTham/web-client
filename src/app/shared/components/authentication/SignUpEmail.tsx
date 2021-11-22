@@ -18,10 +18,7 @@ interface SignUpEmailOptions {
   handleShowSignInEmail: () => void;
 }
 
-const SignUpEmail = ({
-  handleShowSignInModal,
-  handleShowSignInEmail,
-}: SignUpEmailOptions) => {
+const SignUpEmail = ({ handleShowSignInModal, handleShowSignInEmail }: SignUpEmailOptions) => {
   const dispatch = useDispatch();
   const schema = yup.object().shape({
     phone: yup
@@ -51,9 +48,7 @@ const SignUpEmail = ({
 
   const { handleAddNotification } = useContext(NotificationContext);
   const { handleShowLoading } = useContext(LoadingContext);
-  const { isLoading, message, error } = useSelector(
-    (state: RootState) => state.userState
-  );
+  const { isLoading, message, error } = useSelector((state: RootState) => state.userState);
 
   useEffect(() => {
     handleShowLoading(isLoading ? true : false);
@@ -125,30 +120,10 @@ const SignUpEmail = ({
         Join <span className="blog-name">Boogle</span>
       </h2>
       <form className="modal-form" onSubmit={handleSubmit(onSubmit)}>
-        <input
-          type="email"
-          placeholder="Email"
-          {...register('email')}
-          required
-        ></input>
-        <input
-          type="text"
-          placeholder="First name"
-          {...register('firstName')}
-          required
-        ></input>
-        <input
-          type="text"
-          placeholder="Last name"
-          {...register('lastName')}
-          required
-        ></input>
-        <input
-          type="text"
-          placeholder="Display name"
-          {...register('displayName')}
-          required
-        ></input>
+        <input type="email" placeholder="Email" {...register('email')} required></input>
+        <input type="text" placeholder="First name" {...register('firstName')} required></input>
+        <input type="text" placeholder="Last name" {...register('lastName')} required></input>
+        <input type="text" placeholder="Display name" {...register('displayName')} required></input>
         <div className="select-gender">
           <label className="container-radio">
             Male
@@ -175,50 +150,27 @@ const SignUpEmail = ({
           mask="99/99/9999"
           placeholder="Enter birthdate"
           value={dateOfBirth}
-          onChange={(e: FormEvent<HTMLInputElement>) =>
-            setDateOfBirth(e.currentTarget.value)
-          }
+          onChange={(e: FormEvent<HTMLInputElement>) => setDateOfBirth(e.currentTarget.value)}
           required
         />
-        {errors.dateOfBirth ? (
-          <p className="error">{errors.dateOfBirth.message}</p>
-        ) : (
-          ''
-        )}
-        <input
-          type="number"
-          placeholder="Phone"
-          {...register('phone')}
-          required
-        ></input>
+        {errors.dateOfBirth ? <p className="error">{errors.dateOfBirth.message}</p> : ''}
+        <input type="number" placeholder="Phone" {...register('phone')} required></input>
         {errors.phone ? <p className="error">{errors.phone.message}</p> : ''}
         <input
           type="password"
           placeholder="Password"
           {...register('password')}
-          onChange={(e: FormEvent<HTMLInputElement>) =>
-            setPass(e.currentTarget.value)
-          }
+          onChange={(e: FormEvent<HTMLInputElement>) => setPass(e.currentTarget.value)}
           required
         ></input>
-        {errors.password ? (
-          <p className="error">{errors.password.message}</p>
-        ) : (
-          ''
-        )}
+        {errors.password ? <p className="error">{errors.password.message}</p> : ''}
         <input
           type="password"
           placeholder="repeatPassword"
-          onChange={(e: FormEvent<HTMLInputElement>) =>
-            setRepeatPass(e.currentTarget.value)
-          }
+          onChange={(e: FormEvent<HTMLInputElement>) => setRepeatPass(e.currentTarget.value)}
           required
         ></input>
-        {errors.repeatPassword ? (
-          <p className="error">{errors.repeatPassword.message}</p>
-        ) : (
-          ''
-        )}
+        {errors.repeatPassword ? <p className="error">{errors.repeatPassword.message}</p> : ''}
         <button className="btn btn-primary">Sign Up</button>
       </form>
       <Link to="" className="back-all-action" onClick={handleShowSignInModal}>

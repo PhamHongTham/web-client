@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import Editor from './partials/Editor';
 import PopupPublish from './partials/PopupPublish';
 import {
-  fetchSpecificArticleRequest,
+  fetchSpecificPostRequest,
   saveInfoPost,
 } from 'app/stores/post/actions';
 import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
@@ -46,7 +46,7 @@ const HandlePost = () => {
 
   useEffect(() => {
     handleShowLoading(true);
-    dispatch(fetchSpecificArticleRequest(id)).then((res: any) => {
+    dispatch(fetchSpecificPostRequest(id)).then((res: any) => {
       setPost(res);
       reset(res);
       handleShowLoading(false);
