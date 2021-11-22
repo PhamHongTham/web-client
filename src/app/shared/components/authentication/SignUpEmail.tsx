@@ -148,7 +148,7 @@ const SignUpEmail = ({ handleShowSignInModal, handleShowSignInEmail }: SignUpEma
         </div>
         <InputMask
           mask="99/99/9999"
-          placeholder="Enter birthdate"
+          placeholder="Enter birth date"
           value={dateOfBirth}
           onChange={(e: FormEvent<HTMLInputElement>) => setDateOfBirth(e.currentTarget.value)}
           required

@@ -11,7 +11,7 @@ interface HandleEditorOptions {
 
 const Editor = ({ value, onChange }: HandleEditorOptions) => {
   const refEditor: any = useRef(null);
-  const [check, setCheck] = useState<boolean>(false)
+  const [check, setCheck] = useState<boolean>(false);
 
   useEffect(() => {
     let editor = new MediumEditor('.editable', {
@@ -40,10 +40,6 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
         sticky: false,
         updateOnEmptySelection: false,
       },
-      // anchorPreview: {
-      //   hideDelay: 0,
-      //   previewValueSelector: '',
-      // },
       placeholder: {
         text: 'Write your content',
         hideOnClick: false,
@@ -60,26 +56,21 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
       imageDragging: true,
     });
     refEditor.current = editor;
-    refEditor.current.subscribe(
-      'editableInput',
-      function (event: any, editable: any) {
-        if (onChange && typeof onChange === 'function') {
-          console.log(editable.innerHTML)
-          onChange(editable.innerHTML);
-        }
+    refEditor.current.subscribe('editableInput', function (event: any, editable: any) {
+      if (onChange && typeof onChange === 'function') {
+        onChange(editable.innerHTML);
       }
-    );
+    });
   }, []);
 
   useEffect(() => {
-    if(!check){
-      if(value){
-        console.log('set content')
+    if (!check) {
+      if (value) {
         refEditor.current.setContent(value, value.length);
-        setCheck(true)
+        setCheck(true);
       }
     }
-  }, [value])
+  }, [value]);
 
   return (
     <>
