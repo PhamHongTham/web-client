@@ -1,28 +1,28 @@
-import React, { useEffect } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PostItem from './partials/PostItem';
 import SkeletonPost from '../home/partials/skeleton-component/SkeletonPost';
-
 import { fetchUserPostRequest, deleteUserPostRequest } from 'app/stores/post/actions';
-import { RootState } from 'app/stores/app-reducer';
 import { postOptions } from 'app/shared/models/post-interface';
 import { localStorageOption } from 'app/shared/helper/LocalAction';
-
 const Wall = () => {
-  const { posts, isLoading }: any = useSelector((state: RootState) => state.post);
+  const [posts, setPosts] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const currentUserId = localStorageOption.getUserId;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchUserPostRequest(currentUserId));
+    setLoading(true);
+    dispatch(fetchUserPostRequest(currentUserId)).then((res: any) => {
+      setPosts(res.Posts);
+      setLoading(false);
+    });
   }, []);
-
   const handleDeletePost: any = (id: number) => {
     dispatch(deleteUserPostRequest(id));
+    setPosts(posts.filter((post: any) => post.id !== id));
     alert('deleted');
   };
-
   return (
     <div className="wall container">
       <div className="row">
@@ -53,7 +53,7 @@ const Wall = () => {
             {posts?.map((post: postOptions) => {
               return <PostItem post={post} handleDeletePost={handleDeletePost} />;
             })}
-            {isLoading && (
+            {loading && (
               <ul className="wall-list">
                 {[1, 2, 3, 4, 5, 6].map((n: number) => (
                   <SkeletonPost key={n} />

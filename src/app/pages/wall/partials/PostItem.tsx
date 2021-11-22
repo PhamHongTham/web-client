@@ -39,9 +39,9 @@ const PostItem = ({ post, handleDeletePost }: { post: postOptions; handleDeleteP
       <div className="sign-optional">
         <i className="far fa-ellipsis-h dot"></i>
         <ul className="list-option">
-          <li className="option-item">
+          <Link to={`post/edit/${id}`} className="option-item">
             <i className="fal fa-pencil-alt option-item-icon"></i> Edit
-          </li>
+          </Link>
           <li
             className="option-item"
             onClick={() => {

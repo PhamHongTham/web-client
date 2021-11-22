@@ -3,19 +3,20 @@ import { apiWrapper } from 'app/shared/core/services/apiWrapper';
 import { HandleFollowOptions } from 'app/shared/types/HandleFollow';
 import { PostHandleOptions } from 'app/shared/types/PostHandle';
 import {
+  addBookmark,
+  commentPost,
+  createNewPost,
+  followUser,
+  getCommentPost,
+  getUrlImage,
+  likePost,
+  updatePost,
+  upLoadImage,
   getNewPost,
   getUserPost,
   deleteUserPost,
   getRecommendPost,
   getSpecificArticle,
-  createNewPost,
-  updatePost,
-  likePost,
-  addBookmark,
-  commentPost,
-  getCommentPost,
-  followUser,
-  getUrlImage,
 } from 'app/shared/core/services/service-post';
 
 export const fetchSpecificPostRequest: any = (id: any) => async (dispatch: any) => {
@@ -80,4 +81,12 @@ export const fetchUserPostRequest: any = (userId: any) => async (dispatch: any) 
 
 export const deleteUserPostRequest: any = (postId: any) => async (dispatch: any) => {
   return apiWrapper(() => deleteUserPost(postId), dispatch);
+};
+
+export const uploadImage: any = (imageFile: File) => async (dispatch: any) => {
+  return apiWrapper(async () => {
+    const { signedRequest, url }: any = await getUrlImage(imageFile);
+    await upLoadImage(signedRequest, imageFile);
+    return url;
+  }, dispatch);
 };

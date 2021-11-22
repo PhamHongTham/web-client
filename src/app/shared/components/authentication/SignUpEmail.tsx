@@ -62,7 +62,11 @@ const SignUpEmail = ({ handleShowSignInModal, handleShowSignInEmail }: SignUpEma
       });
       handleShowSignInEmail();
     }
-  }, [isLoading, message, error]);
+  }, [
+    isLoading,
+    message,
+    error,
+  ]);
 
   useEffect(() => {
     return () => {

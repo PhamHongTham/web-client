@@ -49,6 +49,8 @@
             display: flex;
             align-items: center;
             color: map-get($color, 'black-midnight');
+            background: transparent;
+            cursor: pointer;
             &:hover {
               border: 1px solid #333;
               transition: 0.2s;

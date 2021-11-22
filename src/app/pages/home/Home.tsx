@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { useDispatch } from 'react-redux';
+
 import Slide from './partials/Slider';
 import NewPost from './partials/NewPost/NewPost';
 
