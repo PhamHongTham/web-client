@@ -1,21 +1,13 @@
-import React, { useEffect } from 'react';
-
-import { useDispatch } from 'react-redux';
+import React from 'react';
 
 import Slide from './partials/Slider';
-import NewPost from './partials/NewPost/NewPost';
-
-import { getUserInfoRequest } from 'app/stores/user/actions';
+import Newsfeed from './partials/newsfeed/Newsfeed';
 
 const Home = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUserInfoRequest());
-  }, [dispatch]);
   return (
     <>
       <Slide />
-      <NewPost />
+      <Newsfeed />
     </>
   );
 };

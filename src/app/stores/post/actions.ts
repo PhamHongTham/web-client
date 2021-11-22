@@ -74,8 +74,8 @@ export const saveInfoPost: any = (infoPost: {
   };
 };
 
-export const fetchPostRequest: any = (size: any) => async (dispatch: any) => {
-  return apiWrapper(() => getNewPost(size), dispatch);
+export const fetchPostRequest: any = (pageNumber: any) => async (dispatch: any) => {
+  return apiWrapper(() => getNewPost(pageNumber), dispatch);
 };
 
 export const fetchRecommendPostRequest: any =

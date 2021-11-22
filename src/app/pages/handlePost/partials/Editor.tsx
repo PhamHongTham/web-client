@@ -67,7 +67,7 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
           onChange(editable.innerHTML);
         }
       }
-    );
+    });
   }, []);
 
   useEffect(() => {
