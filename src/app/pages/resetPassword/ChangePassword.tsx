@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { changePasswordRequest } from 'app/stores/user/actions';
+import { changePasswordRequest, clearUserState } from 'app/stores/user/actions';
 import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
 import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
 import { RootState } from 'app/stores/app-reducer';
@@ -27,13 +27,13 @@ const ChangePassword = () => {
     formState: { errors },
     reset,
   } = useForm({ resolver: yupResolver(schema) });
-
-  const [pass, setPass] = useState<string>('');
   const [repeatPass, setRepeatPass] = useState<string>('');
 
   const { handleAddNotification } = useContext(NotificationContext);
   const { handleShowLoading } = useContext(LoadingContext);
-  const { isLoading, message, error } = useSelector((state: RootState) => state.userState);
+  const { isLoading, message, error } = useSelector(
+    (state: RootState) => state.userState
+  );
 
   useEffect(() => {
     handleShowLoading(isLoading ? true : false);
@@ -45,8 +45,14 @@ const ChangePassword = () => {
     }
   }, [isLoading, message, error]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(clearUserState());
+    };
+  }, []);
+
   const onSubmit = (data: PasswordOptions) => {
-    if (pass === repeatPass) {
+    if (data.newPassword === repeatPass) {
       dispatch(changePasswordRequest(data));
       reset();
     } else {
@@ -67,26 +73,31 @@ const ChangePassword = () => {
             type="password"
             placeholder="Old password"
             {...register('oldPassword')}
-            onChange={(e: FormEvent<HTMLInputElement>) => setPass(e.currentTarget.value)}
           ></input>
-          <input
-            className="password"
-            type="password"
-            placeholder="Repeat old password"
-            onChange={(e: FormEvent<HTMLInputElement>) => setRepeatPass(e.currentTarget.value)}
-          ></input>
-          {errors.repeatPassword ? (
-            <span className="error">{errors.repeatPassword.message}</span>
-          ) : (
-            ''
-          )}
           <input
             className="password"
             type="password"
             placeholder="New password"
             {...register('newPassword')}
           ></input>
-          {errors.newPassword ? <span className="error">{errors.newPassword.message}</span> : ''}
+          {errors.newPassword ? (
+            <span className="error">{errors.newPassword.message}</span>
+          ) : (
+            ''
+          )}
+          <input
+            className="password"
+            type="password"
+            placeholder="Repeat new password"
+            onChange={(e: FormEvent<HTMLInputElement>) =>
+              setRepeatPass(e.currentTarget.value)
+            }
+          ></input>
+          {errors.repeatPassword ? (
+            <span className="error">{errors.repeatPassword.message}</span>
+          ) : (
+            ''
+          )}
           <div className="form-btn">
             <button className="btn btn-primary" type="submit">
               Change password

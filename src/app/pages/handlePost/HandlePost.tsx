@@ -45,12 +45,14 @@ const HandlePost = () => {
   const { handleShowLoading } = useContext(LoadingContext);
 
   useEffect(() => {
-    handleShowLoading(true);
-    dispatch(fetchSpecificPostRequest(id)).then((res: any) => {
-      setPost(res);
-      reset(res);
-      handleShowLoading(false);
-    });
+    if (id) {
+      handleShowLoading(true);
+      dispatch(fetchSpecificPostRequest(id)).then((res: any) => {
+        setPost(res);
+        reset(res);
+        handleShowLoading(false);
+      });
+    }
   }, [id]);
 
   const onSubmit = (data: {
@@ -106,7 +108,7 @@ const HandlePost = () => {
           ) : (
             ''
           )}
-          <button className="btn btn-primary">Publish</button>
+          <button className="btn btn-primary">Next</button>
         </form>
       </div>
     </section>

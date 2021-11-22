@@ -19,7 +19,7 @@ const HandleTag = ({ value, onChange }: HandleTagOptions) => {
     if (newListTags.length <= 5) {
       newListTags = newListTags.map((item: any) => {
         delete item['__isNew__'];
-        return { ...item };
+        return item;
       });
       setTags(newListTags);
       let tagsData = newListTags.map((item: MyOptionType) => item.value);
@@ -29,21 +29,23 @@ const HandleTag = ({ value, onChange }: HandleTagOptions) => {
 
   useEffect(() => {
     if (value) {
-      let defaultValue = [...value].map((item: any) => {
+      let defaultValue = value.map((item: any) => {
         let newItem = {
-          label: value,
-          value: value,
-        }
-        return newItem
-      })
+          label: item,
+          value: item,
+        };
+        return newItem;
+      });
       setTags(defaultValue);
     }
-  }, [value])
+  }, [value]);
+
   return (
     <div className="select-tags">
       <Creatable
         isMulti
         placeholder="Create tags"
+        options={tags}
         value={tags}
         onChange={handleChangeTags}
         createOptionPosition={'last'}
