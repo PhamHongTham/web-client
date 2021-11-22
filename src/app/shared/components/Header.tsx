@@ -121,7 +121,7 @@ const Header = () => {
                 </Link>
               </li>
               <li className="list-item menu-item">
-                <Link to="/" className="menu-link">
+                <Link to="/post/new" className="menu-link">
                   Write
                 </Link>
               </li>

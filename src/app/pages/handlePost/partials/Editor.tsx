@@ -40,10 +40,10 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
         sticky: false,
         updateOnEmptySelection: false,
       },
-      // anchorPreview: {
-      //   hideDelay: 0,
-      //   previewValueSelector: '',
-      // },
+      anchorPreview: {
+        hideDelay: 0,
+        previewValueSelector: '',
+      },
       placeholder: {
         text: 'Write your content',
         hideOnClick: false,
@@ -73,8 +73,7 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
 
   useEffect(() => {
     if(!check){
-      if(value){
-        console.log('set content')
+      if (value) {
         refEditor.current.setContent(value, value.length);
         setCheck(true)
       }
