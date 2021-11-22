@@ -66,9 +66,8 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
         if (onChange && typeof onChange === 'function') {
           onChange(editable.innerHTML);
         }
-      }
+      })
     });
-  }, []);
 
   useEffect(() => {
     if (!check) {
