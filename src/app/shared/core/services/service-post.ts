@@ -1,7 +1,7 @@
-import { PostHandleOptions } from 'app/shared/types/PostHandle';
-import axiosClient from './axios-client';
 import axios from 'axios';
+import axiosClient from './axios-client';
 import { HandleFollowOptions } from 'app/shared/types/HandleFollow';
+import { PostHandleOptions } from 'app/shared/types/PostHandle';
 
 export const getSpecificArticle = (params: { id: number }): any =>
   axiosClient.get(`posts/${params}`);
@@ -38,16 +38,12 @@ export const commentPost = (postId: string, post: CommentHandleOptions): any =>
 export const followUser = (data: HandleFollowOptions): any =>
   axiosClient.post(`/friends/follow`, data);
 
-export const getNewPost = (params: { size: number }): any =>
-  axiosClient.get(`posts/public?size=${params}`);
+export const getNewPost = (params: number): any => axiosClient.get(`posts/public?page=${params}`);
 
-export const getSpecificPost = (params: { id: number }): any => axiosClient.get(`posts/${params}`);
+export const getSpecificPost = (params: number): any => axiosClient.get(`posts/${params}`);
 
-export const getRecommendPost = (params: { size: number }): any =>
-  axiosClient.get(`posts/recommend?size=${params}`);
+export const getRecommendPost = (params: number): any => axiosClient.get(`posts?page=${params}`);
 
-export const getUserPost = (params: { userId: number }): any =>
-  axiosClient.get(`users/${params}/posts`);
+export const getUserPost = (params: number): any => axiosClient.get(`users/${params}/posts`);
 
-export const deleteUserPost = (params: { postId: number }): any =>
-  axiosClient.delete(`posts/${params}`);
+export const deleteUserPost = (params: number): any => axiosClient.delete(`posts/${params}`);

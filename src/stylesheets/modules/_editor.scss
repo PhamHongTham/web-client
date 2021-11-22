@@ -1,5 +1,5 @@
 .medium-editor-element {
-  min-height: 360px !important;
+  min-height: 400px !important;
   border-top: 1px solid #e5e5e5;
   border-bottom: 1px solid #e5e5e5;
   padding: 1rem;
@@ -9,11 +9,15 @@
   background: map-get($color, 'primary') !important;
   color: map-get($color, 'black-midnight') !important;
 }
+.medium-editor-placeholder-relative:after, .medium-editor-placeholder:after {
+  color: map-get($color, 'gray-smoke');
+  font-style: normal !important;
+}
 ::selection {
   background: map-get($color, 'primary');
   color: map-get($color, 'white-snow');
 }
 .editable{
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }

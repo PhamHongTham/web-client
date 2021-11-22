@@ -1,25 +1,30 @@
-import { RootState } from 'app/stores/app-reducer';
-import { logoutRequest } from 'app/stores/user/actions';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 import { UserInfoOptions } from '../models/User';
-
+import { RootState } from 'app/stores/app-reducer';
+import { logoutRequest, showModalSignInRequest } from 'app/stores/user/actions';
 import AuthenticationModal from './authentication/AuthenticationModal';
 
 const Header = () => {
   const dispatch = useDispatch();
-  const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [showUserAction, setShowUserAction] = useState<boolean>(false);
-  const { userCurrent }: { userCurrent: UserInfoOptions } = useSelector(
+  const {
+    userCurrent,
+    showModalSignIn,
+  }: { userCurrent: UserInfoOptions; showModalSignIn: boolean } = useSelector(
     (state: RootState) => state.userState
   );
 
-  const handleShowLoginModal = () => {
-    setShowLoginModal(!showLoginModal);
-  };
+  useEffect(() => {
+    if (showModalSignIn) {
+      dispatch(showModalSignInRequest(true));
+    }
+  }, [showModalSignIn]);
+
   const handleShowMobileMenu = () => {
     setShowMenu(true);
   };
@@ -31,6 +36,11 @@ const Header = () => {
   };
   const handleSignOut = () => {
     dispatch(logoutRequest());
+  };
+
+  const handleShowSignInModal = () => {
+    dispatch(showModalSignInRequest(true));
+    handleHiddenMobileMenu();
   };
   const UserAction = () => (
     <li className="user-avatar">
@@ -51,6 +61,15 @@ const Header = () => {
       {showUserAction ? (
         <div className="user-action">
           <ul className="action-list">
+            <li className="action-item">
+              <Link
+                to="/wall"
+                className="action-link"
+                onClick={handleShowUserAction}
+              >
+                Profile
+              </Link>
+            </li>
             <li className="action-item">
               <Link
                 to="/user/update"
@@ -110,7 +129,11 @@ const Header = () => {
                 <UserAction />
               ) : (
                 <li className="list-item menu-item">
-                  <Link to="/" className="menu-link" onClick={() => { handleShowLoginModal(); handleHiddenMobileMenu() }}>
+                    <Link
+                      to="/"
+                      className="menu-link"
+                      onClick={handleShowSignInModal}
+                    >
                     Sign In
                   </Link>
                 </li>
@@ -146,16 +169,18 @@ const Header = () => {
                       Write
                     </Link>
                   </li>
-                  {
-                    !userCurrent ? (<li
-                    className="list-item menu-mobile-item"
-                    onClick={handleShowLoginModal}
-                  >
-                    <Link to="" className="menu-mobile-link" onClick={() => { handleShowLoginModal(); handleHiddenMobileMenu() }}>
-                      Sign In
-                    </Link>
-                    </li>) : ''
-                  }
+                  {!userCurrent ? (
+                    <li
+                      className="list-item menu-mobile-item"
+                      onClick={handleShowSignInModal}
+                    >
+                      <Link to="" className="menu-mobile-link">
+                        Sign In
+                      </Link>
+                    </li>
+                  ) : (
+                    ''
+                  )}
                 </ul>
                 <Link
                   to="/"
@@ -170,11 +195,7 @@ const Header = () => {
         </div>
       </div>
 
-      {showLoginModal ? (
-        <AuthenticationModal showLoginModal={handleShowLoginModal} />
-      ) : (
-        ''
-      )}
+      {showModalSignIn ? <AuthenticationModal /> : ''}
     </header>
   );
 };

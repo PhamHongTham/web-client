@@ -3,11 +3,18 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { RootState } from 'app/stores/app-reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
 import UserComment from './partials/UserComment';
+import {
+  getUserInfoByIdRequest,
+  showModalSignInRequest,
+} from 'app/stores/user/actions';
 
 import { formatNumber } from 'app/shared/helper/helper-function';
-import { getUserInfoByIdRequest } from 'app/stores/user/actions';
 import {
   commentPostRequest,
   fetchSpecificPostRequest,
@@ -20,13 +27,29 @@ import {
 const Detail = () => {
   const dispatch = useDispatch();
   const { id }: any = useParams();
-  const { register, handleSubmit, reset } = useForm();
+  const schema = yup.object().shape({
+    content: yup
+      .string()
+      .max(30, 'Password must not exceed 30 characters')
+      .required('Password is require'),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({ resolver: yupResolver(schema) });
 
   const [post, setPost] = useState<any>();
   const [comments, setComments] = useState<any>([]);
   const [follow, setFollow] = useState<boolean>(false);
+  const { userCurrent }: any = useSelector(
+    (state: RootState) => state.userState
+  );
+
   const [bookmark, setBookmark] = useState<boolean>(false);
   const [showComment, setShowComment] = useState<boolean>(false);
+
   useEffect(() => {
     dispatch(fetchSpecificPostRequest(id)).then((res: any) => {
       setPost(res);
@@ -44,15 +67,19 @@ const Detail = () => {
   }, [post]);
 
   const handleLikePost = () => {
-    if (post.isLiked) {
-      post.likes = +post.likes - 1;
-      post.isLiked = false;
+    if (userCurrent) {
+      if (post.isLiked) {
+        post.likes = +post.likes - 1;
+        post.isLiked = false;
+      } else {
+        post.likes = +post.likes + 1;
+        post.isLiked = true;
+      }
+      setPost({ ...post });
+      dispatch(likePostRequest(id));
     } else {
-      post.likes = +post.likes + 1;
-      post.isLiked = true;
+      dispatch(showModalSignInRequest(true));
     }
-    setPost({ ...post });
-    dispatch(likePostRequest(id));
   };
 
   const handleShowComment = () => {
@@ -60,18 +87,32 @@ const Detail = () => {
   };
 
   const onSubmit = (data: CommentHandleOptions) => {
-    dispatch(commentPostRequest(id, data)).then((res: any) =>
-      setComments((comments: any) => [...comments, res])
-    );
-    reset();
+    if (userCurrent) {
+      dispatch(commentPostRequest(id, data)).then((res: any) => {
+        let newComment = {
+          ...res,
+          user: {
+            displayName: userCurrent?.displayName,
+          },
+        };
+        setComments((comments: any) => [...comments, newComment]);
+      });
+      reset();
+    } else {
+      dispatch(showModalSignInRequest(true));
+    }
   };
 
   const handleFollowUser = () => {
-    let data = {
-      followingId: post.userId,
-    };
-    setFollow(!follow);
-    dispatch(followUserRequest(data));
+    if (userCurrent) {
+      let data = {
+        followingId: post.userId,
+      };
+      setFollow(!follow);
+      dispatch(followUserRequest(data));
+    } else {
+      dispatch(showModalSignInRequest(true));
+    }
   };
 
   const handleAddBookmark = () => {
@@ -183,13 +224,18 @@ const Detail = () => {
                     </li>
                   </ul>
                 </div>
-                <div className="interact-title" onClick={handleShowComment}>
-                  Responses ({formatNumber(comments.length)})
+                <div className="interact-box">
+                  Responses ({comments.length})
                 </div>
                 <form className="form-comment" onSubmit={handleSubmit(onSubmit)}>
                   <input type="text" className="comment-input" {...register('content')}></input>
                   <button className="btn btn-primary">Comment</button>
                 </form>
+                {errors.content ? (
+                  <p className="error">{errors.content.message}</p>
+                ) : (
+                  ''
+                )}
               </article>
               <ul className="list-user-comment col-8 offset-2 col-lg-12 offset-lg-0">
                 {showComment &&

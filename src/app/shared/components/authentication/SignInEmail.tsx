@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginRequest } from 'app/stores/user/actions';
+import { loginRequest, showModalSignInRequest } from 'app/stores/user/actions';
 import { UserLoginOptions } from 'app/shared/types/UserLogin';
 
 import { RootState } from '../../../stores/app-reducer';
@@ -41,10 +41,11 @@ const SignInEmail = ({
       });
       showLoginModal();
     }
-  }, [isLoading, userCurrent, dispatch, error]);
+  }, [isLoading, userCurrent, error]);
 
-  const onSubmit = (data: UserLoginOptions) => {
-    dispatch(loginRequest(data));
+  const onSubmit = async (data: UserLoginOptions) => {
+    await dispatch(loginRequest(data));
+    dispatch(showModalSignInRequest(false));
     reset();
   };
   return (

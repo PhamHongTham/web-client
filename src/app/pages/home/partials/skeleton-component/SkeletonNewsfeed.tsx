@@ -1,7 +1,7 @@
 import React from 'react';
 import SkeletonElement from './SkeletonElement';
 
-const SkeletonNewPort = () => {
+const SkeletonNewsfeed = () => {
   return (
     <li className="list-item col-4 col-lg-6 col-md-12">
       <div className="card">
@@ -28,4 +28,4 @@ const SkeletonNewPort = () => {
   );
 };
 
-export default SkeletonNewPort;
+export default SkeletonNewsfeed;

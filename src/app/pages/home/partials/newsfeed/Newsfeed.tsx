@@ -6,39 +6,51 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'app/stores/app-reducer';
 import { postOptions } from 'app/shared/models/post-interface';
 import { fetchPostRequest, fetchRecommendPostRequest } from 'app/stores/post/actions';
-import SkeletonNewPost from 'app/pages/home/partials/skeleton-component/SkeletonNewPost';
+import SkeletonNewsfeed from 'app/pages/home/partials/skeleton-component/SkeletonNewsfeed';
 
-const NewPost = () => {
+const Newsfeed = () => {
   const { userCurrent }: any = useSelector((state: RootState) => state.userState);
   const [posts, setPosts] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [elementQuantity, setElementQuantity] = useState<number>(6);
+  const [loadMore, setLoadMore] = useState<boolean>(true);
+  const [pageNumber, setPageNumber] = useState<number>(1);
   const observer: any = useRef();
   const dispatch = useDispatch();
+  const fetchNewsfeedAPI = (action: any, pageNumber: number) => {
+    setLoading(true);
+    dispatch(action(pageNumber)).then((res: any) => {
+      if (pageNumber === 1) {
+        setPosts(res.data);
+      } else {
+        setPosts([...posts, ...res.data]);
+      }
+      setLoadMore(res.loadMore);
+      setLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    setLoadMore(true);
+    setPageNumber(1);
+  }, [userCurrent]);
+
   useEffect(() => {
     if (userCurrent) {
-      setLoading(true);
-      dispatch(fetchRecommendPostRequest(elementQuantity)).then((res: any) => {
-        setPosts(res);
-        setLoading(false);
-      });
-    } else {
-      setLoading(true);
-      dispatch(fetchPostRequest(elementQuantity)).then((res: any) => {
-        setPosts(res);
-        setLoading(false);
-      });
+      fetchNewsfeedAPI(fetchRecommendPostRequest, pageNumber);
     }
-  }, [elementQuantity, userCurrent]);
-  
+    if (!userCurrent) {
+      fetchNewsfeedAPI(fetchPostRequest, pageNumber);
+    }
+  }, [pageNumber]);
+
   const lastPostElementRef = useCallback(
     (node) => {
       if (loading) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver(
         (entries) => {
-          if (entries[0].isIntersecting && posts?.loadMore) {
-            setElementQuantity(elementQuantity + 6);
+          if (entries[0].isIntersecting && loadMore) {
+            setPageNumber(pageNumber + 1);
           }
         },
         {
@@ -56,19 +68,19 @@ const NewPost = () => {
     <section className="section-new-post">
       <div className="container">
         <ul className="row group-item">
-          {posts.data?.map((post: postOptions) => (
+          {posts?.map((post: postOptions) => (
             <Post post={post} />
           ))}
         </ul>
         {loading && (
           <ul className="row group-item">
             {[1, 2, 3, 4, 5, 6].map((n: number) => (
-              <SkeletonNewPost key={n} />
+              <SkeletonNewsfeed key={n} />
             ))}
           </ul>
         )}
       </div>
-      {posts.loadMore && (
+      {loadMore && (
         <div className="load-more-wrap" ref={lastPostElementRef}>
           <div className="load-more">
             <div className="line"></div>
@@ -80,4 +92,4 @@ const NewPost = () => {
     </section>
   );
 };
-export default NewPost;
+export default Newsfeed;

@@ -149,6 +149,13 @@
         height: 40px;
       }
     }
+    .error{
+      color: red;
+      font-size: map-get($font-size, 'sm');
+      margin-top: -1rem;
+      margin-bottom: .5rem;
+      margin-left: 0;
+    }
     margin: 3rem auto;
     p,
     h1,

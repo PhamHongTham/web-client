@@ -13,20 +13,21 @@ import { UserInfoOptions } from 'app/shared/models/User';
 import { localStorageOption } from 'app/shared/helper/LocalAction';
 import { apiWrapper } from 'app/shared/core/services/apiWrapper';
 
-export const loginRequest = (userInfo: UserLoginOptions) => async (dispatch: any) => {
-  dispatch({ type: UserConstant.LOGIN_REQUEST, payload: userInfo });
-  try {
-    const data = await login(userInfo);
-    dispatch({ type: UserConstant.LOGIN_SUCCESS, payload: data });
-    localStorageOption.setUserToken(JSON.stringify(data.accessToken));
-    localStorageOption.setUserId(JSON.stringify(data.userInfo.id));
-  } catch (error: any) {
-    dispatch({
-      type: UserConstant.LOGIN_FAILURE,
-      payload: error.response.data.errors[0],
-    });
-  }
-};
+export const loginRequest =
+  (userInfo: UserLoginOptions) => async (dispatch: any) => {
+    dispatch({ type: UserConstant.LOGIN_REQUEST, payload: userInfo });
+    try {
+      const data = await login(userInfo);
+      dispatch({ type: UserConstant.LOGIN_SUCCESS, payload: data });
+      localStorageOption.setUserToken(JSON.stringify(data.accessToken));
+      localStorageOption.setUserId(JSON.stringify(data.userInfo.id));
+    } catch (error: any) {
+      dispatch({
+        type: UserConstant.LOGIN_FAILURE,
+        payload: error.response.data.errors[0],
+      });
+    }
+  };
 
 export const signUpRequest = (userInfo: any, callback: () => void) => async (dispatch: any) => {
   dispatch({ type: UserConstant.SIGN_UP_REQUEST, payload: userInfo });
@@ -117,6 +118,13 @@ export const updateUserInfoRequest = (info: UserInfoOptions) => async (dispatch:
 
 export const getUserInfoByIdRequest: any = (id: string) => async (dispatch: any) => {
   return apiWrapper(() => getUserInfoById(id), dispatch);
+};
+
+export const showModalSignInRequest = (value: boolean) => {
+  return {
+    type: UserConstant.SHOW_MODAL_SIGN_IN,
+    payload: value,
+  };
 };
 
 export const clearUserState = () => {

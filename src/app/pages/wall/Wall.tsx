@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
-
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Post from './partials/Post';
 import SkeletonPost from '../home/partials/skeleton-component/SkeletonPost';
-
 import { fetchUserPostRequest, deleteUserPostRequest } from 'app/stores/post/actions';
 import { postOptions } from 'app/shared/models/post-interface';
 import { localStorageOption } from 'app/shared/helper/LocalAction';
-
 const Wall = () => {
   const [posts, setPosts] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -27,7 +24,6 @@ const Wall = () => {
     setPosts(posts.filter((post: any) => post.id !== id));
     alert('deleted');
   };
-
   return (
     <div className="wall container">
       <div className="row">
