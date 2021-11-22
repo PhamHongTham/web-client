@@ -12,7 +12,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 600px;
-    height: calc(100vh - 150px);
+    height: 90vh;
     background: map-get($color, 'white-snow');
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     padding: 2rem;
@@ -135,6 +135,7 @@
         font-size: map-get($font-size, 'xxl');
         font-weight: 600;
         text-align: center;
+        margin-bottom: 1.5rem;
         .blog-name {
           color: map-get($color, 'primary');
         }
@@ -182,6 +183,9 @@
           margin-top: -0.5rem;
           margin-left: 1rem;
         }
+      }
+      button{
+        margin: 0 auto
       }
       .back-all-action {
         @include flex-center;

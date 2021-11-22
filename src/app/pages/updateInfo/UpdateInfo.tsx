@@ -1,20 +1,27 @@
-import React, { FormEvent, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 
-import { useForm } from 'react-hook-form';
-import InputMask from 'react-input-mask';
+import { useForm, Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import { RootState } from 'app/stores/app-reducer';
-import { UserInfoOptions } from 'app/shared/models/User';
-import { updateUserInfoRequest } from 'app/stores/user/actions';
-import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
+import {
+  clearUserState,
+  getUserInfoRequest,
+  updateUserInfoRequest,
+} from 'app/stores/user/actions';
+import SelectGender from './partials/SelectGender';
+import HandleBirthdate from './partials/HandleBirthdate';
+import Avatar from './partials/Avatar';
+import { uploadImage } from 'app/stores/post/actions';
 import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
+import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
 
 const UpdateInfo = () => {
   const dispatch = useDispatch();
   const schema = yup.object().shape({
+    picture: yup.mixed().required('You need upload image to update'),
     phone: yup
       .string()
       .trim()
@@ -24,17 +31,14 @@ const UpdateInfo = () => {
   const {
     register,
     handleSubmit,
-    setError,
-    clearErrors,
+    control,
     formState: { errors },
     reset,
   } = useForm({ resolver: yupResolver(schema) });
-  const [dateOfBirth, setDateOfBirth] = useState<string>('');
-  const [gender, setGender] = useState<string>('');
 
   const { handleAddNotification } = useContext(NotificationContext);
   const { handleShowLoading } = useContext(LoadingContext);
-  const { isLoading, message, error } = useSelector(
+  const { userCurrent, isLoading, message, error } = useSelector(
     (state: RootState) => state.userState
   );
 
@@ -49,36 +53,53 @@ const UpdateInfo = () => {
         message: 'Update user info success',
       });
     }
-  }, [isLoading, message, error]);
+    if (userCurrent) {
+      reset(userCurrent);
+    }
+  }, [isLoading, message, error, userCurrent]);
 
   useEffect(() => {
-    let date = new Date(dateOfBirth);
-    let currentDate = new Date();
-    if (date.getTime() > currentDate.getTime()) {
-      setError('dateOfBirth', {
-        type: 'manual',
-        message: 'Wrong date of birth',
-      });
-    } else {
-      clearErrors('dateOfBirth');
-    }
-  }, [dateOfBirth]);
-
-  const onSubmit = (data: UserInfoOptions) => {
-    const newUserInfo: UserInfoOptions = {
-      ...data,
-      gender: gender,
-      dob: dateOfBirth,
+    dispatch(getUserInfoRequest());
+    return () => {
+      dispatch(clearUserState());
     };
-    dispatch(updateUserInfoRequest(newUserInfo));
-    reset();
-    setDateOfBirth('');
+  }, []);
+
+  const onSubmit = async (data: any) => {
+    const infoData = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      gender: data.gender,
+      dob: data.dob,
+      displayName: data.displayName,
+      phone: data.phone,
+      picture: data.picture,
+    };
+    if (data.picture instanceof File) {
+      const url = await dispatch(uploadImage(data.picture));
+      infoData.picture = url;
+    }
+    await dispatch(updateUserInfoRequest(infoData))
   };
+
   return (
     <section className="section-update-info">
       <div className="container">
         <h2 className="update-info-title">Update information</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="update-form">
+          <Controller
+            control={control}
+            name="picture"
+            rules={{ required: true }}
+            render={({ field: { onChange, onBlur, value, name, ref } }) => (
+              <Avatar value={value} onChange={onChange} />
+            )}
+          />
+          {errors.picture ? (
+            <p className="error error-avatar">{errors.picture.message}</p>
+          ) : (
+            ''
+          )}
           <input
             placeholder="Firstname"
             {...register('firstName')}
@@ -89,44 +110,22 @@ const UpdateInfo = () => {
             {...register('lastName')}
             required
           ></input>
-          <div className="select-gender">
-            <label className="container-radio">
-              Male
-              <input
-                type="radio"
-                name="radio"
-                onChange={(e: FormEvent<HTMLInputElement>) => setGender('male')}
-                required
-              ></input>
-              <span className="checkmark"></span>
-            </label>
-            <label className="container-radio">
-              Female
-              <input
-                type="radio"
-                name="radio"
-                onChange={(e: FormEvent<HTMLInputElement>) =>
-                  setGender('female')
-                }
-                required
-              ></input>
-              <span className="checkmark"></span>
-            </label>
-          </div>
-          <InputMask
-            mask="99/99/9999"
-            placeholder="Enter birthdate"
-            value={dateOfBirth}
-            onChange={(e: FormEvent<HTMLInputElement>) =>
-              setDateOfBirth(e.currentTarget.value)
-            }
-            required
+          <Controller
+            control={control}
+            name="gender"
+            rules={{ required: true }}
+            render={({ field: { onChange, onBlur, value, name, ref } }) => (
+              <SelectGender value={value} onChange={onChange} />
+            )}
           />
-          {errors.dateOfBirth ? (
-            <p className="error">{errors.dateOfBirth.message}</p>
-          ) : (
-            ''
-          )}
+          <Controller
+            control={control}
+            name="dob"
+            rules={{ required: true }}
+            render={({ field: { onChange, onBlur, value, name, ref } }) => (
+              <HandleBirthdate value={value} onChange={onChange} />
+            )}
+          />
           <input
             placeholder="Display name"
             {...register('displayName')}

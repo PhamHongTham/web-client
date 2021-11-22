@@ -97,6 +97,7 @@ const Detail = () => {
         };
         setComments((comments: any) => [...comments, newComment]);
       });
+      setShowComment(true);
       reset();
     } else {
       dispatch(showModalSignInRequest(true));
@@ -141,7 +142,10 @@ const Detail = () => {
                       )}
                     </span>
                   </li>
-                  <li className="interact-action-item" onClick={handleFollowUser}>
+                  <li
+                    className="interact-action-item"
+                    onClick={handleFollowUser}
+                  >
                     <span className="item-icon">
                       {follow ? (
                         <i className="fal fa-user-minus"></i>
@@ -150,7 +154,10 @@ const Detail = () => {
                       )}
                     </span>
                   </li>
-                  <li className="interact-action-item" onClick={handleAddBookmark}>
+                  <li
+                    className="interact-action-item"
+                    onClick={handleAddBookmark}
+                  >
                     <span className="item-icon">
                       {bookmark ? (
                         <i className="fas fa-bookmark"></i>
@@ -184,14 +191,20 @@ const Detail = () => {
                     </li>
                   </ul>
                   <ul className="interact-detail-list">
-                    <li className="interact-detail-item" onClick={handleAddBookmark}>
+                    <li
+                      className="interact-detail-item"
+                      onClick={handleAddBookmark}
+                    >
                       {bookmark ? (
                         <i className="fas fa-bookmark"></i>
                       ) : (
                         <i className="fal fa-bookmark"></i>
                       )}
                     </li>
-                    <li className="interact-detail-item" onClick={handleFollowUser}>
+                    <li
+                      className="interact-detail-item"
+                      onClick={handleFollowUser}
+                    >
                       {follow ? (
                         <i className="fal fa-user-minus"></i>
                       ) : (
@@ -211,7 +224,10 @@ const Detail = () => {
                 </div>
                 <div className="post-footer">
                   <ul className="interact-detail-list">
-                    <li className="interact-detail-item" onClick={handleLikePost}>
+                    <li
+                      className="interact-detail-item"
+                      onClick={handleLikePost}
+                    >
                       {formatNumber(post.likes)}{' '}
                       {post.isLiked ? (
                         <i className="fas fa-heart"></i>
@@ -219,16 +235,27 @@ const Detail = () => {
                         <i className="fal fa-heart"></i>
                       )}
                     </li>
-                    <li className="interact-detail-item" onClick={handleShowComment}>
-                      {formatNumber(comments.length)} <i className="fal fa-comment-alt-lines"></i>
+                    <li
+                      className="interact-detail-item"
+                      onClick={handleShowComment}
+                    >
+                      {formatNumber(comments.length)}{' '}
+                      <i className="fal fa-comment-alt-lines"></i>
                     </li>
                   </ul>
                 </div>
                 <div className="interact-box">
                   Responses ({comments.length})
                 </div>
-                <form className="form-comment" onSubmit={handleSubmit(onSubmit)}>
-                  <input type="text" className="comment-input" {...register('content')}></input>
+                <form
+                  className="form-comment"
+                  onSubmit={handleSubmit(onSubmit)}
+                >
+                  <input
+                    type="text"
+                    className="comment-input"
+                    {...register('content')}
+                  ></input>
                   <button className="btn btn-primary">Comment</button>
                 </form>
                 {errors.content ? (

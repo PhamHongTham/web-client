@@ -6,16 +6,16 @@ import { PostHandleOptions } from 'app/shared/types/PostHandle';
 export const getSpecificArticle = (params: { id: number }): any =>
   axiosClient.get(`posts/${params}`);
 
-export const getUrlImage = (imageFile: File) => {
+export const getUrlImage = async (imageFile: File) => {
   const signUrlOption = {
     typeUpload: 'cover-post',
     fileName: imageFile.name,
     fileType: imageFile.type,
   };
-  axiosClient.get(
+  const res = await axiosClient.get(
     `/signatures?type_upload=${signUrlOption.typeUpload}&file_name=${signUrlOption.fileName}&file_type=${signUrlOption.fileType}`
   );
-  return signUrlOption;
+  return res;
 };
 
 export const upLoadImage = (url: string, fileImage: File): any =>
@@ -51,8 +51,8 @@ export const getSpecificPost = (params: { id: number }): any =>
 export const getRecommendPost = (params: { size: number }): any =>
   axiosClient.get(`posts/recommend?size=${params}`);
 
-export const getUserPost = (params: { userId: number }): any =>
+export const getUserPost = (params: number): any =>
   axiosClient.get(`users/${params}/posts`);
 
-export const deleteUserPost = (params: { postId: number }): any =>
+export const deleteUserPost = (params: number): any =>
   axiosClient.delete(`posts/${params}`);

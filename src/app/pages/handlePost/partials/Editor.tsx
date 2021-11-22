@@ -11,7 +11,7 @@ interface HandleEditorOptions {
 
 const Editor = ({ value, onChange }: HandleEditorOptions) => {
   const refEditor: any = useRef(null);
-  const [check, setCheck] = useState<boolean>(false)
+  const [check, setCheck] = useState<boolean>(false);
 
   useEffect(() => {
     let editor = new MediumEditor('.editable', {
@@ -64,7 +64,6 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
       'editableInput',
       function (event: any, editable: any) {
         if (onChange && typeof onChange === 'function') {
-          console.log(editable.innerHTML)
           onChange(editable.innerHTML);
         }
       }
@@ -72,13 +71,13 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
   }, []);
 
   useEffect(() => {
-    if(!check){
+    if (!check) {
       if (value) {
         refEditor.current.setContent(value, value.length);
-        setCheck(true)
+        setCheck(true);
       }
     }
-  }, [value])
+  }, [value]);
 
   return (
     <>

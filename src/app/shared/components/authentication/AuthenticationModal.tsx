@@ -36,13 +36,13 @@ const AuthenticationModal = () => {
     });
   };
 
-  const showLoginModal = () => {
-    dispatch(showModalSignInRequest(false));
+  const showLoginModal = (value: boolean) => {
+    dispatch(showModalSignInRequest(value));
   };
   return (
     <div className="modal">
       <div className="authentication-modal">
-        <button className="close-modal" onClick={showLoginModal}>
+        <button className="close-modal" onClick={() => showLoginModal(false)}>
           <i className="fal fa-times"></i>
         </button>
         {UIModalOptions.signInModal ? (

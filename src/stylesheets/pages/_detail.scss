@@ -22,9 +22,10 @@
           @include flex-center;
           width: 2.5rem;
           height: 2.5rem;
+          border: 1px solid map-get($color, 'primary');
+          background-color: map-get($color, 'white-snow');
+          color: map-get($color, 'primary');
           border-radius: 50%;
-          background-color: map-get($color, 'primary');
-          color: map-get($color, 'white-snow');
           transition: 0.3s;
         }
         p {
@@ -41,9 +42,8 @@
         }
         &:hover > .item-icon {
           font-size: 120%;
-          border: 1px solid map-get($color, 'primary');
-          background-color: map-get($color, 'white-snow');
-          color: map-get($color, 'primary');
+          background-color: map-get($color, 'primary');
+          color: map-get($color, 'white-snow');
           transition: 0.3s;
         }
       }
@@ -105,6 +105,8 @@
         img {
           height: 100%;
           object-fit: cover;
+          border: 1px solid #eee;
+          border-radius: 50%;
         }
       }
     }
