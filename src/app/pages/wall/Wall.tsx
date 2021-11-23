@@ -11,6 +11,7 @@ const Wall = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const currentUserId = localStorageOption.getUserId;
 
+
   const dispatch = useDispatch();
   useEffect(() => {
     setLoading(true);

@@ -41,7 +41,7 @@ function App() {
           exact
           component={HandlePost}
         />
-        <AuthRoute path="/wall" component={Wall} />
+        <AuthRoute path="/wall/:id" exact component={Wall} />
         <AuthRoute path="/user/update" component={UpdateInfo} />
         <AuthRoute path="/user/changepass" component={ChangePassword} />
       </Switch>
