@@ -47,5 +47,8 @@ export const getRecommendPost = (params: number): any => axiosClient.get(`posts?
 export const getUserPost = (params: number): any =>
   axiosClient.get(`users/${params}/posts`);
 
+  export const getUserBookmark = (): any =>
+  axiosClient.get(`/bookmarks/`);
+
 export const deleteUserPost = (params: number): any =>
   axiosClient.delete(`posts/${params}`);

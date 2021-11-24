@@ -8,10 +8,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+import { localStorageOption } from 'app/shared/helper/LocalAction';
 import UserComment from './partials/UserComment';
-import { getUserInfoByIdRequest, showModalSignInRequest } from 'app/stores/user/actions';
-
 import { formatNumber } from 'app/shared/helper/helper-function';
+import { getUserInfoByIdRequest, showModalSignInRequest } from 'app/stores/user/actions';
 import {
   commentPostRequest,
   fetchSpecificPostRequest,
@@ -43,11 +43,18 @@ const Detail = () => {
   const { userCurrent }: any = useSelector((state: RootState) => state.userState);
   const [bookmark, setBookmark] = useState<boolean>(false);
   const [showComment, setShowComment] = useState<boolean>(false);
+  const [isMyself, setIsMyself] = useState<boolean>(false);
+  const currentUserId = localStorageOption.getUserId;
 
   useEffect(() => {
     dispatch(fetchSpecificPostRequest(id)).then((res: any) => {
       setPost(res);
       setBookmark(res.isInBookmark);
+      if (currentUserId === String(res.userId)) {
+        setIsMyself(true);
+      } else {
+        setIsMyself(false);
+      }
     });
     dispatch(getCommentPostRequest(id)).then((res: any) => setComments(res));
   }, [id]);
@@ -136,15 +143,18 @@ const Detail = () => {
                       )}
                     </span>
                   </li>
-                  <li className="interact-action-item" onClick={handleFollowUser}>
-                    <span className="item-icon">
-                      {follow ? (
-                        <i className="fal fa-user-minus"></i>
-                      ) : (
-                        <i className="fal fa-user-plus"></i>
-                      )}
-                    </span>
-                  </li>
+                  {!isMyself && (
+                    <li className="interact-action-item" onClick={handleFollowUser}>
+                      <span className="item-icon">
+                        {follow ? (
+                          <i className="fal fa-user-minus"></i>
+                        ) : (
+                          <i className="fal fa-user-plus"></i>
+                        )}
+                      </span>
+                    </li>
+                  )}
+
                   <li className="interact-action-item" onClick={handleAddBookmark}>
                     <span className="item-icon">
                       {bookmark ? (
@@ -188,13 +198,15 @@ const Detail = () => {
                         <i className="fal fa-bookmark"></i>
                       )}
                     </li>
-                    <li className="interact-detail-item" onClick={handleFollowUser}>
-                      {follow ? (
-                        <i className="fal fa-user-minus"></i>
-                      ) : (
-                        <i className="fal fa-user-plus"></i>
-                      )}
-                    </li>
+                    {!isMyself && (
+                      <li className="interact-detail-item" onClick={handleFollowUser}>
+                        {follow ? (
+                          <i className="fal fa-user-minus"></i>
+                        ) : (
+                          <i className="fal fa-user-plus"></i>
+                        )}
+                      </li>
+                    )}
                   </ul>
                 </div>
                 <div className="post-image">
