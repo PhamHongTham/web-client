@@ -18,19 +18,23 @@ export const getUrlImage = async (imageFile: File, typeUpload: string) => {
   return res;
 };
 
-export const upLoadImage = (url: string, fileImage: File): any => axios.put(url, fileImage);
+export const upLoadImage = (url: string, fileImage: File): any =>
+  axios.put(url, fileImage);
 
-export const createNewPost = (post: PostHandleOptions): any => axiosClient.post('posts', post);
+export const createNewPost = (post: PostHandleOptions): any =>
+  axiosClient.post('posts', post);
 
 export const updatePost = (post: PostHandleOptions, postId: string): any =>
   axiosClient.put(`posts/${postId}`, post);
 
-export const likePost = (postId: string): any => axiosClient.put(`posts/${postId}/likes`);
+export const likePost = (postId: string): any =>
+  axiosClient.put(`posts/${postId}/likes`);
 
 export const addBookmark = (bookmarkState: { postId: string }): any =>
   axiosClient.post(`bookmarks/`, bookmarkState);
 
-export const getCommentPost = (postId: string): any => axiosClient.get(`posts/${postId}/comments`);
+export const getCommentPost = (postId: string): any =>
+  axiosClient.get(`posts/${postId}/comments`);
 
 export const commentPost = (postId: string, post: CommentHandleOptions): any =>
   axiosClient.post(`posts/${postId}/comments`, post);
@@ -38,11 +42,17 @@ export const commentPost = (postId: string, post: CommentHandleOptions): any =>
 export const followUser = (data: HandleFollowOptions): any =>
   axiosClient.post(`/friends/follow`, data);
 
-export const getNewPost = (params: number): any => axiosClient.get(`posts/public?page=${params}`);
+export const getNewPost = (params: number): any =>
+  axiosClient.get(`posts/public?page=${params}`);
 
-export const getSpecificPost = (params: number): any => axiosClient.get(`posts/${params}`);
+export const getSpecificPost = (params: number): any =>
+  axiosClient.get(`posts/${params}`);
 
-export const getRecommendPost = (params: number): any => axiosClient.get(`posts?page=${params}`);
+export const getRecommendPost = (params: number): any =>
+  axiosClient.get(`posts?page=${params}`);
+
+export const getFeaturedPosts = (page: number, size: number) =>
+  axiosClient.get(`posts/recommend?page=${page}&size=${size}`);
 
 export const getUserPost = (params: number): any =>
   axiosClient.get(`users/${params}/posts`);

@@ -13,9 +13,13 @@
       .post-item {
         @include flex-center;
         transition: ease 1000ms;
+        width: 100%;
         .post-image {
+          max-width: 600px;
+          max-height: 600px;
           img {
             border-radius: 1rem;
+            object-fit: cover;
           }
         }
         .post-content {
