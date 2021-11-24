@@ -41,7 +41,10 @@
         }
       }
       .list-action {
+        @include flex-center;
+        flex-direction: column;
         .action-item {
+          margin-bottom: 1rem;
           .action-link {
             border: 1px solid map-get($color, 'gray-stone');
             border-radius: 3rem;
@@ -184,8 +187,8 @@
           margin-left: 1rem;
         }
       }
-      button{
-        margin: 0 auto
+      button {
+        margin: 0 auto;
       }
       .back-all-action {
         @include flex-center;

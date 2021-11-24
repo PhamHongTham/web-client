@@ -22,7 +22,7 @@ export const calculateTimeSince = (date: string) => {
   if (period > 1) {
     return Math.floor(period) + ' minutes ago';
   }
-  return Math.floor(seconds) + ' seconds ago';
+  return 'Just now';
 };
 
 export const formatNumber = (number: number) => {

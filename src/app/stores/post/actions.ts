@@ -69,9 +69,10 @@ export const saveInfoPost: any = (infoPost: {
   };
 };
 
-export const fetchPostRequest: any = (pageNumber: any) => async (dispatch: any) => {
-  return apiWrapper(() => getNewPost(pageNumber), dispatch);
-};
+export const fetchPostRequest: any =
+  (pageNumber: any) => async (dispatch: any) => {
+    return apiWrapper(() => getNewPost(pageNumber), dispatch);
+  };
 
 export const fetchRecommendPostRequest: any =
   (pageNumber: any) => async (dispatch: any) => {
@@ -80,7 +81,6 @@ export const fetchRecommendPostRequest: any =
 
 export const fetchUserPostRequest: any =
   (userId: any) => async (dispatch: any) => {
-    console.log(userId);
     return apiWrapper(() => getUserPost(userId), dispatch);
   };
 
@@ -89,10 +89,14 @@ export const deleteUserPostRequest: any =
     return apiWrapper(() => deleteUserPost(postId), dispatch);
   };
 
-export const uploadImage: any = (imageFile: File, typeUpload: string) => async (dispatch: any) => {
-  return apiWrapper(async () => {
-    const { signedRequest, url }: any = await getUrlImage(imageFile, typeUpload);
-    await axios.put(signedRequest, imageFile);
-    return url;
-  }, dispatch);
-};
+export const uploadImage: any =
+  (imageFile: File, typeUpload: string) => async (dispatch: any) => {
+    return apiWrapper(async () => {
+      const { signedRequest, url }: any = await getUrlImage(
+        imageFile,
+        typeUpload
+      );
+      await axios.put(signedRequest, imageFile);
+      return url;
+    }, dispatch);
+  };

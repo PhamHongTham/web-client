@@ -77,11 +77,9 @@ const UpdateInfo = () => {
     };
     if (data.picture instanceof File) {
       const url = await dispatch(uploadImage(data.picture, 'avatar'));
-      console.log(url)
       infoData.picture = url;
     }
-    console.log(infoData)
-    dispatch(updateUserInfoRequest(infoData))
+    dispatch(updateUserInfoRequest(infoData));
   };
 
   return (

@@ -82,15 +82,16 @@ const Detail = () => {
 
   const onSubmit = (data: CommentHandleOptions) => {
     if (userCurrent) {
-      dispatch(commentPostRequest(id, data)).then((res: any) => {
-        let newComment = {
-          ...res,
-          user: {
-            displayName: userCurrent?.displayName,
-          },
-        };
-        setComments((comments: any) => [...comments, newComment]);
-      });
+      let newComment = {
+        comment: data.content,
+        createdAt: new Date().toISOString(),
+        user: {
+          displayName: userCurrent?.displayName,
+          picture: userCurrent?.picture,
+        },
+      };
+      setComments((comments: any) => [...comments, newComment]);
+      dispatch(commentPostRequest(id, data));
       setShowComment(true);
       reset();
     } else {
@@ -114,9 +115,8 @@ const Detail = () => {
     let data = {
       postId: String(post.id),
     };
-    dispatch(addBookmarkRequest(data)).then((res: any) => {
-      setBookmark(res.isInBookmark);
-    });
+    setBookmark(!bookmark);
+    dispatch(addBookmarkRequest(data));
   };
 
   return (
