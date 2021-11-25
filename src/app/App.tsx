@@ -16,6 +16,7 @@ import UpdateInfo from './pages/updateInfo/UpdateInfo';
 import { RootState } from './stores/app-reducer';
 import { getUserInfoRequest } from './stores/user/actions';
 import { LoadingContext } from './shared/components/loading/LoadingProvider';
+import NotFound from './pages/notFound/NotFound';
 
 function App() {
   const dispatch = useDispatch();
@@ -41,11 +42,11 @@ function App() {
           exact
           component={HandlePost}
         />
-        <AuthRoute path="/wall" component={Wall} />
+        <AuthRoute path="/wall/:id" exact component={Wall} />
         <AuthRoute path="/user/update" component={UpdateInfo} />
         <AuthRoute path="/user/changepass" component={ChangePassword} />
+        <Route path="*" exact={true} component={NotFound} />
       </Switch>
-      <Footer />
     </>
   );
 }

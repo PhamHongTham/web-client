@@ -45,6 +45,9 @@
         flex-direction: column;
         .action-item {
           margin-bottom: 1rem;
+          p {
+            user-select: none;
+          }
           .action-link {
             border: 1px solid map-get($color, 'gray-stone');
             border-radius: 3rem;

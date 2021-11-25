@@ -25,9 +25,9 @@ const SignInModal = ({
       </h2>
       <ul className="list-action">
         <li className="action-item">
-          <button className="action-link" onClick={handleShowSignInEmail}>
+          <p className="action-link" onClick={handleShowSignInEmail}>
             <i className="fas fa-envelope"></i> Sign in with email
-          </button>
+          </p>
         </li>
         <li className="action-item">
           <a
@@ -35,14 +35,6 @@ const SignInModal = ({
             className="action-link"
           >
             <i className="fab fa-google"></i> Sign in with Google
-          </a>
-        </li>
-        <li className="action-item">
-          <a
-            href={handleLoginWithSocial(urlLoginSocial, 'facebook')}
-            className="action-link"
-          >
-            <i className="fab fa-facebook-f"></i> Sign in with Facebook
           </a>
         </li>
         <li className="action-item">

@@ -9,7 +9,8 @@
   background: map-get($color, 'primary') !important;
   color: map-get($color, 'black-midnight') !important;
 }
-.medium-editor-placeholder-relative:after, .medium-editor-placeholder:after {
+.medium-editor-placeholder-relative:after,
+.medium-editor-placeholder:after {
   color: map-get($color, 'gray-smoke');
   font-style: normal !important;
 }
@@ -17,7 +18,12 @@
   background: map-get($color, 'primary');
   color: map-get($color, 'white-snow');
 }
-.editable{
+.editable {
   width: 100%;
   margin-bottom: 1.5rem;
+}
+@media screen and (max-width: 576px) {
+  .medium-editor-element {
+    padding: 1rem 0;
+  }
 }

@@ -1,8 +1,68 @@
 .wall {
   margin: 3rem auto;
-  .section-header {
-    height: 3rem;
-    border-bottom: 1px solid map-get($color, 'gray-stone');
+  .author-public-info {
+    .author-info-content {
+      display: flex;
+      align-items: flex-start;
+      .author-avatar {
+        width: 8rem;
+        height: 8rem;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 1rem;
+        .avatar-image {
+          aspect-ratio: 1/1;
+          object-fit: cover;
+        }
+      }
+      .public-info-detail {
+        .author-name {
+          color: map-get($color, 'primary');
+        }
+        .activity-info-list {
+          display: flex;
+          margin: 1rem 0;
+          .activity-info-item {
+            margin-right: 1rem;
+          }
+        }
+        .user-action {
+          cursor: pointer;
+        }
+        .user-action {
+          display: flex;
+          .item-icon {
+            @include flex-center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border: 1px solid map-get($color, 'primary');
+            background-color: map-get($color, 'white-snow');
+            color: map-get($color, 'primary');
+            border-radius: 50%;
+            transition: 0.3s;
+          }
+          &:hover > .item-icon {
+            font-size: 120%;
+            background-color: map-get($color, 'primary');
+            color: map-get($color, 'white-snow');
+            transition: 0.3s;
+          }
+          .view-mode-item {
+            color: map-get($color, 'primary');
+            transition: 0.3s;
+            user-select: none;
+            margin-right: 1rem;
+            padding: 0.3rem 1rem;
+            border-radius: 1rem;
+            border: 1px solid map-get($color, 'primary');
+            &.active {
+              background: map-get($color, 'primary');
+              color: map-get($color, 'white-snow');
+            }
+          }
+        }
+      }
+    }
   }
   .wall-list {
     .post-item {
@@ -46,17 +106,21 @@
             font-size: map-get($font-size, 'sm');
             color: map-get($color, 'gray-smoke');
             margin-right: 1rem;
+            width: 100%;
+            max-height: 2rem;
+            overflow: hidden;
             .tags {
               cursor: pointer;
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
               max-width: 5rem;
-              margin: 0 0.5rem;
+              margin: 0.25rem 0.5rem;
               border-radius: 99rem;
               outline: none;
               padding: 0.25rem 0.5rem;
               color: map-get($color, 'primary');
+              font-size: map-get($font-size, 'normal');
               background-color: map-get($color, 'white-snow');
               border: 1px solid map-get($color, 'primary');
               transition: 0.3s;
@@ -67,11 +131,20 @@
               }
             }
           }
+          .time-status-info {
+            @include flex-center-between;
+            width: 100%;
+            .status-info {
+              font-weight: bold;
+              color: map-get($color, 'primary');
+            }
+          }
         }
       }
       .sign-optional {
         @include flex-center;
         position: relative;
+        padding: 0 1rem;
         &:hover > .list-option {
           visibility: visible;
           opacity: 1;
@@ -110,6 +183,12 @@
         }
       }
     }
+    .empty-post {
+      font-size: map-get($font-size, 'lg');
+      color: map-get($color, 'black-midnight');
+      text-align: center;
+      margin: 2rem 0;
+    }
   }
 }
 @media screen and (max-width: 992px) {
@@ -138,6 +217,14 @@
         }
       }
     }
+    .author-public-info {
+      .author-info-content {
+        .author-avatar {
+          width: 6rem;
+          height: 6rem;
+        }
+      }
+    }
   }
 }
 @media screen and (max-width: 480px) {
@@ -148,6 +235,14 @@
         .item-img {
           height: 6rem;
           width: 7rem;
+        }
+      }
+    }
+    .author-public-info {
+      .author-info-content {
+        .author-avatar {
+          width: 4rem;
+          height: 4rem;
         }
       }
     }

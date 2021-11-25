@@ -7,6 +7,7 @@ import { UserInfoOptions } from '../models/User';
 import { RootState } from 'app/stores/app-reducer';
 import { logoutRequest, showModalSignInRequest } from 'app/stores/user/actions';
 import AuthenticationModal from './authentication/AuthenticationModal';
+import { localStorageOption } from '../helper/LocalAction';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -17,8 +18,8 @@ const Header = () => {
     showModalSignIn,
   }: { userCurrent: UserInfoOptions; showModalSignIn: boolean } = useSelector(
     (state: RootState) => state.userState
-  );
-  const token = localStorage.getItem('USER_TOKEN');
+    );
+  const id = localStorageOption.getUserId;
 
   useEffect(() => {
     if (showModalSignIn) {
@@ -60,7 +61,7 @@ const Header = () => {
           <ul className="action-list">
             <li className="action-item">
               <Link
-                to="/wall"
+                to={`/wall/${id}`}
                 className="action-link"
                 onClick={handleShowUserAction}
               >
@@ -117,7 +118,7 @@ const Header = () => {
                   Home
                 </Link>
               </li>
-              {token ? (
+              {userCurrent ? (
                 <li className="list-item menu-item">
                   <Link to="/post/new" className="menu-link">
                     Write
@@ -126,7 +127,7 @@ const Header = () => {
               ) : (
                 ''
               )}
-              {token ? (
+              {userCurrent ? (
                 <UserAction />
               ) : (
                 <li className="list-item menu-item">
@@ -156,17 +157,12 @@ const Header = () => {
                     </button>
                   </li>
                   <li className="list-item menu-mobile-item">
-                    <Link to="/" className="text-primary menu-mobile-link">
+                    <Link to="/" className="text-primary menu-mobile-link" onClick={handleHiddenMobileMenu}>
                       Home
                     </Link>
                   </li>
                   <li className="list-item menu-mobile-item">
-                    <Link to="/" className="menu-mobile-link" href="/#">
-                      Membership
-                    </Link>
-                  </li>
-                  <li className="list-item menu-mobile-item">
-                    <Link to="/" className="menu-mobile-link">
+                    <Link to="/post/new" className="menu-mobile-link" onClick={handleHiddenMobileMenu}>
                       Write
                     </Link>
                   </li>
