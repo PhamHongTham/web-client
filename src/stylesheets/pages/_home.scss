@@ -112,11 +112,8 @@
       .author-name {
         @include text-overflow(1);
         color: map-get($color, 'black');
-        font-size: map-get($font-size, 'lg');
+        font-size: map-get($font-size, 'normal');
         font-weight: bold;
-        display: flex;
-        flex: 1;
-        padding-right: 0.5rem;
       }
     }
   }
@@ -130,8 +127,11 @@
     display: flex;
     justify-content: flex-end;
     .post-interact {
-      @include flex-center-between;
-      width: 80px;
+      @include align-center;
+      justify-content: flex-end;
+      p {
+        margin-left: 0.5rem;
+      }
     }
   }
   .post-sub-info {

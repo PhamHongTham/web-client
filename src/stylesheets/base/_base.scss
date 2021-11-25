@@ -18,7 +18,8 @@ h3,
 h4,
 h5,
 h6 {
-  line-break: anywhere !important;
+  word-wrap: break-word;
+  word-break: break-word;
   &::first-letter {
     text-transform: uppercase;
   }
@@ -37,12 +38,12 @@ img {
   width: 100%;
 }
 @media only screen and(max-width:720px) {
-  html{
+  html {
     font-size: 14px;
   }
 }
 @media only screen and(max-width:480px) {
-  html{
+  html {
     font-size: 12px;
   }
 }

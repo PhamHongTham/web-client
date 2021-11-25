@@ -28,13 +28,14 @@
         justify-content: space-between;
         height: 100%;
         flex: 1;
+        word-wrap: break-word;
+        word-break: break-word;
         .item-title {
           @include text-overflow(2);
         }
         .item-description {
           @include text-overflow(2);
           margin-top: 0.5rem;
-          line-break: anywhere;
         }
         .sub-info-list {
           display: flex;
@@ -89,6 +90,7 @@
           visibility: hidden;
           opacity: 0;
           .option-item {
+            cursor: pointer;
             padding: 0.5rem 1rem;
             display: flex;
             align-items: center;
@@ -97,7 +99,7 @@
             transition: 0.3s;
             &-icon {
               text-align: center;
-              width: 1.25rem;
+              width: 2rem;
             }
             &:hover {
               background-color: map-get($color, 'gray-stone');
