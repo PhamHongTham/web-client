@@ -5,9 +5,6 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { RootState } from 'app/stores/app-reducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-
 import UserComment from './partials/UserComment';
 import {
   getUserInfoByIdRequest,
@@ -30,7 +27,6 @@ const Detail = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
     reset,
   } = useForm();
 
