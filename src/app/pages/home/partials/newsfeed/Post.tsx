@@ -23,7 +23,7 @@ const Post = ({ post }: { post: postOptions }) => {
           <p className="post-description" dangerouslySetInnerHTML={{ __html: description }}></p>
         </div>
         <div className="card-footer">
-          <Link to="/" className="post-creator-info">
+          <Link to={`/wall/${user?.id}`} className="post-creator-info">
             <img
               src={
                 user && user.picture

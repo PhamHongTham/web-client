@@ -5,13 +5,11 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { RootState } from 'app/stores/app-reducer';
 import { useDispatch, useSelector } from 'react-redux';
-import UserComment from './partials/UserComment';
-import {
-  getUserInfoByIdRequest,
-  showModalSignInRequest,
-} from 'app/stores/user/actions';
 
+import { localStorageOption } from 'app/shared/helper/LocalAction';
+import UserComment from './partials/UserComment';
 import { formatNumber } from 'app/shared/helper/helper-function';
+import { getUserInfoByIdRequest, showModalSignInRequest } from 'app/stores/user/actions';
 import {
   commentPostRequest,
   fetchSpecificPostRequest,
@@ -33,17 +31,21 @@ const Detail = () => {
   const [post, setPost] = useState<any>();
   const [comments, setComments] = useState<any>([]);
   const [follow, setFollow] = useState<boolean>(false);
-  const { userCurrent }: any = useSelector(
-    (state: RootState) => state.userState
-  );
-
+  const { userCurrent }: any = useSelector((state: RootState) => state.userState);
   const [bookmark, setBookmark] = useState<boolean>(false);
   const [showComment, setShowComment] = useState<boolean>(false);
+  const [isMyself, setIsMyself] = useState<boolean>(false);
+  const currentUserId = localStorageOption.getUserId;
 
   useEffect(() => {
     dispatch(fetchSpecificPostRequest(id)).then((res: any) => {
       setPost(res);
       setBookmark(res.isInBookmark);
+      if (currentUserId === String(res.userId)) {
+        setIsMyself(true);
+      } else {
+        setIsMyself(false);
+      }
     });
     dispatch(getCommentPostRequest(id)).then((res: any) => setComments(res));
   }, [id]);
@@ -132,22 +134,19 @@ const Detail = () => {
                       )}
                     </span>
                   </li>
-                  <li
-                    className="interact-action-item"
-                    onClick={handleFollowUser}
-                  >
-                    <span className="item-icon">
-                      {follow ? (
-                        <i className="fal fa-user-minus"></i>
-                      ) : (
-                        <i className="fal fa-user-plus"></i>
-                      )}
-                    </span>
-                  </li>
-                  <li
-                    className="interact-action-item"
-                    onClick={handleAddBookmark}
-                  >
+                  {!isMyself && (
+                    <li className="interact-action-item" onClick={handleFollowUser}>
+                      <span className="item-icon">
+                        {follow ? (
+                          <i className="fal fa-user-minus"></i>
+                        ) : (
+                          <i className="fal fa-user-plus"></i>
+                        )}
+                      </span>
+                    </li>
+                  )}
+
+                  <li className="interact-action-item" onClick={handleAddBookmark}>
                     <span className="item-icon">
                       {bookmark ? (
                         <i className="fas fa-bookmark"></i>
@@ -164,43 +163,41 @@ const Detail = () => {
                 </div>
                 <div className="author-detail">
                   <ul className="author-info-list">
-                    <li className="author-info-item author-avatar">
-                      <img
-                        src={
-                          post.user.picture
-                            ? `${post.user.picture}`
-                            : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTht9-qZYmqErdGMhJVbRf7BfhLRGspNWaFnR8nddu3x7Da7nqh23vsG6VWtG_VE9G9kLU&usqp=CAU'
-                        }
-                        alt={post.user?.displayName}
-                      />
+                    <li className="author-info-item">
+                      <Link to={`/wall/${post.userId}`} className="author-avatar">
+                        <img
+                          src={
+                            post.user.picture
+                              ? `${post.user.picture}`
+                              : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTht9-qZYmqErdGMhJVbRf7BfhLRGspNWaFnR8nddu3x7Da7nqh23vsG6VWtG_VE9G9kLU&usqp=CAU'
+                          }
+                          alt={post.user?.displayName}
+                        />
+                      </Link>
                     </li>
-                    <li className="author-info-item author-name">
-                      <Link to="" className="text-primary">
+                    <li className="author-info-item">
+                      <Link to={`/wall/${post.userId}`} className="text-primary author-name">
                         <h3>{post.user?.displayName}</h3>
                       </Link>
                     </li>
                   </ul>
                   <ul className="interact-detail-list">
-                    <li
-                      className="interact-detail-item"
-                      onClick={handleAddBookmark}
-                    >
+                    <li className="interact-detail-item" onClick={handleAddBookmark}>
                       {bookmark ? (
                         <i className="fas fa-bookmark"></i>
                       ) : (
                         <i className="fal fa-bookmark"></i>
                       )}
                     </li>
-                    <li
-                      className="interact-detail-item"
-                      onClick={handleFollowUser}
-                    >
-                      {follow ? (
-                        <i className="fal fa-user-minus"></i>
-                      ) : (
-                        <i className="fal fa-user-plus"></i>
-                      )}
-                    </li>
+                    {!isMyself && (
+                      <li className="interact-detail-item" onClick={handleFollowUser}>
+                        {follow ? (
+                          <i className="fal fa-user-minus"></i>
+                        ) : (
+                          <i className="fal fa-user-plus"></i>
+                        )}
+                      </li>
+                    )}
                   </ul>
                 </div>
                 <div className="post-image">
@@ -214,10 +211,7 @@ const Detail = () => {
                 </div>
                 <div className="post-footer">
                   <ul className="interact-detail-list">
-                    <li
-                      className="interact-detail-item"
-                      onClick={handleLikePost}
-                    >
+                    <li className="interact-detail-item" onClick={handleLikePost}>
                       {formatNumber(post.likes)}{' '}
                       {post.isLiked ? (
                         <i className="fas fa-heart"></i>
@@ -225,27 +219,14 @@ const Detail = () => {
                         <i className="fal fa-heart"></i>
                       )}
                     </li>
-                    <li
-                      className="interact-detail-item"
-                      onClick={handleShowComment}
-                    >
-                      {formatNumber(comments.length)}{' '}
-                      <i className="fal fa-comment-alt-lines"></i>
+                    <li className="interact-detail-item" onClick={handleShowComment}>
+                      {formatNumber(comments.length)} <i className="fal fa-comment-alt-lines"></i>
                     </li>
                   </ul>
                 </div>
-                <div className="interact-box">
-                  Responses ({comments.length})
-                </div>
-                <form
-                  className="form-comment"
-                  onSubmit={handleSubmit(onSubmit)}
-                >
-                  <input
-                    type="text"
-                    className="comment-input"
-                    {...register('content')}
-                  ></input>
+                <div className="interact-box">Responses ({comments.length})</div>
+                <form className="form-comment" onSubmit={handleSubmit(onSubmit)}>
+                  <input type="text" className="comment-input" {...register('content')}></input>
                   <button className="btn btn-primary">Comment</button>
                 </form>
               </article>

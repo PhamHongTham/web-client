@@ -6,8 +6,18 @@ import { postOptions } from 'app/shared/models/post-interface';
 
 import { calculateTimeSince } from 'app/shared/helper/helper-function';
 
-const PostItem = ({ post, handleDeletePost }: { post: postOptions; handleDeletePost: any }) => {
-  const { id, title, cover, description, createdAt, tags } = post;
+const PostItem = ({
+  post,
+  handleDeletePost,
+  isMyself,
+  showBookmark,
+}: {
+  post: postOptions;
+  handleDeletePost: (id: number) => void;
+  isMyself: boolean;
+  showBookmark: boolean;
+}) => {
+  const { id, title, cover, description, createdAt, status, tags } = post;
   const timeSince = calculateTimeSince(createdAt);
 
   return (
@@ -33,28 +43,33 @@ const PostItem = ({ post, handleDeletePost }: { post: postOptions; handleDeleteP
               );
             })}
           </li>
-          <li className="sub-info-item">{timeSince}</li>
-        </ul>
-      </div>
-      <div className="sign-optional">
-        <i className="far fa-ellipsis-h dot"></i>
-        <ul className="list-option">
-          <Link to={`post/edit/${id}`} className="option-item">
-            <i className="fal fa-pencil-alt option-item-icon"></i> Edit
-          </Link>
-          <li
-            className="option-item"
-            onClick={() => {
-              handleDeletePost(id);
-            }}
-          >
-            <i className="fal fa-trash-alt option-item-icon"></i> Delete
-          </li>
-          <li className="option-item">
-            <i className="fal fa-bookmark option-item-icon"></i> Add to bookmark
+          <li className="sub-info-item time-status-info">
+            <p className="time-info">{timeSince}</p>
+            <p className="status-info">{status}</p>
           </li>
         </ul>
       </div>
+      {isMyself && !showBookmark && (
+        <div className="sign-optional">
+          <i className="far fa-ellipsis-h dot"></i>
+          <ul className="list-option">
+            <Link to={`post/edit/${id}`} className="option-item">
+              <i className="fal fa-pencil-alt option-item-icon"></i> Edit
+            </Link>
+            <li
+              className="option-item"
+              onClick={() => {
+                handleDeletePost(id);
+              }}
+            >
+              <i className="fal fa-trash-alt option-item-icon"></i> Delete
+            </li>
+            <li className="option-item">
+              <i className="fal fa-bookmark option-item-icon"></i> Add to bookmark
+            </li>
+          </ul>
+        </div>
+      )}
     </li>
   );
 };
