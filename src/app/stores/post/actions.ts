@@ -16,6 +16,7 @@ import {
   deleteUserPost,
   getRecommendPost,
   getSpecificArticle,
+  getUserBookmark,
 } from 'app/shared/core/services/service-post';
 import axios from 'axios';
 
@@ -80,8 +81,12 @@ export const fetchRecommendPostRequest: any =
 
 export const fetchUserPostRequest: any =
   (userId: any) => async (dispatch: any) => {
-    console.log(userId);
     return apiWrapper(() => getUserPost(userId), dispatch);
+  };
+
+  export const fetchUserBookmarkRequest: any =
+  () => async (dispatch: any) => {
+    return apiWrapper(() => getUserBookmark(), dispatch);
   };
 
 export const deleteUserPostRequest: any =

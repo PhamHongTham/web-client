@@ -31,11 +31,9 @@
 @include create-grid-system('');
 @include create-offset-system('');
 .row {
-  display: flex;
-  align-items: center;
+  @include align-center;
   flex-wrap: wrap;
   margin: 0 -1.5rem;
-  width: 100%;
 }
 .container {
   max-width: 1320px;
