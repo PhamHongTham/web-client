@@ -29,6 +29,7 @@
     visibility: hidden;
     opacity: 0;
     .option-item {
+      cursor: pointer;
       padding: 0.5rem;
       transition: 0.3s;
       &:hover {

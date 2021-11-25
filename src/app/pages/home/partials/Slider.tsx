@@ -19,7 +19,7 @@ const Slide = () => {
   useEffect(() => {
     setInterval(() => {
       setIndex((prev) => (prev > 1 ? 0 : prev + 1));
-    }, 3000);
+    }, 10000);
   }, []);
 
   return (
