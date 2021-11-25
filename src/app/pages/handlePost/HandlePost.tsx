@@ -13,6 +13,7 @@ import {
   saveInfoPost,
 } from 'app/stores/post/actions';
 import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
+import Footer from 'app/shared/components/Footer';
 
 const HandlePost = () => {
   const dispatch = useDispatch();
@@ -111,6 +112,7 @@ const HandlePost = () => {
           <button className="btn btn-primary">Next</button>
         </form>
       </div>
+      <Footer />
     </section>
   );
 };

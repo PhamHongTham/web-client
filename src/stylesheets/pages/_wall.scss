@@ -30,6 +30,7 @@
           cursor: pointer;
         }
         .user-action {
+          display: flex;
           .item-icon {
             @include flex-center;
             width: 2.5rem;
@@ -47,11 +48,16 @@
             transition: 0.3s;
           }
           .view-mode-item {
-            color: map-get($color, 'black-midnight');
+            color: map-get($color, 'primary');
             transition: 0.3s;
-            &:hover {
-              color: map-get($color, 'primary');
-              transition: 0.3s;
+            user-select: none;
+            margin-right: 1rem;
+            padding: 0.3rem 1rem;
+            border-radius: 1rem;
+            border: 1px solid map-get($color, 'primary');
+            &.active {
+              background: map-get($color, 'primary');
+              color: map-get($color, 'white-snow');
             }
           }
         }
@@ -176,6 +182,12 @@
           }
         }
       }
+    }
+    .empty-post {
+      font-size: map-get($font-size, 'lg');
+      color: map-get($color, 'black-midnight');
+      text-align: center;
+      margin: 2rem 0;
     }
   }
 }

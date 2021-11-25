@@ -53,7 +53,7 @@ const PostItem = ({
         <div className="sign-optional">
           <i className="far fa-ellipsis-h dot"></i>
           <ul className="list-option">
-            <Link to={`post/edit/${id}`} className="option-item">
+            <Link to={`/post/edit/${id}`} className="option-item">
               <i className="fal fa-pencil-alt option-item-icon"></i> Edit
             </Link>
             <li
@@ -65,7 +65,8 @@ const PostItem = ({
               <i className="fal fa-trash-alt option-item-icon"></i> Delete
             </li>
             <li className="option-item">
-              <i className="fal fa-bookmark option-item-icon"></i> Add to bookmark
+              <i className="fal fa-bookmark option-item-icon"></i> Add to
+              bookmark
             </li>
           </ul>
         </div>

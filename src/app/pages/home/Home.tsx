@@ -7,6 +7,7 @@ import Slide from './partials/Slider';
 import Newsfeed from './partials/newsfeed/Newsfeed';
 import { localStorageOption } from 'app/shared/helper/LocalAction';
 import { getUserInfoRequest } from 'app/stores/user/actions';
+import Footer from 'app/shared/components/Footer';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -18,12 +19,13 @@ const Home = () => {
       localStorageOption.setUserToken(accessToken);
       dispatch(getUserInfoRequest());
     }
-  }, []);
+  }, [accessToken]);
 
   return (
     <>
       <Slide />
       <Newsfeed />
+      <Footer />
     </>
   );
 };

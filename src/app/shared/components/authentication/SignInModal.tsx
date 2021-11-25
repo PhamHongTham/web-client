@@ -25,9 +25,9 @@ const SignInModal = ({
       </h2>
       <ul className="list-action">
         <li className="action-item">
-          <a href="/#" className="action-link" onClick={handleShowSignInEmail}>
+          <p className="action-link" onClick={handleShowSignInEmail}>
             <i className="fas fa-envelope"></i> Sign in with email
-          </a>
+          </p>
         </li>
         <li className="action-item">
           <a
