@@ -4,6 +4,10 @@
     font-size: map-get($font-size, 'xxxxxl');
     text-align: center;
     margin: 3rem 0;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
   .slide-content {
     overflow: hidden;

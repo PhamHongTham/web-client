@@ -14,10 +14,7 @@ const SlideItem = ({ post, index }: { post: any; index: number }) => {
             <img src={post.cover} alt=""></img>
           </div>
           <div className="post-content col-6 col-md-12">
-            <p className="post-topic">
-              Business, Travel -
-              <span className="post-create-at">July 2, 2020</span>
-            </p>
+            <p className="post-topic">Business, Travel</p>
             <h2 className="post-title">{post.title}</h2>
             <p className="post-text-content">{post.content}</p>
             <div className="post-author">
