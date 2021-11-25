@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import Post from './partials/Post';
@@ -7,13 +7,17 @@ import SkeletonPost from '../home/partials/skeleton-component/SkeletonPost';
 import { postOptions } from 'app/shared/models/post-interface';
 import { localStorageOption } from 'app/shared/helper/LocalAction';
 import { RootState } from 'app/stores/app-reducer';
-import { getUserInfoByIdRequest, showModalSignInRequest } from 'app/stores/user/actions';
+import {
+  getUserInfoByIdRequest,
+  showModalSignInRequest,
+} from 'app/stores/user/actions';
 import { followUserRequest } from 'app/stores/post/actions';
 import {
   fetchUserPostRequest,
   deleteUserPostRequest,
   fetchUserBookmarkRequest,
 } from 'app/stores/post/actions';
+import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
 
 const Wall = () => {
   const dispatch = useDispatch();
@@ -25,6 +29,8 @@ const Wall = () => {
   const [showBookmark, setShowBookmark] = useState<boolean>(false);
   const currentUserId = localStorageOption.getUserId;
   const userCurrent = useSelector((state: RootState) => state.userState);
+  const { handleAddNotification } = useContext(NotificationContext);
+
   const { id }: any = useParams();
   const handleFollowUser = () => {
     if (userCurrent) {
@@ -63,6 +69,7 @@ const Wall = () => {
       setLoading(true);
       dispatch(fetchUserBookmarkRequest()).then((res: any) => {
         let newList = res.map((item: any) => item.post);
+        newList = newList.filter((item: any) => item !== null);
         setPosts(newList);
         setLoading(false);
       });
@@ -79,20 +86,28 @@ const Wall = () => {
   const handleDeletePost: any = (id: number) => {
     dispatch(deleteUserPostRequest(id));
     setPosts(posts.filter((post: any) => post.id !== id));
-    alert('deleted');
+    handleAddNotification({ type: 'SUCCESS', message: 'Deleted post' });
   };
 
-  const handleShowBookmark: () => void = () => {
-    setShowBookmark(!showBookmark);
+  const handleShowBookmark = (value: boolean) => {
+    setShowBookmark(value);
   };
 
   return (
-    <div className="wall container">
+    <section className="wall container">
       <div className="row">
         <div className="author-public-info col-8 col-lg-12 offset-2 offset-lg-0">
           <div className="author-info-content">
             <div className="author-avatar">
-              <img src={authorInfo?.picture} alt="" className="avatar-image" />
+              <img
+                src={
+                  authorInfo?.picture
+                    ? `${authorInfo?.picture}`
+                    : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTht9-qZYmqErdGMhJVbRf7BfhLRGspNWaFnR8nddu3x7Da7nqh23vsG6VWtG_VE9G9kLU&usqp=CAU'
+                }
+                alt=""
+                className="avatar-image"
+              />
             </div>
             <div className="public-info-detail">
               <h2 className="author-name">{authorInfo?.displayName}</h2>
@@ -115,13 +130,22 @@ const Wall = () => {
               </ul>
               {isMyself ? (
                 <div className="user-action">
-                  <div onClick={handleShowBookmark}>
-                    {showBookmark ? (
-                      <p className="view-mode-item">Show your posts</p>
-                    ) : (
-                      <p className="view-mode-item">Show your bookmarks</p>
-                    )}
-                  </div>
+                  <p
+                    className={
+                      showBookmark ? `view-mode-item` : `view-mode-item active`
+                    }
+                    onClick={() => handleShowBookmark(false)}
+                  >
+                    Show your posts
+                  </p>
+                  <p
+                    className={
+                      showBookmark ? `view-mode-item active` : `view-mode-item`
+                    }
+                    onClick={() => handleShowBookmark(true)}
+                  >
+                    Show your bookmarks
+                  </p>
                 </div>
               ) : (
                 <div className="user-action">
@@ -137,31 +161,36 @@ const Wall = () => {
             </div>
           </div>
         </div>
-        {/* <div className=""></div> */}
 
         <div className="wall-container col-8 col-lg-12 offset-2 offset-lg-0">
           <ul className="wall-list">
-            {posts?.map((post: postOptions) => {
-              return (
-                <Post
-                  post={post}
-                  handleDeletePost={handleDeletePost}
-                  isMyself={isMyself}
-                  showBookmark={showBookmark}
-                />
-              );
-            })}
-            {loading && (
+            {posts?.length > 0 && posts
+              ? posts?.map((post: postOptions) => {
+                return (
+                  <Post
+                    post={post}
+                    handleDeletePost={handleDeletePost}
+                    isMyself={isMyself}
+                    showBookmark={showBookmark}
+                  />
+                );
+              })
+              : !loading && (
+                <p className="empty-post">You don't have any posts yet</p>
+              )}
+            {loading ? (
               <ul className="wall-list">
                 {[1, 2, 3, 4, 5, 6].map((n: number) => (
                   <SkeletonPost key={n} />
                 ))}
               </ul>
+            ) : (
+              ''
             )}
           </ul>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 export default Wall;

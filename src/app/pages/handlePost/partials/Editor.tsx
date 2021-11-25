@@ -1,21 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import MediumEditor from 'medium-editor';
 import 'medium-editor/dist/css/medium-editor.min.css';
 import 'medium-editor/dist/css/themes/default.css';
 
 interface HandleEditorOptions {
-  value: any;
+  value: string;
   onChange: (value: string) => void;
 }
 
 const Editor = ({ value, onChange }: HandleEditorOptions) => {
-  const refEditor: any = useRef(null);
-  const [check, setCheck] = useState<boolean>(false);
+  const refEditor: any = useRef();
 
   useEffect(() => {
     let editor = new MediumEditor('.editable', {
-      spellcheck: false,
       toolbar: {
         allowMultiParagraphSelection: true,
         buttons: [
@@ -42,7 +40,7 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
       },
       anchorPreview: {
         hideDelay: 0,
-        previewValueSelector: '',
+        previewValueSelector: 'a',
       },
       placeholder: {
         text: 'Write your content',
@@ -66,15 +64,13 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
         if (onChange && typeof onChange === 'function') {
           onChange(editable.innerHTML);
         }
-      })
-    });
+      }
+    );
+  }, []);
 
   useEffect(() => {
-    if (!check) {
-      if (value) {
-        refEditor.current.setContent(value, value.length);
-        setCheck(true);
-      }
+    if (value && typeof value === 'string') {
+      refEditor.current.setContent(value);
     }
   }, [value]);
 

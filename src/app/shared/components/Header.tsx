@@ -18,8 +18,7 @@ const Header = () => {
     showModalSignIn,
   }: { userCurrent: UserInfoOptions; showModalSignIn: boolean } = useSelector(
     (state: RootState) => state.userState
-  );
-  const token = localStorageOption.getUserToken;
+    );
   const id = localStorageOption.getUserId;
 
   useEffect(() => {
@@ -119,7 +118,7 @@ const Header = () => {
                   Home
                 </Link>
               </li>
-              {token ? (
+              {userCurrent ? (
                 <li className="list-item menu-item">
                   <Link to="/post/new" className="menu-link">
                     Write
@@ -128,7 +127,7 @@ const Header = () => {
               ) : (
                 ''
               )}
-              {token ? (
+              {userCurrent ? (
                 <UserAction />
               ) : (
                 <li className="list-item menu-item">
@@ -158,17 +157,12 @@ const Header = () => {
                     </button>
                   </li>
                   <li className="list-item menu-mobile-item">
-                    <Link to="/" className="text-primary menu-mobile-link">
+                    <Link to="/" className="text-primary menu-mobile-link" onClick={handleHiddenMobileMenu}>
                       Home
                     </Link>
                   </li>
                   <li className="list-item menu-mobile-item">
-                    <Link to="/" className="menu-mobile-link" href="/#">
-                      Membership
-                    </Link>
-                  </li>
-                  <li className="list-item menu-mobile-item">
-                    <Link to="/" className="menu-mobile-link">
+                    <Link to="/post/new" className="menu-mobile-link" onClick={handleHiddenMobileMenu}>
                       Write
                     </Link>
                   </li>

@@ -10,6 +10,14 @@ const SignInModal = ({
   handleShowSignInEmail,
   handleShowSignUpEmail,
 }: SignInOptions) => {
+  const redirectTo = 'http://localhost:3000/';
+  const urlLoginSocial =
+    'https://vast-lowlands-08945.herokuapp.com/api/v1/auth/';
+
+  const handleLoginWithSocial = (url: string, typeSocial: string) => {
+    return `${url}${typeSocial}?redirect_to=${redirectTo}`;
+  };
+
   return (
     <div className="sign-in-modal">
       <h2 className="sign-in-title">
@@ -17,9 +25,25 @@ const SignInModal = ({
       </h2>
       <ul className="list-action">
         <li className="action-item">
-          <button className="action-link" onClick={handleShowSignInEmail}>
-            <i className="fal fa-envelope"></i> Sign in with email
-          </button>
+          <p className="action-link" onClick={handleShowSignInEmail}>
+            <i className="fas fa-envelope"></i> Sign in with email
+          </p>
+        </li>
+        <li className="action-item">
+          <a
+            href={handleLoginWithSocial(urlLoginSocial, 'google')}
+            className="action-link"
+          >
+            <i className="fab fa-google"></i> Sign in with Google
+          </a>
+        </li>
+        <li className="action-item">
+          <a
+            href={handleLoginWithSocial(urlLoginSocial, 'github')}
+            className="action-link"
+          >
+            <i className="fab fa-github"></i> Sign in with github
+          </a>
         </li>
       </ul>
       <span className="sign-up-action">

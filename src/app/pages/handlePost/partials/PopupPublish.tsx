@@ -80,64 +80,70 @@ const PopupPublish = ({
   return (
     <div className="publish-post">
       <div className="container">
-        <button
-          className="close-publish"
-          onClick={() => setShowPopupPublish(false)}
-        >
-          <i className="fal fa-times"></i>
-        </button>
-        <form className="publish-content" onSubmit={handleSubmit(onSubmit)}>
-          <div className="row">
-            <div className="col-6 col-md-12">
-              <h3 className="cover-image-title">Cover image</h3>
-              <Controller
-                control={control}
-                name="cover"
-                render={({ field: { onChange, onBlur, value, name, ref } }) => (
-                  <HandleImage value={value} onChange={onChange} />
+        <div className="row">
+          <button
+            className="close-publish"
+            onClick={() => setShowPopupPublish(false)}
+          >
+            <i className="fal fa-times"></i>
+          </button>
+          <form
+            className="publish-content col-12"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <div className="row">
+              <div className="col-6 col-md-12">
+                <h3 className="cover-image-title">Cover image</h3>
+                <Controller
+                  control={control}
+                  name="cover"
+                  render={({
+                    field: { onChange, onBlur, value, name, ref },
+                  }) => <HandleImage value={value} onChange={onChange} />}
+                />
+                {errors.cover ? (
+                  <p className="error">{errors.cover.message}</p>
+                ) : (
+                  ''
                 )}
-              />
-              {errors.cover ? (
-                <p className="error">{errors.cover.message}</p>
-              ) : (
-                ''
-              )}
+              </div>
+              <div className="col-6 col-md-12">
+                <h3 className="publish-description">
+                  Publishing to:{' '}
+                  <span className="publish-author">Hieu Cao</span>
+                </h3>
+                <Controller
+                  control={control}
+                  name="status"
+                  render={({
+                    field: { onChange, onBlur, value, name, ref },
+                  }) => <HandleStatus value={value} onChange={onChange} />}
+                />
+                {errors.status ? (
+                  <p className="error">{errors.status.message}</p>
+                ) : (
+                  ''
+                )}
+                <p className="select-tags-description">
+                  Note: You can only add 5 tags
+                </p>
+                <Controller
+                  control={control}
+                  name="tags"
+                  render={({
+                    field: { onChange, onBlur, value, name, ref },
+                  }) => <HandleTag value={value} onChange={onChange} />}
+                />
+                {errors.tags ? (
+                  <p className="error">{errors.tags.message}</p>
+                ) : (
+                  ''
+                )}
+                <button className="btn btn-primary">Publish Now</button>
+              </div>
             </div>
-            <div className="col-6 col-md-12">
-              <h3 className="publish-description">
-                Publishing to: <span className="publish-author">Hieu Cao</span>
-              </h3>
-              <Controller
-                control={control}
-                name="status"
-                render={({ field: { onChange, onBlur, value, name, ref } }) => (
-                  <HandleStatus value={value} onChange={onChange} />
-                )}
-              />
-              {errors.status ? (
-                <p className="error">{errors.status.message}</p>
-              ) : (
-                ''
-              )}
-              <p className="select-tags-description">
-                Note: You can only add 5 tags
-              </p>
-              <Controller
-                control={control}
-                name="tags"
-                render={({ field: { onChange, onBlur, value, name, ref } }) => (
-                  <HandleTag value={value} onChange={onChange} />
-                )}
-              />
-              {errors.tags ? (
-                <p className="error">{errors.tags.message}</p>
-              ) : (
-                ''
-              )}
-              <button className="btn btn-primary">Publish Now</button>
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );

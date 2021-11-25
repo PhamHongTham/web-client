@@ -79,7 +79,7 @@ const UpdateInfo = () => {
       const url = await dispatch(uploadImage(data.picture, 'avatar'));
       infoData.picture = url;
     }
-    dispatch(updateUserInfoRequest(infoData))
+    dispatch(updateUserInfoRequest(infoData));
   };
 
   return (

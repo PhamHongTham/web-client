@@ -16,6 +16,6 @@ export const changePassword = (data: PasswordOptions): any =>
 
 export const updateUserInfo = (data: UserInfoOptions): any =>
   axiosClient.put('/users/me', data);
-  
+
 export const getUserInfoById = (id: string): any =>
   axiosClient.get(`/users/${id}`);
