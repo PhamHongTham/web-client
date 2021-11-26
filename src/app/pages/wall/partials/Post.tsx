@@ -45,7 +45,7 @@ const PostItem = ({
           </li>
           <li className="sub-info-item time-status-info">
             <p className="time-info">{timeSince}</p>
-            <p className="status-info">{status}</p>
+            {isMyself && !showBookmark && <p className="status-info">{status}</p>}
           </li>
         </ul>
       </div>
@@ -63,10 +63,6 @@ const PostItem = ({
               }}
             >
               <i className="fal fa-trash-alt option-item-icon"></i> Delete
-            </li>
-            <li className="option-item">
-              <i className="fal fa-bookmark option-item-icon"></i> Add to
-              bookmark
             </li>
           </ul>
         </div>

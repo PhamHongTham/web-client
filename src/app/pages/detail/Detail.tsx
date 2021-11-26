@@ -9,10 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { localStorageOption } from 'app/shared/helper/LocalAction';
 import UserComment from './partials/UserComment';
 import { formatNumber } from 'app/shared/helper/helper-function';
-import {
-  getUserInfoByIdRequest,
-  showModalSignInRequest,
-} from 'app/stores/user/actions';
+import { getUserInfoByIdRequest, showModalSignInRequest } from 'app/stores/user/actions';
 import {
   commentPostRequest,
   fetchSpecificPostRequest,
@@ -32,9 +29,7 @@ const Detail = () => {
   const [post, setPost] = useState<any>();
   const [comments, setComments] = useState<any>([]);
   const [follow, setFollow] = useState<boolean>(false);
-  const { userCurrent }: any = useSelector(
-    (state: RootState) => state.userState
-  );
+  const { userCurrent }: any = useSelector((state: RootState) => state.userState);
   const [bookmark, setBookmark] = useState<boolean>(false);
   const [showComment, setShowComment] = useState<boolean>(false);
   const [isMyself, setIsMyself] = useState<boolean>(false);
@@ -141,24 +136,18 @@ const Detail = () => {
                     </span>
                   </li>
                   {!isMyself && (
-                    <li
-                      className="interact-action-item"
-                      onClick={handleFollowUser}
-                    >
+                    <li className="interact-action-item" onClick={handleFollowUser}>
                       <span className="item-icon">
                         {follow ? (
-                          <i className="fal fa-user-minus"></i>
+                          <i className="fas fa-user-check"></i>
                         ) : (
-                          <i className="fal fa-user-plus"></i>
+                          <i className="fal fa-user"></i>
                         )}
                       </span>
                     </li>
                   )}
 
-                  <li
-                    className="interact-action-item"
-                    onClick={handleAddBookmark}
-                  >
+                  <li className="interact-action-item" onClick={handleAddBookmark}>
                     <span className="item-icon">
                       {bookmark ? (
                         <i className="fas fa-bookmark"></i>
@@ -176,10 +165,7 @@ const Detail = () => {
                 <div className="author-detail">
                   <ul className="author-info-list">
                     <li className="author-info-item">
-                      <Link
-                        to={`/wall/${post.userId}`}
-                        className="author-avatar"
-                      >
+                      <Link to={`/wall/${post.userId}`} className="author-avatar">
                         <img
                           src={
                             post.user.picture
@@ -191,19 +177,13 @@ const Detail = () => {
                       </Link>
                     </li>
                     <li className="author-info-item">
-                      <Link
-                        to={`/wall/${post.userId}`}
-                        className="text-primary author-name"
-                      >
+                      <Link to={`/wall/${post.userId}`} className="text-primary author-name">
                         <h3>{post.user?.displayName}</h3>
                       </Link>
                     </li>
                   </ul>
                   <ul className="interact-detail-list">
-                    <li
-                      className="interact-detail-item"
-                      onClick={handleAddBookmark}
-                    >
+                    <li className="interact-detail-item" onClick={handleAddBookmark}>
                       {bookmark ? (
                         <i className="fas fa-bookmark"></i>
                       ) : (
@@ -211,10 +191,7 @@ const Detail = () => {
                       )}
                     </li>
                     {!isMyself && (
-                      <li
-                        className="interact-detail-item"
-                        onClick={handleFollowUser}
-                      >
+                      <li className="interact-detail-item" onClick={handleFollowUser}>
                         {follow ? (
                           <i className="fal fa-user-minus"></i>
                         ) : (
@@ -235,10 +212,7 @@ const Detail = () => {
                 </div>
                 <div className="post-footer">
                   <ul className="interact-detail-list">
-                    <li
-                      className="interact-detail-item"
-                      onClick={handleLikePost}
-                    >
+                    <li className="interact-detail-item" onClick={handleLikePost}>
                       {formatNumber(post.likes)}{' '}
                       {post.isLiked ? (
                         <i className="fas fa-heart"></i>
@@ -246,27 +220,14 @@ const Detail = () => {
                         <i className="fal fa-heart"></i>
                       )}
                     </li>
-                    <li
-                      className="interact-detail-item"
-                      onClick={handleShowComment}
-                    >
-                      {formatNumber(comments.length)}{' '}
-                      <i className="fal fa-comment-alt-lines"></i>
+                    <li className="interact-detail-item" onClick={handleShowComment}>
+                      {formatNumber(comments.length)} <i className="fal fa-comment-alt-lines"></i>
                     </li>
                   </ul>
                 </div>
-                <div className="interact-box">
-                  Responses ({comments.length})
-                </div>
-                <form
-                  className="form-comment"
-                  onSubmit={handleSubmit(onSubmit)}
-                >
-                  <input
-                    type="text"
-                    className="comment-input"
-                    {...register('content')}
-                  ></input>
+                <div className="interact-box">Responses ({comments.length})</div>
+                <form className="form-comment" onSubmit={handleSubmit(onSubmit)}>
+                  <input type="text" className="comment-input" {...register('content')}></input>
                   <button className="btn btn-primary">Comment</button>
                 </form>
               </article>
