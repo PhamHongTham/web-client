@@ -63,8 +63,7 @@
               object-fit: cover;
             }
             .author-content {
-              display: flex;
-              flex-direction: column;
+              @include flex-center;
               margin-left: 1rem;
               .author-name {
                 font-size: map-get($font-size, 'lg');

@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 
 const axiosClient = axios.create({
-  baseURL: 'https://vast-lowlands-08945.herokuapp.com/api/v1',
+  baseURL: `${process.env.REACT_APP_API_URL}/api/v1`,
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',

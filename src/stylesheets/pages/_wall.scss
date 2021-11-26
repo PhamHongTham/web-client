@@ -145,13 +145,14 @@
         @include flex-center;
         position: relative;
         padding: 0 1rem;
+        cursor: pointer;
         &:hover > .list-option {
           visibility: visible;
           opacity: 1;
           transition: 0.3s;
         }
         .dot {
-          font-size: 1.75rem;
+          font-size: 1.25rem;
           color: map-get($color, 'gray-bold');
         }
         .list-option {

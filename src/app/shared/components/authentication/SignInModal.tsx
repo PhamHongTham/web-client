@@ -10,13 +10,8 @@ const SignInModal = ({
   handleShowSignInEmail,
   handleShowSignUpEmail,
 }: SignInOptions) => {
-  const redirectTo =
-    'https://61a030366e749f9491a6f2df--awesome-heyrovsky-5739ca.netlify.app/';
-  const urlLoginSocial =
-    'https://vast-lowlands-08945.herokuapp.com/api/v1/auth/';
-
-  const handleLoginWithSocial = (url: string, typeSocial: string) => {
-    return `${url}${typeSocial}?redirect_to=${redirectTo}`;
+  const handleLoginWithSocial = (typeSocial: string) => {
+    return `${process.env.REACT_APP_API_URL}/api/v1/auth/${typeSocial}?redirect_to=${process.env.REACT_APP_REDIRECT_URL}`;
   };
 
   return (
@@ -31,18 +26,12 @@ const SignInModal = ({
           </p>
         </li>
         <li className="action-item">
-          <a
-            href={handleLoginWithSocial(urlLoginSocial, 'google')}
-            className="action-link"
-          >
+          <a href={handleLoginWithSocial('google')} className="action-link">
             <i className="fab fa-google"></i> Sign in with Google
           </a>
         </li>
         <li className="action-item">
-          <a
-            href={handleLoginWithSocial(urlLoginSocial, 'github')}
-            className="action-link"
-          >
+          <a href={handleLoginWithSocial('github')} className="action-link">
             <i className="fab fa-github"></i> Sign in with github
           </a>
         </li>
@@ -54,8 +43,8 @@ const SignInModal = ({
         </Link>
       </span>
       <p className="sign-in-info">
-        Click “Sign In” to agree to Medium’s Terms of Service and acknowledge
-        that Medium’s Privacy Policy applies to you.
+        Click “Sign In” to agree to Boogle’s Terms of Service and acknowledge
+        that Boogle’s Privacy Policy applies to you.
       </p>
     </div>
   );
