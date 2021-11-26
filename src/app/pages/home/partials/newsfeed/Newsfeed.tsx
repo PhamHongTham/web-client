@@ -20,11 +20,11 @@ const Newsfeed = () => {
     setLoading(true);
     dispatch(action(pageNumber)).then((res: any) => {
       if (pageNumber === 1) {
-        setPosts(res.data);
+        setPosts(res?.data);
       } else {
-        setPosts([...posts, ...res.data]);
+        setPosts([...posts, ...res?.data]);
       }
-      setLoadMore(res.loadMore);
+      setLoadMore(res?.loadMore);
       setLoading(false);
     });
   };

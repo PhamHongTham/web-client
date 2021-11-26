@@ -5,7 +5,7 @@ export const apiWrapper = async (api: any, dispatch: any) => {
     const res = await api();
     return res;
   } catch (error: any) {
-    if (error.response.status === 401) {
+    if (error.response?.status === 401) {
       localStorageOption.remove();
       dispatch({
         type: 'CLEAR_SESSION',
@@ -14,7 +14,7 @@ export const apiWrapper = async (api: any, dispatch: any) => {
     } else {
       dispatch({
         type: 'OPEN_POPUP',
-        payload: error.response.data.errors[0],
+        payload: error.response?.data.errors[0],
       });
     }
   }

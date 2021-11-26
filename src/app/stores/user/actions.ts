@@ -57,7 +57,7 @@ export const getUserInfoRequest = () => async (dispatch: any) => {
     const data = await getUserInfo();
     dispatch({ type: UserConstant.GET_USER_INFO_SUCCESS, payload: data });
   } catch (error: any) {
-    if (error.response.status === 401) {
+    if (error.response?.status === 401) {
       localStorageOption.remove();
       dispatch({
         type: UserConstant.GET_USER_INFO_FAILURE,
@@ -66,7 +66,7 @@ export const getUserInfoRequest = () => async (dispatch: any) => {
     } else {
       dispatch({
         type: UserConstant.GET_USER_INFO_FAILURE,
-        payload: error.response.data.errors[0],
+        payload: error.response?.data.errors[0],
       });
     }
   }
