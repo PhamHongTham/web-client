@@ -13,13 +13,19 @@ const Header = () => {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [showUserAction, setShowUserAction] = useState<boolean>(false);
+  const [idUser, setIdUser] = useState<any>(localStorageOption.getUserId);
   const {
     userCurrent,
     showModalSignIn,
   }: { userCurrent: UserInfoOptions; showModalSignIn: boolean } = useSelector(
     (state: RootState) => state.userState
-    );
-  const id = localStorageOption.getUserId;
+  );
+
+  useEffect(() => {
+    if (userCurrent) {
+      setIdUser(userCurrent.id);
+    }
+  }, [userCurrent]);
 
   useEffect(() => {
     if (showModalSignIn) {
@@ -61,7 +67,7 @@ const Header = () => {
           <ul className="action-list">
             <li className="action-item">
               <Link
-                to={`/wall/${id}`}
+                to={`/wall/${idUser}`}
                 className="action-link"
                 onClick={handleShowUserAction}
               >

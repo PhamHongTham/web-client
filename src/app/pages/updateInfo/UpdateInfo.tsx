@@ -43,6 +43,10 @@ const UpdateInfo = () => {
   );
 
   useEffect(() => {
+    dispatch(getUserInfoRequest());
+  }, []);
+
+  useEffect(() => {
     handleShowLoading(isLoading ? true : false);
     if (error) {
       handleAddNotification({ type: 'ERROR', message: error });
@@ -56,14 +60,10 @@ const UpdateInfo = () => {
     if (userCurrent) {
       reset(userCurrent);
     }
-  }, [isLoading, message, error, userCurrent]);
-
-  useEffect(() => {
-    dispatch(getUserInfoRequest());
     return () => {
       dispatch(clearUserState());
     };
-  }, []);
+  }, [isLoading, message, error, userCurrent]);
 
   const onSubmit = async (data: any) => {
     const infoData = {
