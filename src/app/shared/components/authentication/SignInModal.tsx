@@ -6,12 +6,11 @@ interface SignInOptions {
   handleShowSignInEmail: () => void;
   handleShowSignUpEmail: () => void;
 }
-const SignInModal = ({
-  handleShowSignInEmail,
-  handleShowSignUpEmail,
-}: SignInOptions) => {
+const SignInModal = ({ handleShowSignInEmail, handleShowSignUpEmail }: SignInOptions) => {
   const handleLoginWithSocial = (typeSocial: string) => {
-    return `${process.env.REACT_APP_API_URL}/api/v1/auth/${typeSocial}?redirect_to=${encodeURIComponent(process.env.REACT_APP_REDIRECT_URL || " ")}`;
+    return `${
+      process.env.REACT_APP_API_URL
+    }/api/v1/auth/${typeSocial}?redirect_to=${encodeURIComponent(process.env.REACT_APP_REDIRECT_URL || ' ')}`;
   };
 
   return (
@@ -43,8 +42,8 @@ const SignInModal = ({
         </Link>
       </span>
       <p className="sign-in-info">
-        Click “Sign In” to agree to Boogle’s Terms of Service and acknowledge
-        that Boogle’s Privacy Policy applies to you.
+        Click “Sign In” to agree to Boogle’s Terms of Service and acknowledge that Boogle’s Privacy
+        Policy applies to you.
       </p>
     </div>
   );
