@@ -7,7 +7,6 @@ import { UserInfoOptions } from '../models/User';
 import { RootState } from 'app/stores/app-reducer';
 import { logoutRequest, showModalSignInRequest } from 'app/stores/user/actions';
 import AuthenticationModal from './authentication/AuthenticationModal';
-import { localStorageOption } from '../helper/LocalAction';
 
 const Header = () => {
   const dispatch = useDispatch();
