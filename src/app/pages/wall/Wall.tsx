@@ -25,16 +25,13 @@ const Wall = () => {
   const [authorInfo, setAuthorInfo] = useState<any>({});
   const [loading, setLoading] = useState<boolean>(false);
   const [follow, setFollow] = useState<boolean>(false);
-  // const [isMyself, setIsMyself] = useState<boolean>(false);
   const [showBookmark, setShowBookmark] = useState<boolean>(false);
   const { userCurrent }: any = useSelector(
     (state: RootState) => state.userState
   );
   const { handleAddNotification } = useContext(NotificationContext);
   const { id }: any = useParams();
-  const [idUserCurrent, setIdUserCurrent] = useState<any>(
-    localStorageOption.getUserId
-  );
+  const idUserCurrent = localStorageOption.getUserId;
 
   useEffect(() => {
     setLoading(true);
