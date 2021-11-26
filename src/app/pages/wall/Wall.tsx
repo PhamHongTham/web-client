@@ -20,6 +20,7 @@ import { NotificationContext } from 'app/shared/components/notifications/Notific
 
 const Wall = () => {
   const dispatch = useDispatch();
+  const { id }: any = useParams();
   const [posts, setPosts] = useState<any>([]);
   const [authorInfo, setAuthorInfo] = useState<any>({});
   const [loading, setLoading] = useState<boolean>(false);
@@ -29,7 +30,6 @@ const Wall = () => {
     (state: RootState) => state.userState
   );
   const { handleAddNotification } = useContext(NotificationContext);
-  const { id }: any = useParams();
 
   useEffect(() => {
     setLoading(true);
