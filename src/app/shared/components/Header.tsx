@@ -13,7 +13,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [showUserAction, setShowUserAction] = useState<boolean>(false);
-  const [idUser, setIdUser] = useState<any>(localStorageOption.getUserId);
   const {
     userCurrent,
     showModalSignIn,
