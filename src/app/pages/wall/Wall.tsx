@@ -49,6 +49,7 @@ const Wall = () => {
     };
   }, [id]);
 
+
   useEffect(() => {
     if (showBookmark && id === 'me') {
       setLoading(true);

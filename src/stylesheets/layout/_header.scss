@@ -3,10 +3,6 @@ header {
   border-bottom: 1px solid map-get($color, 'gray-light');
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   width: 100%;
-  position: -webkit-sticky;
-  position: -moz-sticky;
-  position: -o-sticky;
-  position: -ms-sticky;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -28,14 +24,18 @@ header {
       text-align: right;
       position: absolute;
       top: 0;
-      right: -100vw;
+      right: 0;
+      visibility: hidden;
+      opacity: 0;
       transition: 0.5s;
       background-color: map-get($color, 'white-snow');
       z-index: 100;
       width: 50vw;
       height: 100vh;
       &.active {
-        right: 0;
+        visibility: visible;
+        opacity: 1;
+        transition: 0.5s;
       }
       .menu-mobile-item {
         width: 100%;
