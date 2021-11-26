@@ -11,7 +11,11 @@ const SignInModal = ({
   handleShowSignUpEmail,
 }: SignInOptions) => {
   const handleLoginWithSocial = (typeSocial: string) => {
-    return `${process.env.REACT_APP_API_URL}/api/v1/auth/${typeSocial}?redirect_to=${process.env.REACT_APP_REDIRECT_URL}`;
+    return `${
+      process.env.REACT_APP_API_URL
+    }/api/v1/auth/${typeSocial}?redirect_to=${encodeURIComponent(
+      process.env.REACT_APP_REDIRECT_URL || ' '
+    )}`;
   };
 
   return (
