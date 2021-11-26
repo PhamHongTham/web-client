@@ -54,6 +54,7 @@ const Wall = () => {
       authorId = id;
       setIsMyself(false);
     }
+    console.log(authorId);
     dispatch(fetchUserPostRequest(authorId)).then((res: any) => {
       setAuthorInfo(res);
       setPosts(res.Posts);
@@ -62,6 +63,11 @@ const Wall = () => {
     dispatch(getUserInfoByIdRequest(authorId)).then((res: any) => {
       setFollow(res.isFollowed);
     });
+
+    return () => {
+      setAuthorInfo(null);
+      setPosts(null);
+    };
   }, [id]);
 
   useEffect(() => {
@@ -75,11 +81,7 @@ const Wall = () => {
       });
     } else {
       setLoading(true);
-      dispatch(fetchUserPostRequest(currentUserId)).then((res: any) => {
-        setAuthorInfo(res);
-        setPosts(res.Posts);
-        setLoading(false);
-      });
+      setPosts([])
     }
   }, [showBookmark]);
 
@@ -166,18 +168,18 @@ const Wall = () => {
           <ul className="wall-list">
             {posts?.length > 0 && posts
               ? posts?.map((post: postOptions) => {
-                return (
-                  <Post
-                    post={post}
-                    handleDeletePost={handleDeletePost}
-                    isMyself={isMyself}
-                    showBookmark={showBookmark}
-                  />
-                );
-              })
+                  return (
+                    <Post
+                      post={post}
+                      handleDeletePost={handleDeletePost}
+                      isMyself={isMyself}
+                      showBookmark={showBookmark}
+                    />
+                  );
+                })
               : !loading && (
-                <p className="empty-post">You don't have any posts yet</p>
-              )}
+                  <p className="empty-post">You don't have any posts yet</p>
+                )}
             {loading ? (
               <ul className="wall-list">
                 {[1, 2, 3, 4, 5, 6].map((n: number) => (
@@ -192,5 +194,5 @@ const Wall = () => {
       </div>
     </section>
   );
-};
+};;
 export default Wall;
