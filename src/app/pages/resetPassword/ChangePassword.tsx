@@ -43,13 +43,10 @@ const ChangePassword = () => {
     if (message) {
       handleAddNotification({ type: 'SUCCESS', message: message });
     }
-  }, [isLoading, message, error]);
-
-  useEffect(() => {
     return () => {
       dispatch(clearUserState());
     };
-  }, []);
+  }, [isLoading, message, error]);
 
   const onSubmit = (data: PasswordOptions) => {
     if (data.newPassword === repeatPass) {
