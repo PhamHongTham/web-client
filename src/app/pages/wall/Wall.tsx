@@ -17,7 +17,6 @@ import {
   fetchUserBookmarkRequest,
 } from 'app/stores/post/actions';
 import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
-import { localStorageOption } from 'app/shared/helper/LocalAction';
 
 const Wall = () => {
   const dispatch = useDispatch();
@@ -31,18 +30,15 @@ const Wall = () => {
   );
   const { handleAddNotification } = useContext(NotificationContext);
   const { id }: any = useParams();
-  const idUserCurrent = localStorageOption.getUserId;
 
   useEffect(() => {
     setLoading(true);
-    dispatch(fetchUserPostRequest(idUserCurrent === id ? 'me' : id)).then(
-      (res: any) => {
-        setAuthorInfo(res);
-        setPosts(res.Posts);
-        setLoading(false);
-      }
-    );
-    if (idUserCurrent !== id) {
+    dispatch(fetchUserPostRequest(id)).then((res: any) => {
+      setAuthorInfo(res);
+      setPosts(res.Posts);
+      setLoading(false);
+    });
+    if (id !== 'me') {
       dispatch(getUserInfoByIdRequest(id)).then((res: any) => {
         setFollow(res.isFollowed);
       });
@@ -51,10 +47,10 @@ const Wall = () => {
       setAuthorInfo(null);
       setPosts(null);
     };
-  }, [idUserCurrent, id]);
+  }, [id]);
 
   useEffect(() => {
-    if (showBookmark && idUserCurrent === id) {
+    if (showBookmark && id === 'me') {
       setLoading(true);
       dispatch(fetchUserBookmarkRequest()).then((res: any) => {
         let newList = res.map((item: any) => item.post);
@@ -63,7 +59,7 @@ const Wall = () => {
         setLoading(false);
       });
     }
-    if (!showBookmark && idUserCurrent === id) {
+    if (!showBookmark && id === 'me') {
       dispatch(fetchUserPostRequest('me')).then((res: any) => {
         setAuthorInfo(res);
         setPosts(res.Posts);
@@ -129,7 +125,7 @@ const Wall = () => {
                   </p>
                 </li>
               </ul>
-              {idUserCurrent === id ? (
+              {id === 'me' ? (
                 <div className="user-action">
                   <p
                     className={
@@ -171,7 +167,7 @@ const Wall = () => {
                     <Post
                       post={post}
                       handleDeletePost={handleDeletePost}
-                      isMyself={idUserCurrent === id}
+                      isMyself={id === 'me'}
                       showBookmark={showBookmark}
                     />
                   );

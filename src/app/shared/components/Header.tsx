@@ -67,7 +67,7 @@ const Header = () => {
           <ul className="action-list">
             <li className="action-item">
               <Link
-                to={`/wall/${idUser}`}
+                to={`/wall/me`}
                 className="action-link"
                 onClick={handleShowUserAction}
               >
