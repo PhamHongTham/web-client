@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { calculateTimeSince } from 'app/shared/helper/helper-function';
-import { Link } from 'react-router-dom';
 
 const UserComment = ({ props }: { props: any }) => {
   const { id, comment, createdAt, user } = props;

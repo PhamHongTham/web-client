@@ -7,7 +7,6 @@ import '../stylesheets/styles.scss';
 import AuthRoute from './routes/AuthRoute';
 import Header from './shared/components/Header';
 import Home from './pages/home/Home';
-import Footer from './shared/components/Footer';
 import ChangePassword from './pages/resetPassword/ChangePassword';
 import Detail from './pages/detail/Detail';
 import Wall from './pages/wall/Wall';
