@@ -68,7 +68,7 @@ const Wall = () => {
       setAuthorInfo(null);
       setPosts(null);
     };
-  }, [id]);
+  }, [id,showBookmark]);
 
   useEffect(() => {
     if (showBookmark) {
