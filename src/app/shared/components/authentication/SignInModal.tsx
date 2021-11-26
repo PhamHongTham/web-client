@@ -10,7 +10,8 @@ const SignInModal = ({
   handleShowSignInEmail,
   handleShowSignUpEmail,
 }: SignInOptions) => {
-  const redirectTo = 'http://localhost:3000/';
+  const redirectTo =
+    'https://61a030366e749f9491a6f2df--awesome-heyrovsky-5739ca.netlify.app/';
   const urlLoginSocial =
     'https://vast-lowlands-08945.herokuapp.com/api/v1/auth/';
 
