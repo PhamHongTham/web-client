@@ -21,12 +21,6 @@ const Header = () => {
   );
 
   useEffect(() => {
-    if (userCurrent) {
-      setIdUser(userCurrent.id);
-    }
-  }, [userCurrent]);
-
-  useEffect(() => {
     if (showModalSignIn) {
       dispatch(showModalSignInRequest(true));
     }
