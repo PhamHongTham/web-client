@@ -17,6 +17,7 @@ import {
   fetchUserBookmarkRequest,
 } from 'app/stores/post/actions';
 import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
+import PopupFollow from './partials/PopupFollow';
 
 const Wall = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const Wall = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [follow, setFollow] = useState<boolean>(false);
   const [showBookmark, setShowBookmark] = useState<boolean>(false);
+  const [showPopupFollow, setShowPopupFollow] = useState<boolean>(false);
   const { userCurrent }: any = useSelector(
     (state: RootState) => state.userState
   );
@@ -48,7 +50,6 @@ const Wall = () => {
       setPosts(null);
     };
   }, [id]);
-
 
   useEffect(() => {
     if (showBookmark && id === 'me') {
@@ -91,6 +92,10 @@ const Wall = () => {
     }
   };
 
+  const handleShowPopupFollow = (value: boolean) => {
+    setShowPopupFollow(value);
+  };
+
   return (
     <section className="wall container">
       <div className="row">
@@ -115,12 +120,18 @@ const Wall = () => {
                     Stories: <b>{authorInfo?.Posts?.length}</b>
                   </p>
                 </li>
-                <li className="activity-info-item">
+                <li
+                  className="activity-info-item follow"
+                  onClick={() => handleShowPopupFollow(true)}
+                >
                   <p>
                     Followers: <b>{authorInfo?.followers}</b>
                   </p>
                 </li>
-                <li className="activity-info-item">
+                <li
+                  className="activity-info-item follow"
+                  onClick={() => handleShowPopupFollow(true)}
+                >
                   <p>
                     Followings: <b>{authorInfo?.followings}</b>
                   </p>
@@ -188,7 +199,12 @@ const Wall = () => {
           </ul>
         </div>
       </div>
+      {showPopupFollow ? (
+        <PopupFollow handleShowPopupFollow={handleShowPopupFollow} />
+      ) : (
+        ''
+      )}
     </section>
   );
-};;
+};
 export default Wall;

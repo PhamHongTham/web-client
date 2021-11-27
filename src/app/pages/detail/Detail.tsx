@@ -132,26 +132,31 @@ const Detail = () => {
               <aside className="author-interact">
                 <ul className="interact-action-list">
                   <li className="interact-action-item" onClick={handleLikePost}>
-                    <span className="item-icon">
-                      {post.isLiked ? (
+                    {post.isLiked ? (
+                      <span className="item-icon active">
                         <i className="fas fa-heart"></i>
-                      ) : (
+                      </span>
+                    ) : (
+                      <span className="item-icon">
                         <i className="fal fa-heart"></i>
-                      )}
-                    </span>
+                      </span>
+                    )}
                   </li>
                   {!isMyself && (
                     <li
                       className="interact-action-item"
                       onClick={handleFollowUser}
                     >
-                      <span className="item-icon">
-                        {follow ? (
-                          <i className="fal fa-user-minus"></i>
-                        ) : (
-                          <i className="fal fa-user-plus"></i>
-                        )}
-                      </span>
+                      {follow ? (
+                        <span className="item-icon active">
+                          <i className="far fa-user-check"></i>
+                        </span>
+                      ) : (
+                        <span className="item-icon">
+                          {' '}
+                          <i className="far fa-user-plus"></i>
+                        </span>
+                      )}
                     </li>
                   )}
 
@@ -159,13 +164,16 @@ const Detail = () => {
                     className="interact-action-item"
                     onClick={handleAddBookmark}
                   >
-                    <span className="item-icon">
-                      {bookmark ? (
+                    {bookmark ? (
+                      <span className="item-icon active">
                         <i className="fas fa-bookmark"></i>
-                      ) : (
+                      </span>
+                    ) : (
+                      <span className="item-icon">
+                        {' '}
                         <i className="fal fa-bookmark"></i>
-                      )}
-                    </span>
+                      </span>
+                    )}
                   </li>
                 </ul>
               </aside>

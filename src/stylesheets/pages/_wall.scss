@@ -24,6 +24,9 @@
           margin: 1rem 0;
           .activity-info-item {
             margin-right: 1rem;
+            &.follow {
+              cursor: pointer;
+            }
           }
         }
         .user-action {
@@ -189,6 +192,100 @@
       color: map-get($color, 'black-midnight');
       text-align: center;
       margin: 2rem 0;
+    }
+  }
+  .popup-follow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.65);
+    z-index: 101;
+    overflow: hidden;
+    .popup-content {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 25rem;
+      height: 28rem;
+      background: map-get($color, 'white-snow');
+      .popup-follow-title {
+        text-align: center;
+        padding: 0.8rem;
+        border-bottom: 1px solid #e5e5e5;
+        position: sticky;
+        top: 0;
+        height: 3.125rem;
+        background: map-get($color, 'white-snow');
+      }
+      .list-follow {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem 1.5rem 0 1.5rem;
+        max-height: calc(28rem - 3.125rem);
+        overflow-y: scroll;
+        &::-webkit-scrollbar {
+          width: 0.5rem;
+        }
+        &::-webkit-scrollbar-track {
+          background: #edeff1;
+        }
+        &::-webkit-scrollbar-thumb {
+          background: #ddd;
+          border-radius: 0.6rem;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+          background: #555;
+        }
+        .follow-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 1rem;
+          .follow-item-content {
+            @include flex-center;
+            .user-avatar {
+              width: 3rem;
+              height: 3rem;
+              border-radius: 50%;
+              object-fit: cover;
+            }
+            .user-name {
+              font-weight: 500;
+              padding: 0 1rem;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              -webkit-line-clamp: 1;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+            }
+          }
+          .btn {
+            height: 2.2rem;
+            max-width: 5rem;
+            &.btn-primary {
+              color: map-get($color, 'white-snow');
+              &:hover {
+                background: map-get($color, 'white-snow');
+                border: 1px solid map-get($color, 'primary');
+                color: map-get($color, 'primary');
+              }
+            }
+          }
+        }
+      }
+      .close-popup {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        cursor: pointer;
+        background: none;
+        outline: none;
+        border: none;
+        font-size: map-get($font-size, 'lg');
+      }
     }
   }
 }
