@@ -1,6 +1,6 @@
 .btn {
   @include flex-center;
-  padding:.75rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   white-space: nowrap;
   outline: none;
   cursor: pointer;
@@ -10,6 +10,16 @@
     border: 1px solid map-get($color, 'primary');
     &:hover {
       background: map-get($color, 'white-snow');
+      transition: 0.3s;
+    }
+  }
+  &.btn-outline {
+    background: map-get($color, 'white-snow');
+    border: 1px solid map-get($color, 'primary');
+    color: map-get($color, 'primary');
+    &:hover {
+      background: map-get($color, 'primary');
+      color: map-get($color, 'white-snow');
       transition: 0.3s;
     }
   }
