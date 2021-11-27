@@ -43,12 +43,12 @@
             color: map-get($color, 'primary');
             border-radius: 50%;
             transition: 0.3s;
-          }
-          &:hover > .item-icon {
-            font-size: 120%;
-            background-color: map-get($color, 'primary');
-            color: map-get($color, 'white-snow');
-            transition: 0.3s;
+            &:hover {
+              font-size: 120%;
+              background-color: map-get($color, 'primary');
+              color: map-get($color, 'white-snow');
+              transition: 0.3s;
+            }
           }
           .view-mode-item {
             color: map-get($color, 'primary');
@@ -168,7 +168,7 @@
           opacity: 0;
           .option-item {
             cursor: pointer;
-            padding: 0.5rem 1rem;
+            padding: 1rem 1rem 1rem 0.5rem;
             display: flex;
             align-items: center;
             border-bottom: 1px dashed map-get($color, 'gray-stone');

@@ -6,10 +6,7 @@ import Post from './partials/Post';
 import SkeletonPost from '../home/partials/skeleton-component/SkeletonPost';
 import { postOptions } from 'app/shared/models/post-interface';
 import { RootState } from 'app/stores/app-reducer';
-import {
-  getUserInfoByIdRequest,
-  showModalSignInRequest,
-} from 'app/stores/user/actions';
+import { getUserInfoByIdRequest, showModalSignInRequest } from 'app/stores/user/actions';
 import { followUserRequest } from 'app/stores/post/actions';
 import {
   fetchUserPostRequest,
@@ -140,17 +137,13 @@ const Wall = () => {
               {id === 'me' ? (
                 <div className="user-action">
                   <p
-                    className={
-                      showBookmark ? `view-mode-item` : `view-mode-item active`
-                    }
+                    className={showBookmark ? `view-mode-item` : `view-mode-item active`}
                     onClick={() => handleShowBookmark(false)}
                   >
                     Show your posts
                   </p>
                   <p
-                    className={
-                      showBookmark ? `view-mode-item active` : `view-mode-item`
-                    }
+                    className={showBookmark ? `view-mode-item active` : `view-mode-item`}
                     onClick={() => handleShowBookmark(true)}
                   >
                     Show your bookmarks
@@ -160,9 +153,9 @@ const Wall = () => {
                 <div className="user-action">
                   <span className="item-icon" onClick={handleFollowUser}>
                     {follow ? (
-                      <i className="fal fa-user-minus"></i>
+                      <i className="fas fa-user-check"></i>
                     ) : (
-                      <i className="fal fa-user-plus"></i>
+                      <i className="fal fa-user"></i>
                     )}
                   </span>
                 </div>
@@ -184,9 +177,7 @@ const Wall = () => {
                     />
                   );
                 })
-              : !loading && (
-                  <p className="empty-post">You don't have any posts yet</p>
-                )}
+              : !loading && <p className="empty-post">You don't have any posts yet</p>}
             {loading ? (
               <ul className="wall-list">
                 {[1, 2, 3, 4, 5, 6].map((n: number) => (
