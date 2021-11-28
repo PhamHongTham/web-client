@@ -14,7 +14,8 @@ import {
   fetchUserBookmarkRequest,
 } from 'app/stores/post/actions';
 import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
-import PopupFollow from './partials/PopupFollow';
+import PopupFollowings from './partials/PopupFollowings';
+import PopupFollowers from './partials/PopupFollowers';
 
 const Wall = () => {
   const dispatch = useDispatch();
@@ -24,10 +25,9 @@ const Wall = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [follow, setFollow] = useState<boolean>(false);
   const [showBookmark, setShowBookmark] = useState<boolean>(false);
-  const [showPopupFollow, setShowPopupFollow] = useState<boolean>(false);
-  const { userCurrent }: any = useSelector(
-    (state: RootState) => state.userState
-  );
+  const [showPopupFollowings, setShowPopupFollowings] = useState<boolean>(false);
+  const [showPopupFollowers, setShowPopupFollowers] = useState<boolean>(false);
+  const { userCurrent }: any = useSelector((state: RootState) => state.userState);
   const { handleAddNotification } = useContext(NotificationContext);
 
   useEffect(() => {
@@ -42,10 +42,6 @@ const Wall = () => {
         setFollow(res.isFollowed);
       });
     }
-    return () => {
-      setAuthorInfo(null);
-      setPosts(null);
-    };
   }, [id]);
 
   useEffect(() => {
@@ -89,8 +85,12 @@ const Wall = () => {
     }
   };
 
-  const handleShowPopupFollow = (value: boolean) => {
-    setShowPopupFollow(value);
+  const handleShowPopupFollowers = (value: boolean) => {
+    setShowPopupFollowers(value);
+  };
+
+  const handleShowPopupFollowings = (value: boolean) => {
+    setShowPopupFollowings(value);
   };
 
   return (
@@ -119,7 +119,7 @@ const Wall = () => {
                 </li>
                 <li
                   className="activity-info-item follow"
-                  onClick={() => handleShowPopupFollow(true)}
+                  onClick={() => handleShowPopupFollowers(true)}
                 >
                   <p>
                     Followers: <b>{authorInfo?.followers}</b>
@@ -127,7 +127,7 @@ const Wall = () => {
                 </li>
                 <li
                   className="activity-info-item follow"
-                  onClick={() => handleShowPopupFollow(true)}
+                  onClick={() => handleShowPopupFollowings(true)}
                 >
                   <p>
                     Followings: <b>{authorInfo?.followings}</b>
@@ -140,13 +140,13 @@ const Wall = () => {
                     className={showBookmark ? `view-mode-item` : `view-mode-item active`}
                     onClick={() => handleShowBookmark(false)}
                   >
-                    Show your posts
+                    Your posts
                   </p>
                   <p
                     className={showBookmark ? `view-mode-item active` : `view-mode-item`}
                     onClick={() => handleShowBookmark(true)}
                   >
-                    Show your bookmarks
+                    Your bookmarks
                   </p>
                 </div>
               ) : (
@@ -155,7 +155,7 @@ const Wall = () => {
                     {follow ? (
                       <i className="fas fa-user-check"></i>
                     ) : (
-                      <i className="fal fa-user"></i>
+                      <i className="far fa-user-plus"></i>
                     )}
                   </span>
                 </div>
@@ -190,8 +190,16 @@ const Wall = () => {
           </ul>
         </div>
       </div>
-      {showPopupFollow ? (
-        <PopupFollow handleShowPopupFollow={handleShowPopupFollow} />
+      {showPopupFollowers ? (
+        <PopupFollowers authorId={authorInfo.id} handleShowPopupFollow={handleShowPopupFollowers} />
+      ) : (
+        ''
+      )}
+      {showPopupFollowings ? (
+        <PopupFollowings
+          authorId={authorInfo.id}
+          handleShowPopupFollow={handleShowPopupFollowings}
+        />
       ) : (
         ''
       )}

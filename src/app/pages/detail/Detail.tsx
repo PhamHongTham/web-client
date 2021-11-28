@@ -144,11 +144,10 @@ const Detail = () => {
                     >
                       {follow ? (
                         <span className="item-icon active">
-                          <i className="far fa-user-check"></i>
+                          <i className="fas fa-user-check"></i>
                         </span>
                       ) : (
                         <span className="item-icon">
-                          {' '}
                           <i className="far fa-user-plus"></i>
                         </span>
                       )}
@@ -207,9 +206,9 @@ const Detail = () => {
                     {!isMyself && (
                       <li className="interact-detail-item" onClick={handleFollowUser}>
                         {follow ? (
-                          <i className="fal fa-user-minus"></i>
+                          <i className="fas fa-user-check"></i>
                         ) : (
-                          <i className="fal fa-user-plus"></i>
+                          <i className="far fa-user-plus"></i>
                         )}
                       </li>
                     )}
