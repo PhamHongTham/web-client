@@ -50,7 +50,6 @@ const Detail = () => {
         setIsMyself(false);
       }
       handleShowLoading(false);
-      console.log(userCurrent?.email, res.user.email);
     });
     dispatch(getCommentPostRequest(id)).then((res: any) => setComments(res));
   }, [id, userCurrent]);
