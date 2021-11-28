@@ -1,8 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
+
+import Post from './partials/Post';
+import PopupFollowings from './partials/PopupFollowings';
+import PopupFollowers from './partials/PopupFollowers';
+
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import Post from './partials/Post';
-
 import SkeletonPost from '../home/partials/skeleton-component/SkeletonPost';
 import { postOptions } from 'app/shared/models/post-interface';
 import { RootState } from 'app/stores/app-reducer';
@@ -14,8 +17,6 @@ import {
   fetchUserBookmarkRequest,
 } from 'app/stores/post/actions';
 import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
-import PopupFollowings from './partials/PopupFollowings';
-import PopupFollowers from './partials/PopupFollowers';
 
 const Wall = () => {
   const dispatch = useDispatch();

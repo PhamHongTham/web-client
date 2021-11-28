@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+
 import FollowerItem from './FollowerItem';
+
+import { useDispatch } from 'react-redux';
 import { getFollowingsRequest } from 'app/stores/post/actions';
 
 interface PopupFollowOptions {
