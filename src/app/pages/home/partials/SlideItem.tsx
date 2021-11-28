@@ -24,7 +24,7 @@ const SlideItem = ({ post, index }: { post: any; index: number }) => {
                 className="author-avatar"
               ></img>
               <div className="author-content">
-                <p className="author-name">{post.user.displayName}</p>
+                <p className="author-name">{post.user.displayName?post.user.displayName:post.user.lastName}</p>
               </div>
             </div>
           </div>

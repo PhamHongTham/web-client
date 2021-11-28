@@ -11,7 +11,7 @@ import Footer from 'app/shared/components/Footer';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { search }: any = useLocation();
+  const { search }: { search: string } = useLocation();
   const accessToken = new URLSearchParams(search).get('accessToken');
 
   useEffect(() => {

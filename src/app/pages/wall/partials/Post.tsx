@@ -1,9 +1,7 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-
 import { postOptions } from 'app/shared/models/post-interface';
-
 import { calculateTimeSince } from 'app/shared/helper/helper-function';
 
 const PostItem = ({

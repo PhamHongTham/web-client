@@ -34,7 +34,9 @@ const Post = ({ post }: { post: postOptions }) => {
               className="author-avatar"
             />
             <div className="author-info">
-              <h4 className="card-content author-name">{user?.displayName}</h4>
+              <h4 className="card-content author-name">
+                {user?.displayName ? user?.displayName : user?.lastName}
+              </h4>
               <p className="card-content post-sub-info">{timeSince}</p>
             </div>
           </Link>

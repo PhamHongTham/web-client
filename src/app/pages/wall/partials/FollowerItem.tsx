@@ -1,18 +1,17 @@
-import { followUserRequest } from 'app/stores/post/actions';
 import React, { useState } from 'react';
+
+
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
-
 import { Link } from 'react-router-dom';
 
+import { followUserRequest } from 'app/stores/post/actions';
+
 const FollowerItem = (props: any) => {
-  console.log(props);
   const dispatch = useDispatch();
   const { person, action, handleShowPopupFollow } = props;
-
   const [follow, setFollow] = useState<boolean>(true);
-
-  const { id }: any = useParams();
+  const { id }: { id: string } = useParams();
 
   const handleUnfollow = () => {
     let data = {
@@ -37,7 +36,9 @@ const FollowerItem = (props: any) => {
           alt=""
           className="user-avatar"
         ></img>
-        <span className="user-name">{person?.displayName}</span>
+        <span className="user-name">
+          {person?.displayName ? person?.displayName : person?.lastName}
+        </span>
       </Link>
       {action &&
         id === 'me' &&
