@@ -10,4 +10,5 @@ export interface UserInfoOptions {
   picture?: string;
   followers?: number;
   following?: number;
+  isFollowed?: boolean;
 }

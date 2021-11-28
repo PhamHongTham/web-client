@@ -3,9 +3,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import Post from './partials/Post';
 import PopupFollowings from './partials/PopupFollowings';
 import PopupFollowers from './partials/PopupFollowers';
-
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+
 import SkeletonPost from '../home/partials/skeleton-component/SkeletonPost';
 import { postOptions } from 'app/shared/models/post-interface';
 import { RootState } from 'app/stores/app-reducer';
@@ -17,10 +17,11 @@ import {
   fetchUserBookmarkRequest,
 } from 'app/stores/post/actions';
 import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
+import { UserInfoOptions } from 'app/shared/models/User';
 
 const Wall = () => {
   const dispatch = useDispatch();
-  const { id }: any = useParams();
+  const { id }: { id: string } = useParams();
   const [posts, setPosts] = useState<any>([]);
   const [authorInfo, setAuthorInfo] = useState<any>({});
   const [loading, setLoading] = useState<boolean>(false);
@@ -28,7 +29,9 @@ const Wall = () => {
   const [showBookmark, setShowBookmark] = useState<boolean>(false);
   const [showPopupFollowings, setShowPopupFollowings] = useState<boolean>(false);
   const [showPopupFollowers, setShowPopupFollowers] = useState<boolean>(false);
-  const { userCurrent }: any = useSelector((state: RootState) => state.userState);
+  const { userCurrent }: { userCurrent: UserInfoOptions } = useSelector(
+    (state: RootState) => state.userState
+  );
   const { handleAddNotification } = useContext(NotificationContext);
 
   useEffect(() => {
@@ -111,7 +114,9 @@ const Wall = () => {
               />
             </div>
             <div className="public-info-detail">
-              <h2 className="author-name">{authorInfo?.displayName}</h2>
+              <h2 className="author-name">
+                {authorInfo?.displayName ? authorInfo?.displayName : authorInfo?.lastName}
+              </h2>
               <ul className="activity-info-list">
                 <li className="activity-info-item">
                   <p>

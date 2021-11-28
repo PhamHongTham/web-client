@@ -5,8 +5,9 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { RootState } from 'app/stores/app-reducer';
 import { useDispatch, useSelector } from 'react-redux';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
-import { localStorageOption } from 'app/shared/helper/LocalAction';
 import UserComment from './partials/UserComment';
 import { formatNumber } from 'app/shared/helper/helper-function';
 import { getUserInfoByIdRequest, showModalSignInRequest } from 'app/stores/user/actions';
@@ -23,8 +24,11 @@ import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
 
 const Detail = () => {
   const dispatch = useDispatch();
-  const { id }: any = useParams();
-  const { register, handleSubmit, reset } = useForm();
+  const { id }: { id: string } = useParams();
+  const schema = yup.object().shape({
+    content: yup.string().required('Invalid comment'),
+  });
+  const { register, handleSubmit, reset } = useForm({ resolver: yupResolver(schema) });
 
   const [post, setPost] = useState<any>();
   const [comments, setComments] = useState<any>([]);
@@ -34,14 +38,13 @@ const Detail = () => {
   const [showComment, setShowComment] = useState<boolean>(false);
   const [isMyself, setIsMyself] = useState<boolean>(false);
   const { handleShowLoading } = useContext(LoadingContext);
-  const currentUserId = localStorageOption.getUserId;
 
   useEffect(() => {
     handleShowLoading(true);
     dispatch(fetchSpecificPostRequest(id)).then((res: any) => {
       setPost(res);
       setBookmark(res.isInBookmark);
-      if (currentUserId === String(res.userId)) {
+      if (userCurrent?.email === String(res.user.email)) {
         setIsMyself(true);
       } else {
         setIsMyself(false);
@@ -49,7 +52,7 @@ const Detail = () => {
       handleShowLoading(false);
     });
     dispatch(getCommentPostRequest(id)).then((res: any) => setComments(res));
-  }, [id]);
+  }, [id, userCurrent]);
 
   useEffect(() => {
     if (post) {
@@ -85,7 +88,7 @@ const Detail = () => {
         comment: data.content,
         createdAt: new Date().toISOString(),
         user: {
-          displayName: userCurrent?.displayName,
+          displayName: userCurrent?.displayName ? userCurrent.displayName : userCurrent.lastName,
           picture: userCurrent?.picture,
         },
       };
@@ -138,10 +141,7 @@ const Detail = () => {
                     )}
                   </li>
                   {!isMyself && (
-                    <li
-                      className="interact-action-item"
-                      onClick={handleFollowUser}
-                    >
+                    <li className="interact-action-item" onClick={handleFollowUser}>
                       {follow ? (
                         <span className="item-icon active">
                           <i className="fas fa-user-check"></i>
@@ -154,10 +154,7 @@ const Detail = () => {
                     </li>
                   )}
 
-                  <li
-                    className="interact-action-item"
-                    onClick={handleAddBookmark}
-                  >
+                  <li className="interact-action-item" onClick={handleAddBookmark}>
                     {bookmark ? (
                       <span className="item-icon active">
                         <i className="fas fa-bookmark"></i>
@@ -191,7 +188,9 @@ const Detail = () => {
                     </li>
                     <li className="author-info-item">
                       <Link to={`/wall/${post.userId}`} className="text-primary author-name">
-                        <h3>{post.user?.displayName}</h3>
+                        <h3>
+                          {post.user?.displayName ? post.user?.displayName : post.user?.lastName}
+                        </h3>
                       </Link>
                     </li>
                   </ul>

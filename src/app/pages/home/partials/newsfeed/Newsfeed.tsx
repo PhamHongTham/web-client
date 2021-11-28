@@ -7,9 +7,12 @@ import { RootState } from 'app/stores/app-reducer';
 import { postOptions } from 'app/shared/models/post-interface';
 import { fetchPostRequest, fetchRecommendPostRequest } from 'app/stores/post/actions';
 import SkeletonNewsfeed from 'app/pages/home/partials/skeleton-component/SkeletonNewsfeed';
+import { UserInfoOptions } from 'app/shared/models/User';
 
 const Newsfeed = () => {
-  const { userCurrent }: any = useSelector((state: RootState) => state.userState);
+  const { userCurrent }: { userCurrent: UserInfoOptions } = useSelector(
+    (state: RootState) => state.userState
+  );
   const [posts, setPosts] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [loadMore, setLoadMore] = useState<boolean>(true);

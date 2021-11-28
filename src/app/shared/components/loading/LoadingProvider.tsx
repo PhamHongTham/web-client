@@ -10,6 +10,7 @@ const LoadingProvider = ({ children }: any) => {
   };
   const contextData = {
     handleShowLoading,
+    showLoading,
   };
   return (
     <LoadingContext.Provider value={contextData}>
