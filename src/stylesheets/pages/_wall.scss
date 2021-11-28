@@ -275,6 +275,11 @@
             }
           }
         }
+        .empty-list-mess {
+          text-align: center;
+          color: map-get($color, 'gray-smoke');
+          font-size: map-get($font-size, 'lg');
+        }
       }
       .close-popup {
         position: absolute;

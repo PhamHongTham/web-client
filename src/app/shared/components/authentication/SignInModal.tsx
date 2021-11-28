@@ -8,7 +8,6 @@ interface SignInOptions {
 }
 const SignInModal = ({ handleShowSignInEmail, handleShowSignUpEmail }: SignInOptions) => {
   const handleLoginWithSocial = (typeSocial: string) => {
-    console.log(process.env.REACT_APP_REDIRECT_URL);
     return `${process.env.REACT_APP_API_URL}/api/v1/auth/${typeSocial}?redirect_to=${process.env.REACT_APP_REDIRECT_URL}`;
   };
 
