@@ -44,7 +44,7 @@ const Detail = () => {
     dispatch(fetchSpecificPostRequest(id)).then((res: any) => {
       setPost(res);
       setBookmark(res.isInBookmark);
-      if (userCurrent?.email === String(res.user.email)) {
+      if (userCurrent?.email === res.user.email) {
         setIsMyself(true);
       } else {
         setIsMyself(false);
