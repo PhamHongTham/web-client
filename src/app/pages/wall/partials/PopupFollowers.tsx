@@ -31,7 +31,7 @@ const PopupFollowers = ({ handleShowPopupFollow, authorId }: PopupFollowOptions)
             ? listPeople.map((person) => (
                 <FollowerItem
                   person={person}
-                  action={true}
+                  action={false}
                   handleShowPopupFollow={handleShowPopupFollow}
                 />
               ))
