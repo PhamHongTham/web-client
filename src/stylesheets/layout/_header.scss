@@ -78,7 +78,7 @@ header {
       .menu-link {
         color: map-get($color, 'black-midnight');
         font-weight: 500;
-        font-size: map-get($font-size, 'lg');
+        font-size: map-get($font-size, 'normal');
         margin: 0 1rem;
         white-space: nowrap;
         transition: 0.3s;
