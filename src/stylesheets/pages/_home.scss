@@ -3,7 +3,7 @@
     font-weight: 700;
     font-size: map-get($font-size, 'xxxl');
     text-align: center;
-    margin: 2rem 0;
+    margin: 3rem 0;
     display: -webkit-box;
     overflow: hidden;
     -webkit-line-clamp: 2;
@@ -44,7 +44,7 @@
           }
           .post-title {
             @include text-overflow(1);
-            font-size: map-get($font-size, 'xxxl');
+            font-size: map-get($font-size, 'xxl');
             color: map-get($color, 'black-midnight');
             font-weight: 700;
             margin-bottom: 1rem;

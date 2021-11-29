@@ -71,7 +71,7 @@
     .post-item {
       @include flex-center-between;
       height: 10rem;
-      margin: 2rem auto;
+      margin: 2.5rem auto;
       align-items: flex-end;
       .item-img {
         width: 15rem;
@@ -95,6 +95,7 @@
         word-break: break-word;
         .item-title {
           @include text-overflow(2);
+          font-size: map-get($font-size, 'sm');
         }
         .item-description {
           @include text-overflow(2);
@@ -124,7 +125,7 @@
               outline: none;
               padding: 0.25rem 0.5rem;
               color: map-get($color, 'primary');
-              font-size: map-get($font-size, 'normal');
+              font-size: map-get($font-size, 'sm');
               background-color: map-get($color, 'white-snow');
               border: 1px solid map-get($color, 'primary');
               transition: 0.3s;
