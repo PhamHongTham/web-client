@@ -245,6 +245,7 @@ const Detail = () => {
               </article>
               <ul className="list-user-comment col-8 offset-2 col-lg-12 offset-lg-0">
                 {showComment &&
+                  comments.length &&
                   comments
                     ?.slice(0)
                     .reverse()
