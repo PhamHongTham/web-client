@@ -20,7 +20,7 @@
       }
     }
     .input-post-title {
-      font-size: map-get($font-size, 'xxxxxl');
+      font-size: map-get($font-size, 'xxxl');
       font-weight: 300;
     }
     .input-post-description,
@@ -93,7 +93,7 @@
         align-items: center;
 
         i{
-          font-size: map-get($font-size, 'xxxxxl');
+          font-size: map-get($font-size, 'xxxl');
           color: map-get($color, 'gray-smoke');
         }
       }

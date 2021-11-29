@@ -98,6 +98,7 @@
         }
         .item-description {
           @include text-overflow(2);
+          line-height: 1.5rem;
           margin-top: 0.5rem;
         }
         .sub-info-list {
@@ -117,7 +118,7 @@
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
-              max-width: 5rem;
+              max-width: 8rem;
               margin: 0.25rem 0.5rem;
               border-radius: 99rem;
               outline: none;
