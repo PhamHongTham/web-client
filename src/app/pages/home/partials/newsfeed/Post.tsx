@@ -1,15 +1,33 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { postOptions } from 'app/shared/models/post-interface';
-import { calculateTimeSince, formatNumber } from 'app/shared/helper/helper-function';
+import {
+  calculateTimeSince,
+  formatNumber,
+} from 'app/shared/helper/helper-function';
+import { UserInfoOptions } from 'app/shared/models/User';
+import { RootState } from 'app/stores/app-reducer';
+import { showModalSignInRequest } from 'app/stores/user/actions';
 
 const Post = ({ post }: { post: postOptions }) => {
-  const { id, title, comments, likes, user, cover, description, createdAt } = post;
+  const dispatch = useDispatch();
+  const { id, title, comments, likes, user, cover, description, createdAt } =
+    post;
+  const { userCurrent }: { userCurrent: UserInfoOptions } = useSelector(
+    (state: RootState) => state.userState
+  );
   const countLike = formatNumber(likes);
   const countComment = formatNumber(+comments);
   const timeSince = calculateTimeSince(createdAt);
+
+  const handleToWallPage = () => {
+    if (!userCurrent) {
+      dispatch(showModalSignInRequest(true));
+    }
+  };
   return (
     <li key={id} className="list-item col-4 col-lg-6 col-md-12">
       <div className="card">
@@ -20,10 +38,17 @@ const Post = ({ post }: { post: postOptions }) => {
           <Link to={`/detail/${id}`}>
             <h2 className="card-title">{title}</h2>
           </Link>
-          <p className="post-description" dangerouslySetInnerHTML={{ __html: description }}></p>
+          <p
+            className="post-description"
+            dangerouslySetInnerHTML={{ __html: description }}
+          ></p>
         </div>
         <div className="card-footer">
-          <Link to={`/wall/${user?.id}`} className="post-creator-info">
+          <Link
+            to={`/wall/${user?.id}`}
+            className="post-creator-info"
+            onClick={handleToWallPage}
+          >
             <img
               src={
                 user && user.picture

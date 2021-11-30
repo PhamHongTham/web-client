@@ -2,6 +2,7 @@
   .slide-title {
     font-weight: 700;
     font-size: map-get($font-size, 'xxxxxl');
+    color: map-get($color, 'black-midnight');
     text-align: center;
     margin: 3rem 0;
     display: -webkit-box;

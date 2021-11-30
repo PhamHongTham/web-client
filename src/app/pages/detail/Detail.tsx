@@ -79,7 +79,11 @@ const Detail = () => {
   };
 
   const handleShowComment = () => {
-    setShowComment(!showComment);
+    if (userCurrent) {
+      setShowComment(!showComment);
+    } else {
+      dispatch(showModalSignInRequest(true));
+    }
   };
 
   const onSubmit = (data: CommentHandleOptions) => {
@@ -88,7 +92,9 @@ const Detail = () => {
         comment: data.content,
         createdAt: new Date().toISOString(),
         user: {
-          displayName: userCurrent?.displayName ? userCurrent.displayName : userCurrent.lastName,
+          displayName: userCurrent?.displayName
+            ? userCurrent.displayName
+            : userCurrent.lastName,
           picture: userCurrent?.picture,
         },
       };
@@ -114,11 +120,15 @@ const Detail = () => {
   };
 
   const handleAddBookmark = () => {
-    let data = {
-      postId: String(post.id),
-    };
-    setBookmark(!bookmark);
-    dispatch(addBookmarkRequest(data));
+    if (userCurrent) {
+      let data = {
+        postId: String(post.id),
+      };
+      setBookmark(!bookmark);
+      dispatch(addBookmarkRequest(data));
+    } else {
+      dispatch(showModalSignInRequest(true));
+    }
   };
 
   return (
