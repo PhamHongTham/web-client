@@ -1,6 +1,7 @@
 import React, { FormEvent, useContext, useEffect, useState } from 'react';
 
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -13,6 +14,7 @@ import { PasswordOptions } from 'app/shared/types/Password';
 
 const ChangePassword = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const schema = yup.object().shape({
     newPassword: yup
       .string()
@@ -42,6 +44,7 @@ const ChangePassword = () => {
     }
     if (message) {
       handleAddNotification({ type: 'SUCCESS', message: message });
+      history.push('/');
     }
     return () => {
       dispatch(clearUserState());

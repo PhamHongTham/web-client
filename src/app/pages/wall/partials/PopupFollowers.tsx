@@ -11,7 +11,10 @@ interface PopupFollowOptions {
   authorId: number;
 }
 
-const PopupFollowers = ({ handleShowPopupFollow, authorId }: PopupFollowOptions) => {
+const PopupFollowers = ({
+  handleShowPopupFollow,
+  authorId,
+}: PopupFollowOptions) => {
   const dispatch = useDispatch();
   const [listPeople, setListPeople] = useState<object[]>([]);
   const { handleShowLoading, showLoading } = useContext(LoadingContext);
@@ -31,13 +34,18 @@ const PopupFollowers = ({ handleShowPopupFollow, authorId }: PopupFollowOptions)
             ? listPeople.map((person) => (
                 <FollowerItem
                   person={person}
-                  action={true}
+                  action={false}
                   handleShowPopupFollow={handleShowPopupFollow}
                 />
               ))
-            : !showLoading && <p className="empty-list-mess">No one to show!</p>}
+            : !showLoading && (
+                <p className="empty-list-mess">No one to show!</p>
+              )}
         </div>
-        <button className="close-popup" onClick={() => handleShowPopupFollow(false)}>
+        <button
+          className="close-popup"
+          onClick={() => handleShowPopupFollow(false)}
+        >
           <i className="fal fa-times"></i>
         </button>
       </div>

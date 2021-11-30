@@ -15,12 +15,12 @@
       padding: 0 1rem;
       margin-bottom: 1rem;
       font-family: $font-family;
-      &::placeholder{
+      &::placeholder {
         color: map-get($color, 'gray-smoke');
       }
     }
     .input-post-title {
-      font-size: map-get($font-size, 'xxxxxl');
+      font-size: map-get($font-size, 'xxxl');
       font-weight: 300;
     }
     .input-post-description,
@@ -32,11 +32,11 @@
       width: 200px;
       margin: 0 auto;
     }
-    .error{
+    .error {
       color: red;
       font-size: map-get($font-size, 'sm');
       margin-top: -1rem;
-      margin-bottom: .5rem;
+      margin-bottom: 0.5rem;
       margin-left: 1rem;
     }
   }
@@ -77,14 +77,14 @@
         font-weight: 500;
         margin-bottom: 1rem;
       }
-      .previewImage{
-        img{
+      .previewImage {
+        img {
           width: 100%;
           aspect-ratio: 16/9;
           object-fit: cover;
         }
       }
-      .select-image{
+      .select-image {
         height: 280px;
         border: 1px solid #ddd;
         width: 100%;
@@ -92,8 +92,8 @@
         justify-content: center;
         align-items: center;
 
-        i{
-          font-size: map-get($font-size, 'xxxxxl');
+        i {
+          font-size: map-get($font-size, 'xxxl');
           color: map-get($color, 'gray-smoke');
         }
       }
@@ -103,10 +103,10 @@
         margin-bottom: 0.5rem;
         margin-top: 2rem;
       }
-      .error{
+      .error {
         color: red;
         font-size: map-get($font-size, 'sm');
-        padding: .3rem 0;
+        padding: 0.3rem 0;
       }
       button {
         width: 150px;
@@ -118,19 +118,20 @@
 }
 
 @media screen and (max-width: 768px) {
-  .section-editor{
+  .section-editor {
     .publish-post {
-      .publish-content{
+      .publish-content {
         top: 0;
         left: 0;
         transform: none;
         height: 100%;
         width: 100%;
         padding: 1rem;
-        .select-status, .select-tags{
+        .select-status,
+        .select-tags {
           margin-bottom: 2rem;
         }
-        button{
+        button {
           margin: 0 auto;
         }
       }

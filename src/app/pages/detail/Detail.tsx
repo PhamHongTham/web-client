@@ -10,7 +10,10 @@ import * as yup from 'yup';
 
 import UserComment from './partials/UserComment';
 import { formatNumber } from 'app/shared/helper/helper-function';
-import { getUserInfoByIdRequest, showModalSignInRequest } from 'app/stores/user/actions';
+import {
+  getUserInfoByIdRequest,
+  showModalSignInRequest,
+} from 'app/stores/user/actions';
 import {
   commentPostRequest,
   fetchSpecificPostRequest,
@@ -28,12 +31,16 @@ const Detail = () => {
   const schema = yup.object().shape({
     content: yup.string().required('Invalid comment'),
   });
-  const { register, handleSubmit, reset } = useForm({ resolver: yupResolver(schema) });
+  const { register, handleSubmit, reset } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const [post, setPost] = useState<any>();
   const [comments, setComments] = useState<any>([]);
   const [follow, setFollow] = useState<boolean>(false);
-  const { userCurrent }: any = useSelector((state: RootState) => state.userState);
+  const { userCurrent }: any = useSelector(
+    (state: RootState) => state.userState
+  );
   const [bookmark, setBookmark] = useState<boolean>(false);
   const [showComment, setShowComment] = useState<boolean>(false);
   const [isMyself, setIsMyself] = useState<boolean>(false);
@@ -44,7 +51,7 @@ const Detail = () => {
     dispatch(fetchSpecificPostRequest(id)).then((res: any) => {
       setPost(res);
       setBookmark(res.isInBookmark);
-      if (userCurrent?.email === String(res.user.email)) {
+      if (userCurrent?.email === res.user.email) {
         setIsMyself(true);
       } else {
         setIsMyself(false);
@@ -151,7 +158,10 @@ const Detail = () => {
                     )}
                   </li>
                   {!isMyself && (
-                    <li className="interact-action-item" onClick={handleFollowUser}>
+                    <li
+                      className="interact-action-item"
+                      onClick={handleFollowUser}
+                    >
                       {follow ? (
                         <span className="item-icon active">
                           <i className="fas fa-user-check"></i>
@@ -164,7 +174,10 @@ const Detail = () => {
                     </li>
                   )}
 
-                  <li className="interact-action-item" onClick={handleAddBookmark}>
+                  <li
+                    className="interact-action-item"
+                    onClick={handleAddBookmark}
+                  >
                     {bookmark ? (
                       <span className="item-icon active">
                         <i className="fas fa-bookmark"></i>
@@ -185,7 +198,10 @@ const Detail = () => {
                 <div className="author-detail">
                   <ul className="author-info-list">
                     <li className="author-info-item">
-                      <Link to={`/wall/${post.userId}`} className="author-avatar">
+                      <Link
+                        to={`/wall/${post.userId}`}
+                        className="author-avatar"
+                      >
                         <img
                           src={
                             post.user.picture
@@ -197,15 +213,23 @@ const Detail = () => {
                       </Link>
                     </li>
                     <li className="author-info-item">
-                      <Link to={`/wall/${post.userId}`} className="text-primary author-name">
+                      <Link
+                        to={`/wall/${post.userId}`}
+                        className="text-primary author-name"
+                      >
                         <h3>
-                          {post.user?.displayName ? post.user?.displayName : post.user?.lastName}
+                          {post.user?.displayName
+                            ? post.user?.displayName
+                            : post.user?.lastName}
                         </h3>
                       </Link>
                     </li>
                   </ul>
                   <ul className="interact-detail-list">
-                    <li className="interact-detail-item" onClick={handleAddBookmark}>
+                    <li
+                      className="interact-detail-item"
+                      onClick={handleAddBookmark}
+                    >
                       {bookmark ? (
                         <i className="fas fa-bookmark"></i>
                       ) : (
@@ -213,7 +237,10 @@ const Detail = () => {
                       )}
                     </li>
                     {!isMyself && (
-                      <li className="interact-detail-item" onClick={handleFollowUser}>
+                      <li
+                        className="interact-detail-item"
+                        onClick={handleFollowUser}
+                      >
                         {follow ? (
                           <i className="fas fa-user-check"></i>
                         ) : (
@@ -234,7 +261,10 @@ const Detail = () => {
                 </div>
                 <div className="post-footer">
                   <ul className="interact-detail-list">
-                    <li className="interact-detail-item" onClick={handleLikePost}>
+                    <li
+                      className="interact-detail-item"
+                      onClick={handleLikePost}
+                    >
                       {formatNumber(post.likes)}{' '}
                       {post.isLiked ? (
                         <i className="fas fa-heart"></i>
@@ -242,19 +272,33 @@ const Detail = () => {
                         <i className="fal fa-heart"></i>
                       )}
                     </li>
-                    <li className="interact-detail-item" onClick={handleShowComment}>
-                      {formatNumber(comments.length)} <i className="fal fa-comment-alt-lines"></i>
+                    <li
+                      className="interact-detail-item"
+                      onClick={handleShowComment}
+                    >
+                      {formatNumber(comments.length)}{' '}
+                      <i className="fal fa-comment-alt-lines"></i>
                     </li>
                   </ul>
                 </div>
-                <div className="interact-box">Responses ({comments.length})</div>
-                <form className="form-comment" onSubmit={handleSubmit(onSubmit)}>
-                  <input type="text" className="comment-input" {...register('content')}></input>
+                <div className="interact-box">
+                  Responses ({comments.length})
+                </div>
+                <form
+                  className="form-comment"
+                  onSubmit={handleSubmit(onSubmit)}
+                >
+                  <input
+                    type="text"
+                    className="comment-input"
+                    {...register('content')}
+                  ></input>
                   <button className="btn btn-primary">Comment</button>
                 </form>
               </article>
               <ul className="list-user-comment col-8 offset-2 col-lg-12 offset-lg-0">
                 {showComment &&
+                  comments.length > 0 &&
                   comments
                     ?.slice(0)
                     .reverse()
@@ -264,11 +308,11 @@ const Detail = () => {
               </ul>
             </div>
           </div>
+          <Footer />
         </div>
       ) : (
         ''
       )}
-      <Footer />
     </>
   );
 };

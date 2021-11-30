@@ -31,21 +31,19 @@ const PostItem = ({
           <div className="item-description">{description}</div>
         </div>
         <ul className="sub-info-list">
-          <li className="sub-info-item">
-            Tags:
-            {tags?.map((item, index) => {
-              return (
-                <button key={index} className="tags">
-                  {item}
-                </button>
-              );
-            })}
-          </li>
-          <li className="sub-info-item time-status-info">
-            <p className="time-info">{timeSince}</p>
-            {isMyself && !showBookmark && <p className="status-info">{status}</p>}
-          </li>
+          Tags:
+          {tags?.map((item, index) => {
+            return (
+              <li key={index} className="sub-info-item">
+                {item}
+              </li>
+            );
+          })}
         </ul>
+        <div className="time-status-info">
+          <p className="time-info">{timeSince}</p>
+          {isMyself && !showBookmark && <p className="status-info">{status}</p>}
+        </div>
       </div>
       {isMyself && !showBookmark && (
         <div className="sign-optional">

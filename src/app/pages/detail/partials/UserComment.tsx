@@ -2,7 +2,7 @@ import React from 'react';
 
 import { calculateTimeSince } from 'app/shared/helper/helper-function';
 
-const UserComment = (props: any) => {
+const UserComment = ({ props }: any) => {
   const { id, comment, createdAt, user } = props;
   const timeSince = calculateTimeSince(createdAt);
   return (
@@ -21,7 +21,9 @@ const UserComment = (props: any) => {
           </div>
           <div className="comment-detail">
             <div className="comment-header">
-              <h4>{user && user.displayName ? user.displayName : user.lastName}</h4>
+              <h4>
+                {user && user.displayName ? user.displayName : user?.lastName}
+              </h4>
               <p className="comment-moment">{timeSince}</p>
             </div>
             <div className="user-content">{comment}</div>

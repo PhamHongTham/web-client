@@ -1,8 +1,7 @@
 .section-slide {
   .slide-title {
     font-weight: 700;
-    font-size: map-get($font-size, 'xxxxxl');
-    color: map-get($color, 'black-midnight');
+    font-size: map-get($font-size, 'xxxl');
     text-align: center;
     margin: 3rem 0;
     display: -webkit-box;
@@ -14,15 +13,20 @@
     overflow: hidden;
     .list-post {
       display: flex;
-      width: 300%;
+      width: calc(300% + 4px);
+      margin: 0 -1px;
       .post-item {
         @include flex-center;
+        flex:1;
         transition: ease 1000ms;
-        width: 100%;
+        padding :0 1px;
         .post-image {
           max-width: 600px;
           max-height: 600px;
           img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 8/5;
             border-radius: 1rem;
             object-fit: cover;
           }
@@ -32,23 +36,25 @@
             color: map-get($color, 'black-midnight');
             font-size: map-get($font-size, 'lg');
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            margin-bottom: 3rem;
             .post-create-at {
               color: map-get($color, 'gray-bold');
               font-weight: 400;
             }
           }
           .post-title {
-            font-size: map-get($font-size, 'xxxxxl');
+            @include text-overflow(1);
+            font-size: map-get($font-size, 'xxl');
             color: map-get($color, 'black-midnight');
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: .5rem;
           }
           .post-text-content {
             color: map-get($color, 'gray-bold');
             font-weight: 400;
             font-size: map-get($font-size, 'lg');
-            margin-bottom: 1.5rem;
+            line-height: 150%;
+            margin-bottom: 1rem;
             display: -webkit-box;
             overflow: hidden;
             -webkit-line-clamp: 3;
@@ -101,6 +107,8 @@
 }
 .section-new-post {
   margin-top: 5rem;
+  width: 100%;
+  overflow: hidden;
   .post-creator-info {
     @include align-center;
     flex: 1;
@@ -128,9 +136,10 @@
     }
   }
   .post-content {
-    height: 8rem;
+    height: 10rem;
     .post-description {
       @include text-overflow(3);
+      line-height: 1.5rem;
     }
   }
   .post-status-info {
@@ -146,6 +155,7 @@
   }
   .post-sub-info {
     font-size: map-get($font-size, 'sm');
+    color: map-get($color, 'gray-smoke');
   }
   .load-more-wrap {
     width: 200px;

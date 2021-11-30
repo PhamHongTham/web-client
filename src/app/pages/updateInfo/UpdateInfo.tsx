@@ -17,9 +17,11 @@ import Avatar from './partials/Avatar';
 import { uploadImage } from 'app/stores/post/actions';
 import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
 import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
+import { useHistory } from 'react-router';
 
 const UpdateInfo = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const schema = yup.object().shape({
     picture: yup.mixed().required('You need upload image to update'),
     phone: yup
@@ -56,6 +58,7 @@ const UpdateInfo = () => {
         type: 'SUCCESS',
         message: 'Update user info success',
       });
+      history.push('/');
     }
     if (userCurrent) {
       reset(userCurrent);

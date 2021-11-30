@@ -32,7 +32,9 @@ const Post = ({ post }: { post: postOptions }) => {
     <li key={id} className="list-item col-4 col-lg-6 col-md-12">
       <div className="card">
         <div className="card-img">
-          <img src={cover} alt="" className="post-image" />
+          <Link to={`/detail/${id}`}>
+            <img src={cover} alt="" className="post-image" />
+          </Link>
         </div>
         <div className="card-body post-content">
           <Link to={`/detail/${id}`}>

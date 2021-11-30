@@ -83,6 +83,9 @@
         }
       }
     }
+    .post-image {
+      margin-bottom: 1rem;
+    }
     .author-info-list {
       @include align-center;
       height: 3rem;
@@ -142,7 +145,7 @@
         padding: 0.6rem 1rem;
         outline: none;
         border-radius: 2rem;
-        font-size: map-get($font-size, 'lg');
+        font-size: map-get($font-size, 'normal');
         margin-right: 1rem;
       }
       button {
@@ -178,7 +181,10 @@
     p {
       display: inline-block;
       font-size: map-get($font-size, 'lg');
-      line-height: 1.5rem;
+      line-height: 1.7rem;
+      img {
+        margin: 1rem 0;
+      }
     }
     figcaption {
       text-align: center;
