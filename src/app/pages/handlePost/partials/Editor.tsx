@@ -1,8 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
+import { useSelector } from 'react-redux';
 import MediumEditor from 'medium-editor';
 import 'medium-editor/dist/css/medium-editor.min.css';
 import 'medium-editor/dist/css/themes/default.css';
+
+import { RootState } from 'app/stores/app-reducer';
 
 interface HandleEditorOptions {
   value: string;
@@ -11,6 +14,10 @@ interface HandleEditorOptions {
 
 const Editor = ({ value, onChange }: HandleEditorOptions) => {
   const refEditor: any = useRef();
+  const [changeContent, setChangeContent] = useState<boolean>(true);
+  const { urlImage }: { urlImage: string } = useSelector(
+    (state: RootState) => state.post
+  );
 
   useEffect(() => {
     let editor = new MediumEditor('.editable', {
@@ -69,10 +76,22 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
   }, []);
 
   useEffect(() => {
-    if (value && typeof value === 'string') {
-      refEditor.current.setContent(value);
+    let editableElement: any = document.querySelector('.editable');
+    if (urlImage) {
+      let imgElement = document.createElement('img');
+      imgElement.src = urlImage;
+      editableElement.append(imgElement);
+      editableElement.dataset.placeholder = '';
+      onChange(editableElement.innerHTML);
     }
-  }, [value]);
+  }, [urlImage]);
+
+  useEffect(() => {
+    if (value && changeContent && typeof value === 'string') {
+      refEditor.current.setContent(value);
+      setChangeContent(false);
+    }
+  }, [value, changeContent]);
 
   return (
     <>

@@ -1,3 +1,5 @@
 export const postConstant = {
   SAVE_INFO_POST: 'SAVE_INFO_POST',
+  SAVE_URL_IMAGE: 'SAVE_URL_IMAGE',
+  CLEAR_URL_IMAGE: 'CLEAR_URL_IMAGE',
 };

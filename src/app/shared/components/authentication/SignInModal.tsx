@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link, useLocation, useHistory } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 interface SignInOptions {
   handleShowSignInEmail: () => void;
@@ -10,7 +10,6 @@ const SignInModal = ({
   handleShowSignInEmail,
   handleShowSignUpEmail,
 }: SignInOptions) => {
-  const history = useHistory();
   const { pathname }: { pathname: string } = useLocation();
 
   const handleLoginWithSocial = (typeSocial: string) => {
@@ -18,7 +17,10 @@ const SignInModal = ({
   };
 
   const handleRedirectToCurrentPgae = () => {
-    history.push(`/${pathname}`);
+    localStorage.setItem(
+      'PATH',
+      JSON.stringify(pathname).slice(1, pathname.length + 1)
+    );
   };
 
   return (

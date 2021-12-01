@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { FormEvent, useContext, useEffect, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -9,8 +9,11 @@ import { useParams } from 'react-router-dom';
 import Editor from './partials/Editor';
 import PopupPublish from './partials/PopupPublish';
 import {
+  clearUrlImageRequest,
   fetchSpecificPostRequest,
   saveInfoPost,
+  saveUrlImageRequest,
+  uploadImage,
 } from 'app/stores/post/actions';
 import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
 import Footer from 'app/shared/components/Footer';
@@ -56,6 +59,20 @@ const HandlePost = () => {
     }
   }, [id]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(clearUrlImageRequest());
+    };
+  }, []);
+
+  const handleFileInputImageChange = (e: FormEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    const imageFile: any = (target.files as FileList)[0];
+    dispatch(uploadImage(imageFile, 'content-post')).then((res: any) => {
+      dispatch(saveUrlImageRequest(res));
+    });
+  };
+
   const onSubmit = (data: {
     title: string;
     description: string;
@@ -76,41 +93,63 @@ const HandlePost = () => {
         ''
       )}
       <div className="container">
-        <h2 className="editor-title">Boogle Editor</h2>
-        <form className="form-handle-post" onSubmit={handleSubmit(onSubmit)}>
-          <input
-            type="text"
-            placeholder="Title"
-            className="input-post-title"
-            {...register('title')}
-          />
-          {errors.title ? <p className="error">{errors.title.message}</p> : ''}
-          <input
-            type="text"
-            placeholder="Description"
-            className="input-post-description"
-            {...register('description')}
-          />
-          {errors.description ? (
-            <p className="error">{errors.description.message}</p>
-          ) : (
-            ''
-          )}
-          <Controller
-            control={control}
-            name="content"
-            rules={{ required: true }}
-            render={({ field: { onChange, onBlur, value, name, ref } }) => (
-              <Editor value={value} onChange={onChange} />
-            )}
-          />
-          {errors.content ? (
-            <p className="error">{errors.content.message}</p>
-          ) : (
-            ''
-          )}
-          <button className="btn btn-primary">Next</button>
-        </form>
+        <div className="row d-flex justify-content-center">
+          <aside className="editor-action">
+            <label htmlFor="select-image" className="select-image-btn">
+              <i className="fal fa-image"></i>
+            </label>
+            <input
+              type="file"
+              id="select-image"
+              className="input-select-image"
+              onChange={handleFileInputImageChange}
+            ></input>
+          </aside>
+          <div className="col-8 col-md-12">
+            <h2 className="editor-title">Boogle Editor</h2>
+            <form
+              className="form-handle-post"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <input
+                type="text"
+                placeholder="Title"
+                className="input-post-title"
+                {...register('title')}
+              />
+              {errors.title ? (
+                <p className="error">{errors.title.message}</p>
+              ) : (
+                ''
+              )}
+              <input
+                type="text"
+                placeholder="Description"
+                className="input-post-description"
+                {...register('description')}
+              />
+              {errors.description ? (
+                <p className="error">{errors.description.message}</p>
+              ) : (
+                ''
+              )}
+              <Controller
+                control={control}
+                name="content"
+                rules={{ required: true }}
+                render={({ field: { onChange, onBlur, value, name, ref } }) => (
+                  <Editor value={value} onChange={onChange} />
+                )}
+              />
+              {errors.content ? (
+                <p className="error">{errors.content.message}</p>
+              ) : (
+                ''
+              )}
+              <button className="btn btn-primary">Next</button>
+            </form>
+          </div>
+        </div>
       </div>
       <Footer />
     </section>

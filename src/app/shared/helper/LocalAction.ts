@@ -7,7 +7,6 @@ export const localStorageOption = {
   getUserToken: localStorage.getItem(userToken),
   getUserId: localStorage.getItem(userId),
   remove: () => {
-    localStorage.removeItem('USER_TOKEN');
-    localStorage.removeItem('USER_ID');
+    localStorage.clear();
   },
 };

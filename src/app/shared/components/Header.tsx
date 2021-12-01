@@ -129,13 +129,9 @@ const Header = () => {
                 <UserAction />
               ) : (
                 <li className="list-item menu-item">
-                  <Link
-                    to="/"
-                    className="menu-link"
-                    onClick={handleShowSignInModal}
-                  >
+                  <p className="menu-link" onClick={handleShowSignInModal}>
                     Sign In
-                  </Link>
+                  </p>
                 </li>
               )}
               <li className="list-item menu-item menu-mobile">
