@@ -12,23 +12,15 @@ import Detail from './pages/detail/Detail';
 import Wall from './pages/wall/Wall';
 import HandlePost from './pages/handlePost/HandlePost';
 import UpdateInfo from './pages/updateInfo/UpdateInfo';
-import { RootState } from './stores/app-reducer';
 import { getUserInfoRequest } from './stores/user/actions';
-import { LoadingContext } from './shared/components/loading/LoadingProvider';
 import NotFound from './pages/notFound/NotFound';
 
 function App() {
   const dispatch = useDispatch();
-  const { handleShowLoading } = useContext(LoadingContext);
-  const { isLoading } = useSelector((state: RootState) => state.userState);
 
   useEffect(() => {
     dispatch(getUserInfoRequest());
   }, []);
-
-  useEffect(() => {
-    handleShowLoading(isLoading ? true : false);
-  }, [isLoading]);
 
   return (
     <>
