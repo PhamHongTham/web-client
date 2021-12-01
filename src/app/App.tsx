@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { Switch, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import '../stylesheets/styles.scss';
 
 import AuthRoute from './routes/AuthRoute';
@@ -28,11 +28,7 @@ function App() {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/detail/:id" exact component={Detail} />
-        <AuthRoute
-          path={['/post/new', '/post/edit/:id']}
-          exact
-          component={HandlePost}
-        />
+        <AuthRoute path={['/post/new', '/post/edit/:id']} exact component={HandlePost} />
         <AuthRoute path="/wall/:id" exact component={Wall} />
         <AuthRoute path="/user/update" component={UpdateInfo} />
         <AuthRoute path="/user/changepass" component={ChangePassword} />
