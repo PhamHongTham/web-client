@@ -76,6 +76,7 @@ header {
         display: block;
       }
       .menu-link {
+        cursor: pointer;
         color: map-get($color, 'black-midnight');
         font-weight: 500;
         margin-left: 1rem;
