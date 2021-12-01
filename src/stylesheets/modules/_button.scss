@@ -6,9 +6,11 @@
   cursor: pointer;
   border-radius: 99rem;
   &.btn-primary {
+    color: map-get($color, 'white-snow');
     background: map-get($color, 'primary');
     border: 1px solid map-get($color, 'primary');
     &:hover {
+      color: map-get($color, 'primary');
       background: map-get($color, 'white-snow');
       transition: 0.3s;
     }

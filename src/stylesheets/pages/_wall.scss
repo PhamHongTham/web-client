@@ -55,7 +55,7 @@
             transition: 0.3s;
             user-select: none;
             margin-right: 1rem;
-            padding: 0.3rem 1rem;
+            padding: 0.5rem 2rem;
             border-radius: 1rem;
             border: 1px solid map-get($color, 'primary');
             &.active {
@@ -104,45 +104,36 @@
         }
         .sub-info-list {
           display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          justify-content: space-between;
+          align-items: center;
           .sub-info-item {
-            font-size: map-get($font-size, 'sm');
-            color: map-get($color, 'gray-smoke');
-            margin-right: 1rem;
-            width: 100%;
-            max-height: 2rem;
+            cursor: pointer;
+            white-space: nowrap;
             overflow: hidden;
-            .tags {
-              cursor: pointer;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              max-width: 8rem;
-              margin: 0.25rem 0.5rem;
-              border-radius: 99rem;
-              outline: none;
-              padding: 0.25rem 0.5rem;
-              color: map-get($color, 'primary');
-              font-size: map-get($font-size, 'sm');
-              background-color: map-get($color, 'white-snow');
-              border: 1px solid map-get($color, 'primary');
+            text-overflow: ellipsis;
+            text-align: center;
+            max-width: 8rem;
+            min-width: 3rem;
+            margin-left: 0.5rem;
+            border-radius: 99rem;
+            outline: none;
+            padding: 0.1rem 0.5rem;
+            color: map-get($color, 'primary');
+            font-size: map-get($font-size, 'sm');
+            background-color: map-get($color, 'white-snow');
+            border: 1px solid map-get($color, 'primary');
+            transition: 0.3s;
+            &:hover {
+              background-color: map-get($color, 'primary');
+              color: map-get($color, 'white-snow');
               transition: 0.3s;
-              &:hover {
-                background-color: map-get($color, 'primary');
-                color: map-get($color, 'white-snow');
-                transition: 0.3s;
-              }
             }
           }
-          .time-status-info {
-            @include flex-center-between;
-            width: 100%;
-            .status-info {
-              font-weight: bold;
-              color: map-get($color, 'primary');
-            }
+        }
+        .time-status-info {
+          @include flex-center-between;
+          width: 100%;
+          .status-info {
+            color: map-get($color, 'primary');
           }
         }
       }
@@ -163,8 +154,8 @@
         .list-option {
           @include box-shadow;
           position: absolute;
-          top: 100%;
-          right: 0;
+          top: 150%;
+          right: 35%;
           background-color: map-get($color, 'white-snow');
           visibility: hidden;
           opacity: 0;

@@ -31,6 +31,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      margin-top: 3rem;
       .sign-in-title {
         font-size: map-get($font-size, 'xl');
         font-weight: 500;
@@ -85,10 +86,10 @@
     .sign-in-email {
       @include flex-center;
       flex-direction: column;
+      margin-top: 5rem;
       .sign-in-email-title {
         font-size: map-get($font-size, 'xl');
         font-weight: 500;
-        margin-top: 3rem;
         .blog-name {
           color: map-get($color, 'primary');
         }
@@ -137,6 +138,7 @@
       }
     }
     .sign-up-email {
+      margin-top: 3rem;
       .sign-up-email-title {
         font-size: map-get($font-size, 'lg');
         font-weight: 600;

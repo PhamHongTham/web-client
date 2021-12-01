@@ -129,13 +129,9 @@ const Header = () => {
                 <UserAction />
               ) : (
                 <li className="list-item menu-item">
-                    <Link
-                      to="/"
-                      className="menu-link"
-                      onClick={handleShowSignInModal}
-                    >
+                  <p className="menu-link" onClick={handleShowSignInModal}>
                     Sign In
-                  </Link>
+                  </p>
                 </li>
               )}
               <li className="list-item menu-item menu-mobile">
@@ -155,12 +151,20 @@ const Header = () => {
                     </button>
                   </li>
                   <li className="list-item menu-mobile-item">
-                    <Link to="/" className="text-primary menu-mobile-link" onClick={handleHiddenMobileMenu}>
+                    <Link
+                      to="/"
+                      className="text-primary menu-mobile-link"
+                      onClick={handleHiddenMobileMenu}
+                    >
                       Home
                     </Link>
                   </li>
                   <li className="list-item menu-mobile-item">
-                    <Link to="/post/new" className="menu-mobile-link" onClick={handleHiddenMobileMenu}>
+                    <Link
+                      to="/post/new"
+                      className="menu-mobile-link"
+                      onClick={handleHiddenMobileMenu}
+                    >
                       Write
                     </Link>
                   </li>
@@ -179,7 +183,7 @@ const Header = () => {
                 </ul>
                 <Link
                   to="/"
-                  className="menu-link"
+                  className="menu-link menu-bar"
                   onClick={handleShowMobileMenu}
                 >
                   <i className="fas fa-bars"></i>

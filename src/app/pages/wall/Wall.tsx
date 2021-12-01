@@ -9,7 +9,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import SkeletonPost from '../home/partials/skeleton-component/SkeletonPost';
 import { postOptions } from 'app/shared/models/post-interface';
 import { RootState } from 'app/stores/app-reducer';
-import { getUserInfoByIdRequest, showModalSignInRequest } from 'app/stores/user/actions';
+import {
+  getUserInfoByIdRequest,
+  showModalSignInRequest,
+} from 'app/stores/user/actions';
 import { followUserRequest } from 'app/stores/post/actions';
 import {
   fetchUserPostRequest,
@@ -27,7 +30,8 @@ const Wall = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [follow, setFollow] = useState<boolean>(false);
   const [showBookmark, setShowBookmark] = useState<boolean>(false);
-  const [showPopupFollowings, setShowPopupFollowings] = useState<boolean>(false);
+  const [showPopupFollowings, setShowPopupFollowings] =
+    useState<boolean>(false);
   const [showPopupFollowers, setShowPopupFollowers] = useState<boolean>(false);
   const { userCurrent }: { userCurrent: UserInfoOptions } = useSelector(
     (state: RootState) => state.userState
@@ -115,7 +119,9 @@ const Wall = () => {
             </div>
             <div className="public-info-detail">
               <h2 className="author-name">
-                {authorInfo?.displayName ? authorInfo?.displayName : authorInfo?.lastName}
+                {authorInfo?.displayName
+                  ? authorInfo?.displayName
+                  : authorInfo?.lastName}
               </h2>
               <ul className="activity-info-list">
                 <li className="activity-info-item">
@@ -143,13 +149,17 @@ const Wall = () => {
               {id === 'me' ? (
                 <div className="user-action">
                   <p
-                    className={showBookmark ? `view-mode-item` : `view-mode-item active`}
+                    className={
+                      showBookmark ? `view-mode-item` : `view-mode-item active`
+                    }
                     onClick={() => handleShowBookmark(false)}
                   >
                     Your posts
                   </p>
                   <p
-                    className={showBookmark ? `view-mode-item active` : `view-mode-item`}
+                    className={
+                      showBookmark ? `view-mode-item active` : `view-mode-item`
+                    }
                     onClick={() => handleShowBookmark(true)}
                   >
                     Your bookmarks
@@ -183,7 +193,9 @@ const Wall = () => {
                     />
                   );
                 })
-              : !loading && <p className="empty-post">You don't have any posts yet</p>}
+              : !loading && (
+                  <p className="empty-post">You don't have any posts yet</p>
+                )}
             {loading ? (
               <ul className="wall-list">
                 {[1, 2, 3, 4, 5, 6].map((n: number) => (
@@ -197,7 +209,10 @@ const Wall = () => {
         </div>
       </div>
       {showPopupFollowers ? (
-        <PopupFollowers authorId={authorInfo.id} handleShowPopupFollow={handleShowPopupFollowers} />
+        <PopupFollowers
+          authorId={authorInfo.id}
+          handleShowPopupFollow={handleShowPopupFollowers}
+        />
       ) : (
         ''
       )}

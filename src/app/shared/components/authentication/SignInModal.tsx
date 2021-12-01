@@ -1,14 +1,26 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 interface SignInOptions {
   handleShowSignInEmail: () => void;
   handleShowSignUpEmail: () => void;
 }
-const SignInModal = ({ handleShowSignInEmail, handleShowSignUpEmail }: SignInOptions) => {
+const SignInModal = ({
+  handleShowSignInEmail,
+  handleShowSignUpEmail,
+}: SignInOptions) => {
+  const { pathname }: { pathname: string } = useLocation();
+
   const handleLoginWithSocial = (typeSocial: string) => {
     return `${process.env.REACT_APP_API_URL}/api/v1/auth/${typeSocial}?redirect_to=${process.env.REACT_APP_REDIRECT_URL}`;
+  };
+
+  const handleRedirectToCurrentPgae = () => {
+    localStorage.setItem(
+      'PATH',
+      JSON.stringify(pathname).slice(1, pathname.length + 1)
+    );
   };
 
   return (
@@ -22,12 +34,12 @@ const SignInModal = ({ handleShowSignInEmail, handleShowSignUpEmail }: SignInOpt
             <i className="fas fa-envelope"></i> Sign in with email
           </p>
         </li>
-        <li className="action-item">
+        <li className="action-item" onClick={handleRedirectToCurrentPgae}>
           <a href={handleLoginWithSocial('google')} className="action-link">
             <i className="fab fa-google"></i> Sign in with Google
           </a>
         </li>
-        <li className="action-item">
+        <li className="action-item" onClick={handleRedirectToCurrentPgae}>
           <a href={handleLoginWithSocial('github')} className="action-link">
             <i className="fab fa-github"></i> Sign in with github
           </a>
@@ -40,8 +52,8 @@ const SignInModal = ({ handleShowSignInEmail, handleShowSignUpEmail }: SignInOpt
         </Link>
       </span>
       <p className="sign-in-info">
-        Click “Sign In” to agree to Boogle’s Terms of Service and acknowledge that Boogle’s Privacy
-        Policy applies to you.
+        Click “Sign In” to agree to Boogle’s Terms of Service and acknowledge
+        that Boogle’s Privacy Policy applies to you.
       </p>
     </div>
   );

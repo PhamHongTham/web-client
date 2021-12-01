@@ -107,3 +107,15 @@ export const uploadImage: any = (imageFile: File, typeUpload: string) => async (
     return url;
   }, dispatch);
 };
+
+export const saveUrlImageRequest: any = (image: string) => {
+  return {
+    type: postConstant.SAVE_URL_IMAGE,
+    payload: image
+  }
+}
+export const clearUrlImageRequest: any = () => {
+  return {
+    type: postConstant.CLEAR_URL_IMAGE,
+  }
+}

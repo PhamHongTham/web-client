@@ -36,7 +36,7 @@
             color: map-get($color, 'black-midnight');
             font-size: map-get($font-size, 'lg');
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            margin-bottom: 3rem;
             .post-create-at {
               color: map-get($color, 'gray-bold');
               font-weight: 400;
@@ -47,14 +47,14 @@
             font-size: map-get($font-size, 'xxl');
             color: map-get($color, 'black-midnight');
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: .5rem;
           }
           .post-text-content {
             color: map-get($color, 'gray-bold');
             font-weight: 400;
             font-size: map-get($font-size, 'lg');
             line-height: 150%;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             display: -webkit-box;
             overflow: hidden;
             -webkit-line-clamp: 3;
@@ -155,6 +155,7 @@
   }
   .post-sub-info {
     font-size: map-get($font-size, 'sm');
+    color: map-get($color, 'gray-smoke');
   }
   .load-more-wrap {
     width: 200px;

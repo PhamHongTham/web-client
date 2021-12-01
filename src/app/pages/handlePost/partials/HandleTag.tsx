@@ -11,6 +11,14 @@ interface HandleTagOptions {
   onChange: (value: string[]) => void;
 }
 
+const options = [
+  { value: 'business', label: 'Business' },
+  { value: 'technology', label: 'Technology' },
+  { value: 'health', label: 'Health' },
+  { value: 'relationships', label: 'Relationships' },
+  { value: 'information technology', label: 'Information Technology' },
+  { value: 'self', label: 'Self' },
+];
 const HandleTag = ({ value, onChange }: HandleTagOptions) => {
   const [tags, setTags] = React.useState<MyOptionType[]>([]);
 
@@ -45,7 +53,7 @@ const HandleTag = ({ value, onChange }: HandleTagOptions) => {
       <Creatable
         isMulti
         placeholder="Create tags"
-        options={tags}
+        options={options}
         value={tags}
         onChange={handleChangeTags}
         createOptionPosition={'last'}
