@@ -46,7 +46,7 @@ const Newsfeed = () => {
     }
   }, [pageNumber]);
 
-  const lastPostElementRef = useCallback(
+  const loadMoreElementRef = useCallback(
     (node) => {
       if (loading) return;
       if (observer.current) observer.current.disconnect();
@@ -63,7 +63,6 @@ const Newsfeed = () => {
         }
       );
       if (node) observer.current.observe(node);
-      return [];
     },
     [loading]
   );
@@ -84,7 +83,7 @@ const Newsfeed = () => {
         )}
       </div>
       {loadMore && (
-        <div className="load-more-wrap" ref={lastPostElementRef}>
+        <div className="load-more-wrap" ref={loadMoreElementRef}>
           <div className="load-more">
             <div className="line"></div>
             <div className="line"></div>
