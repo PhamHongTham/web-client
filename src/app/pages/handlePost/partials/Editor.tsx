@@ -90,6 +90,7 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
   useEffect(() => {
     let editableElement: any = document.querySelector('.editable');
     if (isLoading) {
+      editableElement.dataset.placeholder = '';
       editableElement.innerHTML += loadingUploadImage;
     } else {
       let loading = document.querySelector('.donut');
