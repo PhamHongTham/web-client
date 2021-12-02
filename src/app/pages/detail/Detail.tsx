@@ -44,9 +44,10 @@ const Detail = () => {
   );
   const [bookmark, setBookmark] = useState<boolean>(false);
   const [isMyself, setIsMyself] = useState<boolean>(false);
-  const { showLoading } = useContext(LoadingContext);
+  const { showLoading, handleShowLoading } = useContext(LoadingContext);
 
   useEffect(() => {
+    handleShowLoading(true);
     dispatch(fetchSpecificPostRequest(id)).then((res: any) => {
       setPost(res);
       setBookmark(res.isInBookmark);
@@ -55,6 +56,7 @@ const Detail = () => {
       } else {
         setIsMyself(false);
       }
+      handleShowLoading(false);
     });
     dispatch(getCommentPostRequest(id)).then((res: any) => setComments(res));
   }, [id, userCurrent]);
