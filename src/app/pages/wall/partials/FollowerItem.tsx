@@ -4,11 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
-import {
-  fetchUserPostRequest,
-  followUserRequest,
-  getFollowingsRequest,
-} from 'app/stores/post/actions';
+import { followUserRequest } from 'app/stores/post/actions';
 
 const FollowerItem = (props: any) => {
   const dispatch = useDispatch();
