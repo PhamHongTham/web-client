@@ -1,11 +1,17 @@
 import React from 'react';
 
+import { useSelector } from 'react-redux';
+import { RootState } from 'app/stores/app-reducer';
 import { Link } from 'react-router-dom';
 
 import { calculateTimeSince } from 'app/shared/helper/helper-function';
 
 const UserComment = ({ props }: any) => {
   const { id, comment, createdAt, user } = props;
+  console.log(user);
+  const { userCurrent }: any = useSelector(
+    (state: RootState) => state.userState
+  );
   const timeSince = calculateTimeSince(createdAt);
   return (
     <>
@@ -23,7 +29,13 @@ const UserComment = ({ props }: any) => {
           </div>
           <div className="comment-detail">
             <div className="comment-header">
-              <Link to={`/wall/${user?.id}`}>
+              <Link
+                to={
+                  userCurrent?.email === user.email
+                    ? '/wall/me'
+                    : `/wall/${user.id}`
+                }
+              >
                 {user && user.displayName ? user.displayName : user?.lastName}
               </Link>
               <p className="comment-moment">{timeSince}</p>

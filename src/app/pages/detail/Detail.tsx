@@ -36,7 +36,8 @@ const Detail = () => {
     resolver: yupResolver(schema),
   });
 
-  const [post, setPost] = useState<any>();
+  const [post, setPost] = useState<any>(null);
+  console.log(post);
   const [comments, setComments] = useState<any>([]);
   const [follow, setFollow] = useState<boolean>(false);
   const { userCurrent }: any = useSelector(
@@ -191,7 +192,11 @@ const Detail = () => {
                   <ul className="author-info-list">
                     <li className="author-info-item">
                       <Link
-                        to={`/wall/${post.userId}`}
+                        to={
+                          userCurrent?.email === post.user.email
+                            ? '/wall/me'
+                            : `/wall/${post.userId}`
+                        }
                         className="author-avatar"
                       >
                         <img
@@ -206,7 +211,11 @@ const Detail = () => {
                     </li>
                     <li className="author-info-item">
                       <Link
-                        to={`/wall/${post.userId}`}
+                        to={
+                          userCurrent?.email === post.user.email
+                            ? '/wall/me'
+                            : `/wall/${post.userId}`
+                        }
                         className="text-primary author-name"
                       >
                         <h3>
