@@ -8,6 +8,7 @@ import { store } from './app/stores/app-middleware';
 
 import NotificationProvider from './app/shared/components/notifications/NotificationProvider'
 import LoadingProvider from './app/shared/components/loading/LoadingProvider'
+import ScrollToTop from 'app/shared/components/ScrollToTop';
 
 ReactDOM.render(
   <Router>
@@ -15,6 +16,7 @@ ReactDOM.render(
       <Provider store={store}>
         <NotificationProvider>
           <LoadingProvider>
+            <ScrollToTop/>
             <App />
           </LoadingProvider>
         </NotificationProvider>
