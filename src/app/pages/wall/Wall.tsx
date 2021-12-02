@@ -206,7 +206,7 @@ const Wall = () => {
                   );
                 })
               : !loading && (
-                  <p className="empty-post">You don't have any posts yet</p>
+                  <p className="empty-post">Don't have any thing to show</p>
                 )}
             {loading ? (
               <ul className="wall-list">
