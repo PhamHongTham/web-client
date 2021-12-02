@@ -43,6 +43,10 @@
             color: map-get($color, 'primary');
             border-radius: 50%;
             transition: 0.3s;
+            &.active {
+              background-color: map-get($color, 'primary');
+              color: map-get($color, 'white-snow');
+            }
             &:hover {
               font-size: 120%;
               background-color: map-get($color, 'primary');
@@ -133,7 +137,8 @@
           @include flex-center-between;
           width: 100%;
           .status-info {
-            color: map-get($color, 'primary');
+            font-size: map-get($font-size, 'normal');
+            color: map-get($color, 'gray-smoke');
           }
         }
       }

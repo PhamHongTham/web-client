@@ -3,6 +3,8 @@ import { postConstant } from 'app/shared/constants/postConstant';
 const initialState = {
   infoPost: null,
   urlImage: null,
+  quantityFollowing: null,
+  isLoading: false,
 };
 
 const postReducer = (
@@ -24,6 +26,11 @@ const postReducer = (
       return {
         ...state,
         urlImage: null,
+      };
+    case postConstant.LOADING_UPLOAD_IMAGE:
+      return {
+        ...state,
+        isLoading: action.payload,
       };
     default:
       return state;

@@ -180,8 +180,8 @@
     }
     p {
       display: inline-block;
-      font-size: map-get($font-size, 'lg');
-      line-height: 1.7rem;
+      font-size: map-get($font-size, 'normal');
+      line-height: 1.5rem;
       img {
         margin: 1rem 0;
       }

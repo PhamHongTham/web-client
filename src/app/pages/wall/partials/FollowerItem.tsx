@@ -17,7 +17,14 @@ const FollowerItem = (props: any) => {
       followingId: person.id,
     };
     setFollow(!follow);
-    dispatch(followUserRequest(data));
+    dispatch(followUserRequest(data)).then((res: any) => {
+      console.log(res);
+      props.setCountFollow(
+        res.followed
+          ? (preState: number) => preState + 1
+          : (preState: number) => preState - 1
+      );
+    });
   };
   return (
     <div key={person.id} className="follow-item">
@@ -46,7 +53,7 @@ const FollowerItem = (props: any) => {
             <i className="fas fa-user-check"></i>
           </button>
         ) : (
-          <button className="btn btn-primary" onClick={() => handleUnfollow()}>
+          <button className="btn btn-outline" onClick={() => handleUnfollow()}>
             <i className="far fa-user-plus"></i>
           </button>
         ))}

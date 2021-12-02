@@ -58,15 +58,21 @@ const UpdateInfo = () => {
         type: 'SUCCESS',
         message: 'Update user info success',
       });
-      history.push('/');
+      reset(userCurrent);
+      setTimeout(() => {
+        history.push('/');
+      }, 2500);
     }
     if (userCurrent) {
       reset(userCurrent);
     }
+  }, [isLoading, message, error]);
+
+  useEffect(() => {
     return () => {
       dispatch(clearUserState());
     };
-  }, [isLoading, message, error, userCurrent]);
+  }, []);
 
   const onSubmit = async (data: any) => {
     const infoData = {

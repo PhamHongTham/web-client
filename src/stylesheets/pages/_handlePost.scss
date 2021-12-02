@@ -16,13 +16,13 @@
       font-size: map-get($font-size, 'lg');
       border: 1px solid map-get($color, 'primary');
       background-color: map-get($color, 'white-snow');
-        color: map-get($color, 'primary');
+      color: map-get($color, 'primary');
       border-radius: 50%;
       cursor: pointer;
       &:hover {
         transition: 0.3s;
         background-color: map-get($color, 'primary');
-      color: map-get($color, 'white-snow');
+        color: map-get($color, 'white-snow');
       }
     }
     .input-select-image {
@@ -38,6 +38,15 @@
   .form-handle-post {
     display: flex;
     flex-direction: column;
+    .donut {
+      width: 2rem;
+      height: 2rem;
+      margin: 2rem;
+      border-radius: 50%;
+      border: 0.3rem solid rgba(map-get($color, 'gray-bold'), 0.3);
+      border-top-color: #b4b1b1;
+      animation: 1.5s spin infinite linear;
+    }
     input {
       width: 100%;
       border: none;
@@ -144,6 +153,12 @@
         margin-top: 2rem;
       }
     }
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 

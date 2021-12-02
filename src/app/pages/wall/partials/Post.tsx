@@ -42,7 +42,15 @@ const PostItem = ({
         </ul>
         <div className="time-status-info">
           <p className="time-info">{timeSince}</p>
-          {isMyself && !showBookmark && <p className="status-info">{status}</p>}
+          {isMyself && !showBookmark && (
+            <p className="status-info">
+              {status === 'public' ? (
+                <i className="fal fa-globe-americas"></i>
+              ) : (
+                <i className="fal fa-lock-alt"></i>
+              )}
+            </p>
+          )}
         </div>
       </div>
       {isMyself && !showBookmark && (

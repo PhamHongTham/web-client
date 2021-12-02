@@ -14,8 +14,17 @@ import { showModalSignInRequest } from 'app/stores/user/actions';
 
 const Post = ({ post }: { post: postOptions }) => {
   const dispatch = useDispatch();
-  const { id, title, comments, likes, user, cover, description, createdAt } =
-    post;
+  const {
+    id,
+    title,
+    comments,
+    likes,
+    user,
+    cover,
+    description,
+    createdAt,
+    tags,
+  } = post;
   const { userCurrent }: { userCurrent: UserInfoOptions } = useSelector(
     (state: RootState) => state.userState
   );
@@ -40,6 +49,11 @@ const Post = ({ post }: { post: postOptions }) => {
           <Link to={`/detail/${id}`}>
             <h2 className="card-title">{title}</h2>
           </Link>
+          <ul className="card-tags">
+            {tags.map((item) => (
+              <li className="tag-item">{item}</li>
+            ))}
+          </ul>
           <p
             className="post-description"
             dangerouslySetInnerHTML={{ __html: description }}

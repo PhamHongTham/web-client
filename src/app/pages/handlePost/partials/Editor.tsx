@@ -11,13 +11,12 @@ interface HandleEditorOptions {
   value: string;
   onChange: (value: string) => void;
 }
-
+const loadingUploadImage = '<div class="donut"></div>';
 const Editor = ({ value, onChange }: HandleEditorOptions) => {
   const refEditor: any = useRef();
   const [changeContent, setChangeContent] = useState<boolean>(true);
-  const { urlImage }: { urlImage: string } = useSelector(
-    (state: RootState) => state.post
-  );
+  const { urlImage, isLoading }: { urlImage: string; isLoading: boolean } =
+    useSelector((state: RootState) => state.post);
 
   useEffect(() => {
     let editor = new MediumEditor('.editable', {
@@ -69,6 +68,8 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
       'editableInput',
       function (event: any, editable: any) {
         if (onChange && typeof onChange === 'function') {
+          let loading = document.querySelector('.donut');
+          loading?.remove();
           onChange(editable.innerHTML);
         }
       }
@@ -85,6 +86,17 @@ const Editor = ({ value, onChange }: HandleEditorOptions) => {
       onChange(editableElement.innerHTML);
     }
   }, [urlImage]);
+
+  useEffect(() => {
+    let editableElement: any = document.querySelector('.editable');
+    if (isLoading) {
+      editableElement.dataset.placeholder = '';
+      editableElement.innerHTML += loadingUploadImage;
+    } else {
+      let loading = document.querySelector('.donut');
+      loading?.remove();
+    }
+  }, [isLoading]);
 
   useEffect(() => {
     if (value && changeContent && typeof value === 'string') {
