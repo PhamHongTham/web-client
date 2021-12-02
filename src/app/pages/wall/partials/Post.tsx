@@ -20,9 +20,9 @@ const PostItem = ({
 
   return (
     <li key={id} className="post-item">
-      <div className="item-img">
+      <Link to={`/detail/${id}`} className="item-img">
         <img src={cover} alt="" className="item-image" />
-      </div>
+      </Link>
       <div className="item-detail">
         <div className="item-content">
           <Link to={`/detail/${id}`} className="item-title">
