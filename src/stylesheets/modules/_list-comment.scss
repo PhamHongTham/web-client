@@ -25,6 +25,7 @@
       background-color: map-get($color, 'gray-light');
       .comment-header{
         @include flex-center-between;
+        font-weight: bold;
         .comment-moment{
           font-size: map-get($font-size, "sm" );
           color: map-get($color , "gray-bold" );

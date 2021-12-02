@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { calculateTimeSince } from 'app/shared/helper/helper-function';
 
 const UserComment = ({ props }: any) => {
@@ -21,9 +23,9 @@ const UserComment = ({ props }: any) => {
           </div>
           <div className="comment-detail">
             <div className="comment-header">
-              <h4>
+              <Link to={`/wall/${user?.id}`}>
                 {user && user.displayName ? user.displayName : user?.lastName}
-              </h4>
+              </Link>
               <p className="comment-moment">{timeSince}</p>
             </div>
             <div className="user-content">{comment}</div>
