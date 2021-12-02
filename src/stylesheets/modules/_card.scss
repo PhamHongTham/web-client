@@ -19,6 +19,26 @@
       margin-bottom: 0.5rem;
       color: map-get($color, 'black-midnight');
     }
+    .card-tags {
+      display: flex;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      min-height: 25px;
+      .tag-item {
+        @include text-overflow(1);
+        line-height: 1.2rem;
+        padding: 0.2rem 0.5rem;
+        min-width: 2.5rem;
+        max-width: 8rem;
+        text-align: center;
+        color: map-get($color, 'black-midnight');
+        background: #eee;
+        border-radius: 3rem;
+        & + li {
+          margin-left: 0.5rem;
+        }
+      }
+    }
   }
   &-title {
     @include text-overflow(1);

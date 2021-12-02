@@ -21,6 +21,7 @@ import {
 } from 'app/stores/post/actions';
 import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
 import { UserInfoOptions } from 'app/shared/models/User';
+import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
 
 const Wall = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const Wall = () => {
   const [authorInfo, setAuthorInfo] = useState<any>({});
   const [loading, setLoading] = useState<boolean>(false);
   const [follow, setFollow] = useState<boolean>(false);
+  const [countFollow, setCountFollow] = useState<number>(0);
   const [showBookmark, setShowBookmark] = useState<boolean>(false);
   const [showPopupFollowings, setShowPopupFollowings] =
     useState<boolean>(false);
@@ -37,13 +39,17 @@ const Wall = () => {
     (state: RootState) => state.userState
   );
   const { handleAddNotification } = useContext(NotificationContext);
+  const { handleShowLoading } = useContext(LoadingContext);
 
   useEffect(() => {
     setLoading(true);
+    handleShowLoading(true);
     dispatch(fetchUserPostRequest(id)).then((res: any) => {
       setAuthorInfo(res);
+      setCountFollow(res.followings);
       setPosts(res.Posts);
       setLoading(false);
+      handleShowLoading(false);
     });
     if (id !== 'me') {
       dispatch(getUserInfoByIdRequest(id)).then((res: any) => {
@@ -53,8 +59,9 @@ const Wall = () => {
   }, [id]);
 
   useEffect(() => {
+    setPosts([]);
+    setLoading(true);
     if (showBookmark && id === 'me') {
-      setLoading(true);
       dispatch(fetchUserBookmarkRequest()).then((res: any) => {
         let newList = res.map((item: any) => item.post);
         newList = newList.filter((item: any) => item !== null);
@@ -142,7 +149,7 @@ const Wall = () => {
                   onClick={() => handleShowPopupFollowings(true)}
                 >
                   <p>
-                    Followings: <b>{authorInfo?.followings}</b>
+                    Followings: <b>{countFollow}</b>
                   </p>
                 </li>
               </ul>
@@ -167,13 +174,18 @@ const Wall = () => {
                 </div>
               ) : (
                 <div className="user-action">
-                  <span className="item-icon" onClick={handleFollowUser}>
-                    {follow ? (
+                  {follow ? (
+                    <span
+                      className="item-icon active"
+                      onClick={handleFollowUser}
+                    >
                       <i className="fas fa-user-check"></i>
-                    ) : (
+                    </span>
+                  ) : (
+                    <span className="item-icon" onClick={handleFollowUser}>
                       <i className="far fa-user-plus"></i>
-                    )}
-                  </span>
+                    </span>
+                  )}
                 </div>
               )}
             </div>
@@ -220,6 +232,7 @@ const Wall = () => {
         <PopupFollowings
           authorId={authorInfo.id}
           handleShowPopupFollow={handleShowPopupFollowings}
+          setCountFollow={setCountFollow}
         />
       ) : (
         ''

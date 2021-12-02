@@ -11,6 +11,7 @@ import PopupPublish from './partials/PopupPublish';
 import {
   clearUrlImageRequest,
   fetchSpecificPostRequest,
+  loadingUploadImageRequest,
   saveInfoPost,
   saveUrlImageRequest,
   uploadImage,
@@ -66,10 +67,12 @@ const HandlePost = () => {
   }, []);
 
   const handleFileInputImageChange = (e: FormEvent<HTMLInputElement>) => {
+    dispatch(loadingUploadImageRequest(true));
     const target = e.target as HTMLInputElement;
     const imageFile: any = (target.files as FileList)[0];
     dispatch(uploadImage(imageFile, 'content-post')).then((res: any) => {
       dispatch(saveUrlImageRequest(res));
+      dispatch(loadingUploadImageRequest(false));
     });
   };
 
@@ -111,6 +114,7 @@ const HandlePost = () => {
               className="form-handle-post"
               onSubmit={handleSubmit(onSubmit)}
             >
+              <div className="donut"></div>
               <input
                 type="text"
                 placeholder="Title"

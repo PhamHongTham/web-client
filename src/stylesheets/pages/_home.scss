@@ -17,9 +17,9 @@
       margin: 0 -1px;
       .post-item {
         @include flex-center;
-        flex:1;
+        flex: 1;
         transition: ease 1000ms;
-        padding :0 1px;
+        padding: 0 1px;
         .post-image {
           max-width: 600px;
           max-height: 600px;
@@ -47,7 +47,7 @@
             font-size: map-get($font-size, 'xxl');
             color: map-get($color, 'black-midnight');
             font-weight: 700;
-            margin-bottom: .5rem;
+            margin-bottom: 0.5rem;
           }
           .post-text-content {
             color: map-get($color, 'gray-bold');
@@ -136,7 +136,7 @@
     }
   }
   .post-content {
-    height: 10rem;
+    height: 12rem;
     .post-description {
       @include text-overflow(3);
       line-height: 1.5rem;

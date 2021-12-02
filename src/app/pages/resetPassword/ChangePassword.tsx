@@ -40,16 +40,21 @@ const ChangePassword = () => {
   useEffect(() => {
     handleShowLoading(isLoading ? true : false);
     if (error) {
+      dispatch(clearUserState());
       handleAddNotification({ type: 'ERROR', message: error });
     }
     if (message) {
+      dispatch(clearUserState());
       handleAddNotification({ type: 'SUCCESS', message: message });
       history.push('/');
     }
+  }, [isLoading, message, error]);
+
+  useEffect(() => {
     return () => {
       dispatch(clearUserState());
     };
-  }, [isLoading, message, error]);
+  }, []);
 
   const onSubmit = (data: PasswordOptions) => {
     if (data.newPassword === repeatPass) {

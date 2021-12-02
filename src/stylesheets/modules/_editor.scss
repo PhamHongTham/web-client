@@ -20,6 +20,24 @@
 .editable {
   width: 100%;
   margin-bottom: 1.5rem;
+  p,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  span,
+  strong,
+  b,
+  a,
+  i,
+  u,
+  blockquote {
+    line-height: 1.5;
+  }
+  p {
+    font-size: 16px;
+  }
 }
 @media screen and (max-width: 576px) {
   .medium-editor-element {

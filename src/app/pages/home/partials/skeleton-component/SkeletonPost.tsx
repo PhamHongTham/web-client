@@ -13,11 +13,9 @@ const SkeletonPost = () => {
         </div>
         <div className="item-description">
           <SkeletonElement type="text-long" />
-          <SkeletonElement type="text-long" />
           <SkeletonElement type="text-medium" />
         </div>
         <ul className="sub-info-list">
-          <SkeletonElement type="text-medium" />
           <SkeletonElement type="text-extra-short" />
         </ul>
       </div>
