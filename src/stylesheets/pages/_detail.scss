@@ -10,6 +10,7 @@
     align-items: flex-start;
     .author-name {
       @include text-overflow(1);
+      cursor: pointer;
       margin: 0.5rem 0;
     }
     .interact-action-list {
@@ -109,6 +110,7 @@
         }
         .author-name {
           @include text-overflow(1);
+          cursor: pointer;
           max-width: 15rem;
         }
       }

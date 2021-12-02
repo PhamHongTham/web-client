@@ -73,6 +73,7 @@
               @include flex-center;
               margin-left: 1rem;
               .author-name {
+                cursor: pointer;
                 font-size: map-get($font-size, 'lg');
                 color: map-get($color, 'black-midnight');
                 font-weight: 700;
@@ -129,6 +130,7 @@
       overflow: hidden;
       .author-name {
         @include text-overflow(1);
+        cursor: pointer;
         color: map-get($color, 'black');
         font-size: map-get($font-size, 'normal');
         font-weight: bold;

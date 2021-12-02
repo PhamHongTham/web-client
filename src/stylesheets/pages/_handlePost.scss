@@ -124,13 +124,13 @@
         }
       }
       .select-image {
+        cursor: pointer;
         height: 280px;
         border: 1px solid #ddd;
         width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-
         i {
           font-size: map-get($font-size, 'xxxl');
           color: map-get($color, 'gray-smoke');
