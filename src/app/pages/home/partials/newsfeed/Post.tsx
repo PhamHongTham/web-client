@@ -4,27 +4,14 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { postOptions } from 'app/shared/models/post-interface';
-import {
-  calculateTimeSince,
-  formatNumber,
-} from 'app/shared/helper/helper-function';
+import { calculateTimeSince, formatNumber } from 'app/shared/helper/helper-function';
 import { UserInfoOptions } from 'app/shared/models/User';
 import { RootState } from 'app/stores/app-reducer';
 import { showModalSignInRequest } from 'app/stores/user/actions';
 
 const Post = ({ post }: { post: postOptions }) => {
   const dispatch = useDispatch();
-  const {
-    id,
-    title,
-    comments,
-    likes,
-    user,
-    cover,
-    description,
-    createdAt,
-    tags,
-  } = post;
+  const { id, title, comments, likes, user, cover, description, createdAt, tags } = post;
   const { userCurrent }: { userCurrent: UserInfoOptions } = useSelector(
     (state: RootState) => state.userState
   );
@@ -54,14 +41,11 @@ const Post = ({ post }: { post: postOptions }) => {
               <li className="tag-item">{item}</li>
             ))}
           </ul>
-          <p
-            className="post-description"
-            dangerouslySetInnerHTML={{ __html: description }}
-          ></p>
+          <p className="post-description" dangerouslySetInnerHTML={{ __html: description }}></p>
         </div>
         <div className="card-footer">
           <Link
-            to={`/wall/${user?.id}`}
+            to={userCurrent?.email === user.email ? '/wall/me' : `/wall/${user.id}`}
             className="post-creator-info"
             onClick={handleToWallPage}
           >
