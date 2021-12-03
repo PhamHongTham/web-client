@@ -8,7 +8,6 @@ import { calculateTimeSince } from 'app/shared/helper/helper-function';
 
 const UserComment = ({ props }: any) => {
   const { id, comment, createdAt, user } = props;
-  console.log(user);
   const { userCurrent }: any = useSelector(
     (state: RootState) => state.userState
   );

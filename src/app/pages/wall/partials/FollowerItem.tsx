@@ -22,7 +22,6 @@ const FollowerItem = (props: any) => {
     };
     setFollow(!follow);
     dispatch(followUserRequest(data)).then((res: any) => {
-      console.log(res);
       props.setCountFollow(
         res.followed
           ? (preState: number) => preState + 1
