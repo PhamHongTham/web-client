@@ -1,0 +1,3 @@
+interface CommentHandleOptions {
+  content: string;
+}

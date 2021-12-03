@@ -5,18 +5,39 @@
   display: block;
   overflow: hidden;
   &-img {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
     width: 100%;
-    height: 0;
-    padding-top: 56.25%;
+    aspect-ratio: 16/9;
     overflow: hidden;
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
   }
   &-body {
     padding: 1rem;
     .card-title {
       margin-bottom: 0.5rem;
+      color: map-get($color, 'black-midnight');
+    }
+    .card-tags {
+      display: flex;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      min-height: 25px;
+      .tag-item {
+        @include text-overflow(1);
+        line-height: 1.2rem;
+        padding: 0.2rem 0.5rem;
+        min-width: 2.5rem;
+        max-width: 8rem;
+        text-align: center;
+        color: map-get($color, 'black-midnight');
+        background: #eee;
+        border-radius: 3rem;
+        & + li {
+          margin-left: 0.5rem;
+        }
+      }
     }
   }
   &-title {
@@ -25,6 +46,7 @@
     font-weight: bold;
     line-height: 150%;
     margin: 0.5rem auto;
+    color: map-get($color, 'black-midnight');
   }
   &-content {
     color: map-get($color, 'gray');

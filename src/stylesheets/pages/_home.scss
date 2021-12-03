@@ -1,21 +1,34 @@
 .section-slide {
   .slide-title {
     font-weight: 700;
-    font-size: map-get($font-size, 'xxxxxl');
+    font-size: map-get($font-size, 'xxxl');
     text-align: center;
     margin: 3rem 0;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
   .slide-content {
     overflow: hidden;
     .list-post {
       display: flex;
-      width: 300%;
+      width: calc(300% + 4px);
+      margin: 0 -1px;
       .post-item {
         @include flex-center;
+        flex: 1;
         transition: ease 1000ms;
+        padding: 0 1px;
         .post-image {
+          max-width: 600px;
+          max-height: 600px;
           img {
+            width: 100%;
+            height: 100%;
+            aspect-ratio: 8/5;
             border-radius: 1rem;
+            object-fit: cover;
           }
         }
         .post-content {
@@ -23,23 +36,25 @@
             color: map-get($color, 'black-midnight');
             font-size: map-get($font-size, 'lg');
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            margin-bottom: 3rem;
             .post-create-at {
               color: map-get($color, 'gray-bold');
               font-weight: 400;
             }
           }
           .post-title {
-            font-size: map-get($font-size, 'xxxxxl');
+            @include text-overflow(1);
+            font-size: map-get($font-size, 'xxl');
             color: map-get($color, 'black-midnight');
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
           }
           .post-text-content {
             color: map-get($color, 'gray-bold');
             font-weight: 400;
             font-size: map-get($font-size, 'lg');
-            margin-bottom: 1.5rem;
+            line-height: 150%;
+            margin-bottom: 1rem;
             display: -webkit-box;
             overflow: hidden;
             -webkit-line-clamp: 3;
@@ -51,13 +66,14 @@
               width: 2.813rem;
               height: 2.813rem;
               border-radius: 50%;
+              aspect-ratio: 1/1;
               object-fit: cover;
             }
             .author-content {
-              display: flex;
-              flex-direction: column;
+              @include flex-center;
               margin-left: 1rem;
               .author-name {
+                cursor: pointer;
                 font-size: map-get($font-size, 'lg');
                 color: map-get($color, 'black-midnight');
                 font-weight: 700;
@@ -90,8 +106,10 @@
     }
   }
 }
-.section-recommend-post {
+.section-new-post {
   margin-top: 5rem;
+  width: 100%;
+  overflow: hidden;
   .post-creator-info {
     @include align-center;
     flex: 1;
@@ -101,6 +119,8 @@
       width: 2rem;
       border-radius: 50%;
       margin-right: 1rem;
+      aspect-ratio: 1/1;
+      object-fit: cover;
     }
     .author-info {
       display: flex;
@@ -110,52 +130,56 @@
       overflow: hidden;
       .author-name {
         @include text-overflow(1);
+        cursor: pointer;
         color: map-get($color, 'black');
-        font-size: map-get($font-size, 'lg');
+        font-size: map-get($font-size, 'normal');
         font-weight: bold;
-        display: flex;
-        flex: 1;
-        padding-right: 0.5rem;
       }
     }
   }
   .post-content {
-    height: 8rem;
+    height: 12rem;
     .post-description {
       @include text-overflow(3);
+      line-height: 1.5rem;
     }
   }
   .post-status-info {
     display: flex;
     justify-content: flex-end;
     .post-interact {
-      @include flex-center-between;
-      width: 80px;
+      @include align-center;
+      justify-content: flex-end;
+      p {
+        margin-left: 0.5rem;
+      }
     }
   }
   .post-sub-info {
     font-size: map-get($font-size, 'sm');
+    color: map-get($color, 'gray-smoke');
   }
-}
-.section-contact {
-  background: map-get($color, 'gray-light');
-  padding: 3rem 0;
-  .contact-title {
-    font-weight: 700;
-    font-size: map-get($font-size, 'xxl');
-    color: map-get($color, 'black');
-  }
-  .contact-form {
-    display: flex;
-    margin-top: 1rem;
-    .contact-input {
-      height: 3.2rem;
-      width: 100%;
-      padding: 0 1.25rem;
-      border: 1px solid #e5e5e5;
-      outline: none;
-      border-radius: 0.5rem;
-      font-size: map-get($font-size, 'lg');
+  .load-more-wrap {
+    width: 200px;
+    height: 30px;
+    margin: 2rem auto;
+    text-align: center;
+    .line {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      border-radius: 15px;
+      margin: 0 0.5rem;
+      background-color: map-get($color, 'primary');
+    }
+    .load-more .line:nth-last-child(1) {
+      animation: loadingC 0.6s 0.1s linear infinite;
+    }
+    .load-more .line:nth-last-child(2) {
+      animation: loadingC 0.6s 0.2s linear infinite;
+    }
+    .load-more .line:nth-last-child(3) {
+      animation: loadingC 0.6s 0.3s linear infinite;
     }
   }
 }
@@ -188,4 +212,3 @@
     }
   }
 }
-

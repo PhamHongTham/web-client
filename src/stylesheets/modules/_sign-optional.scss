@@ -1,0 +1,42 @@
+.sign-optional {
+  @include flex-center;
+  position: relative;
+  cursor: pointer;
+  height: 1.5rem;
+  width: 3rem;
+
+  &:hover > .list-option {
+    visibility: visible;
+    opacity: 1;
+    transition: 0.3s;
+  }
+
+  .dot {
+    display: inline-block;
+    width: 0.4rem;
+    height: 0.4rem;
+    margin: 0 0.1rem;
+    border-radius: 50%;
+    background-color: map-get($color, 'primary');
+  }
+  .list-option {
+    @include box-shadow;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100px;
+    background-color: map-get($color, 'white-snow');
+    visibility: hidden;
+    opacity: 0;
+    .option-item {
+      cursor: pointer;
+      padding: 0.5rem;
+      transition: 0.3s;
+      &:hover {
+        background-color: map-get($color, 'gray-stone');
+        color: map-get($color, 'primary');
+        transition: 0.3s;
+      }
+    }
+  }
+}

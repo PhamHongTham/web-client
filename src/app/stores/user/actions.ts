@@ -1,6 +1,7 @@
 import {
   changePassword,
   getUserInfo,
+  getUserInfoById,
   login,
   signUp,
   updateUserInfo,
@@ -9,10 +10,8 @@ import { UserConstant } from 'app/shared/constants/UserConstant';
 import { UserLoginOptions } from 'app/shared/types/UserLogin';
 import { PasswordOptions } from 'app/shared/types/Password';
 import { UserInfoOptions } from 'app/shared/models/User';
-import {
-  addInfoLocalStorage,
-  removeInfoUserLocalStorage,
-} from 'app/shared/helper/LocalAction';
+import { localStorageOption } from 'app/shared/helper/LocalAction';
+import { apiWrapper } from 'app/shared/core/services/apiWrapper';
 
 export const loginRequest =
   (userInfo: UserLoginOptions) => async (dispatch: any) => {
@@ -20,8 +19,8 @@ export const loginRequest =
     try {
       const data = await login(userInfo);
       dispatch({ type: UserConstant.LOGIN_SUCCESS, payload: data });
-      addInfoLocalStorage('USER_TOKEN', JSON.stringify(data.accessToken));
-      addInfoLocalStorage('USER_ID', JSON.stringify(data.userInfo.id));
+      localStorageOption.setUserToken(data.accessToken);
+      localStorageOption.setUserId(data.userInfo.id);
     } catch (error: any) {
       dispatch({
         type: UserConstant.LOGIN_FAILURE,
@@ -46,7 +45,7 @@ export const signUpRequest =
   };
 
 export const logoutRequest = () => {
-  removeInfoUserLocalStorage();
+  localStorageOption.remove();
   return {
     type: UserConstant.LOGOUT,
   };
@@ -58,8 +57,8 @@ export const getUserInfoRequest = () => async (dispatch: any) => {
     const data = await getUserInfo();
     dispatch({ type: UserConstant.GET_USER_INFO_SUCCESS, payload: data });
   } catch (error: any) {
-    if (error.response.status === 401) {
-      removeInfoUserLocalStorage();
+    if (error.response?.status === 401) {
+      localStorageOption.remove();
       dispatch({
         type: UserConstant.GET_USER_INFO_FAILURE,
         payload: error.response.statusText,
@@ -67,7 +66,7 @@ export const getUserInfoRequest = () => async (dispatch: any) => {
     } else {
       dispatch({
         type: UserConstant.GET_USER_INFO_FAILURE,
-        payload: error.response.data.errors[0],
+        payload: error.response?.data.errors[0],
       });
     }
   }
@@ -80,19 +79,10 @@ export const changePasswordRequest =
       const data = await changePassword(info);
       dispatch({ type: UserConstant.CHANGE_PASSWORD_SUCCESS, payload: data });
     } catch (error: any) {
-      if (error.response.status === 401) {
-        console.log(error.response.data);
-        removeInfoUserLocalStorage();
-        dispatch({
-          type: UserConstant.CHANGE_PASSWORD_FAILURE,
-          payload: error.response.statusText,
-        });
-      } else {
-        dispatch({
-          type: UserConstant.CHANGE_PASSWORD_FAILURE,
-          payload: error.response.data.errors[0],
-        });
-      }
+      dispatch({
+        type: UserConstant.CHANGE_PASSWORD_FAILURE,
+        payload: error.response.data.errors[0],
+      });
     }
   };
 
@@ -107,7 +97,7 @@ export const updateUserInfoRequest =
       });
     } catch (error: any) {
       if (error.response.status === 401) {
-        removeInfoUserLocalStorage();
+        localStorageOption.remove();
         dispatch({
           type: UserConstant.CHANGE_PASSWORD_FAILURE,
           payload: error.response.statusText,
@@ -120,6 +110,18 @@ export const updateUserInfoRequest =
       }
     }
   };
+
+export const getUserInfoByIdRequest: any =
+  (id: string) => async (dispatch: any) => {
+    return apiWrapper(() => getUserInfoById(id), dispatch);
+  };
+
+export const showModalSignInRequest = (value: boolean) => {
+  return {
+    type: UserConstant.SHOW_MODAL_SIGN_IN,
+    payload: value,
+  };
+};
 
 export const clearUserState = () => {
   return {

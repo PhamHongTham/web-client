@@ -1,0 +1,46 @@
+.medium-editor-element {
+  min-height: 330px !important;
+  border-top: 1px solid #e5e5e5;
+  padding: 1rem;
+  outline: none;
+}
+.medium-editor-toolbar li .medium-editor-button-active {
+  background: map-get($color, 'primary') !important;
+  color: map-get($color, 'black-midnight') !important;
+}
+.medium-editor-placeholder-relative:after,
+.medium-editor-placeholder:after {
+  color: map-get($color, 'gray-smoke');
+  font-style: normal !important;
+}
+::selection {
+  background: map-get($color, 'primary');
+  color: map-get($color, 'white-snow');
+}
+.editable {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  p,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  span,
+  strong,
+  b,
+  a,
+  i,
+  u,
+  blockquote {
+    line-height: 1.5;
+  }
+  p {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .medium-editor-element {
+    padding: 1rem 0;
+  }
+}

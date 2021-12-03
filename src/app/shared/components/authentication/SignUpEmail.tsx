@@ -67,21 +67,13 @@ const SignUpEmail = ({
       });
       handleShowSignInEmail();
     }
-  }, [
-    isLoading,
-    message,
-    error,
-    dispatch,
-    handleShowSignInEmail,
-    handleAddNotification,
-    handleShowLoading,
-  ]);
+  }, [isLoading, message, error]);
 
   useEffect(() => {
     return () => {
       dispatch(clearUserState());
     };
-  }, [dispatch]);
+  }, []);
 
   const resetForm = () => {
     reset();
@@ -177,7 +169,7 @@ const SignUpEmail = ({
         </div>
         <InputMask
           mask="99/99/9999"
-          placeholder="Enter birthdate"
+          placeholder="Enter birth date"
           value={dateOfBirth}
           onChange={(e: FormEvent<HTMLInputElement>) =>
             setDateOfBirth(e.currentTarget.value)
@@ -212,7 +204,7 @@ const SignUpEmail = ({
         )}
         <input
           type="password"
-          placeholder="repeatPassword"
+          placeholder="Repeat password"
           onChange={(e: FormEvent<HTMLInputElement>) =>
             setRepeatPass(e.currentTarget.value)
           }

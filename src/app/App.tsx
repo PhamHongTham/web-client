@@ -1,15 +1,26 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
 
+import { Switch, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import '../stylesheets/styles.scss';
+
+import AuthRoute from './routes/AuthRoute';
 import Header from './shared/components/Header';
 import Home from './pages/home/Home';
-import Footer from './shared/components/Footer';
-import UpdateInfo from './pages/updateInfo/UpdateInfo';
 import ChangePassword from './pages/resetPassword/ChangePassword';
 import Detail from './pages/detail/Detail';
+import Wall from './pages/wall/Wall';
+import HandlePost from './pages/handlePost/HandlePost';
+import UpdateInfo from './pages/updateInfo/UpdateInfo';
+import { getUserInfoRequest } from './stores/user/actions';
+import NotFound from './pages/notFound/NotFound';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserInfoRequest());
+  }, []);
 
   return (
     <>
@@ -17,10 +28,12 @@ function App() {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/detail/:id" exact component={Detail} />
-        <Route path="/user/update" component={UpdateInfo} />
-        <Route path="/user/changepass" component={ChangePassword} />
+        <AuthRoute path={['/post/new', '/post/edit/:id']} exact component={HandlePost} />
+        <AuthRoute path="/wall/:id" exact component={Wall} />
+        <AuthRoute path="/user/update" component={UpdateInfo} />
+        <AuthRoute path="/user/changepass" component={ChangePassword} />
+        <Route path="*" exact={true} component={NotFound} />
       </Switch>
-      <Footer />
     </>
   );
 }

@@ -3,10 +3,6 @@ header {
   border-bottom: 1px solid map-get($color, 'gray-light');
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   width: 100%;
-  position: -webkit-sticky;
-  position: -moz-sticky;
-  position: -o-sticky;
-  position: -ms-sticky;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -28,20 +24,24 @@ header {
       text-align: right;
       position: absolute;
       top: 0;
-      right: -100vw;
+      right: 0;
+      visibility: hidden;
+      opacity: 0;
       transition: 0.5s;
       background-color: map-get($color, 'white-snow');
       z-index: 100;
       width: 50vw;
       height: 100vh;
       &.active {
-        right: 0;
+        visibility: visible;
+        opacity: 1;
+        transition: 0.5s;
       }
       .menu-mobile-item {
         width: 100%;
         height: 3rem;
         padding: 0 1rem;
-        border-bottom: 1px dotted #cecece;
+        border-bottom: 1px solid #eee;
         .menu-mobile-link {
           @include align-center;
           color: map-get($color, 'black');
@@ -61,7 +61,7 @@ header {
         align-items: center;
         .hide-menu-btn {
           cursor: pointer;
-          font-size: 200%;
+          font-size: map-get($font-size, 'xl');
           background-color: transparent;
           border: none;
           outline: none;
@@ -76,12 +76,16 @@ header {
         display: block;
       }
       .menu-link {
+        cursor: pointer;
         color: map-get($color, 'black-midnight');
         font-weight: 500;
-        font-size: map-get($font-size, 'lg');
-        margin: 0 1rem;
+        margin-left: 1rem;
+        font-size: map-get($font-size, 'normal');
         white-space: nowrap;
         transition: 0.3s;
+        &.menu-bar {
+          font-size: map-get($font-size, 'xl');
+        }
         &:hover {
           color: map-get($color, 'primary');
           transition: 0.3s;
@@ -96,15 +100,17 @@ header {
       border: none;
       outline: none;
       cursor: pointer;
+      margin-left: 1rem;
       img {
-        border-radius: 50%;
+        aspect-ratio: 1/1;
         object-fit: cover;
+        border-radius: 50%;
       }
       .user-action {
         position: absolute;
-        top: 130%;
+        top: 147%;
         right: 0;
-        min-width: 250px;
+        min-width: 12rem;
         background: map-get($color, 'white-snow');
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
         .action-list {
@@ -116,13 +122,13 @@ header {
             .action-link {
               width: 100%;
               height: 100%;
-              padding: 0.6rem 1rem;
+              padding: 0.6rem 1.2rem;
               font-size: map-get($font-size, 'normal');
               font-weight: 400;
               &:hover {
                 background: #eee;
                 transition: 0.3s;
-                color: map-get($color, 'primary' );
+                color: map-get($color, 'primary');
               }
             }
           }

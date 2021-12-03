@@ -6,9 +6,23 @@
 body {
   font-family: $font-family;
   font-style: normal;
-  font-size: map-get($font-size, 'normal');
+  font-size: map-get($font-size, 'sm');
   font-weight: 400;
-  color: map-get($color, 'gray');
+  color: map-get($color, 'black-midnight');
+}
+a,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  word-wrap: break-word;
+  word-break: break-word;
+  &::first-letter {
+    text-transform: uppercase;
+  }
 }
 a {
   text-decoration: none;
@@ -22,4 +36,14 @@ li {
 }
 img {
   width: 100%;
+}
+@media only screen and(max-width:720px) {
+  html {
+    font-size: 14px;
+  }
+}
+@media only screen and(max-width:480px) {
+  html {
+    font-size: 12px;
+  }
 }

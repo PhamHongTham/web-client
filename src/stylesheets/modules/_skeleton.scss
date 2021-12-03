@@ -1,35 +1,63 @@
 .skeleton {
   background-color: #ddd;
-  margin: 0.625rem 0;
   border-radius: 0.25rem;
   overflow: hidden;
   position: relative;
   &.text-long {
     width: 100%;
-    height: map-get($font-size, 'sm');
+    margin-bottom: 0.625rem;
+    height: map-get($font-size, 'xs');
+  }
+  &.text-medium {
+    width: 75%;
+    margin-bottom: 0.625rem;
+    height: map-get($font-size, 'xs');
   }
   &.text-short {
-    width: 75%;
-    height: map-get($font-size, 'sm');
+    width: 50%;
+    margin-bottom: 0.625rem;
+    height: map-get($font-size, 'xs');
+  }
+  &.text-extra-short {
+    width: 25%;
+    margin-bottom: 0.625rem;
+    height: map-get($font-size, 'xs');
   }
   &.title {
     width: 50%;
+    margin-bottom: 0.625rem;
     height: map-get($font-size, 'xl');
-    margin-bottom: 1rem;
+  }
+  &.title-long {
+    width: 100%;
+    margin-bottom: 0.625rem;
+    height: map-get($font-size, 'xl');
+  }
+  &.sub-title {
+    width: 50%;
+    margin-bottom: 0.625rem;
+    height: map-get($font-size, 'sm');
+  }
+  &.sub-title-short {
+    width: 25%;
+    margin-bottom: 0.625rem;
+    height: map-get($font-size, 'sm');
   }
   &.avatar {
     width: 2rem;
     height: 2rem;
-    border-radius: 50%;
     margin-right: 1rem;
+    border-radius: 50%;
   }
-  &.thumbnail {
-    width: 2rem;
-    height: 2rem;
+  &.avatar-lg {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
   }
   &.image {
     width: 100%;
-    padding-bottom: 100%;
+    margin-bottom: 0.625rem;
+    padding-bottom: 56.25%;
   }
   &::before {
     position: absolute;

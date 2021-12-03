@@ -3,7 +3,11 @@ import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginRequest } from 'app/stores/user/actions';
+import {
+  clearUserState,
+  loginRequest,
+  showModalSignInRequest,
+} from 'app/stores/user/actions';
 import { UserLoginOptions } from 'app/shared/types/UserLogin';
 
 import { RootState } from '../../../stores/app-reducer';
@@ -13,7 +17,7 @@ import { LoadingContext } from '../loading/LoadingProvider';
 
 interface SignInEmailPropsOptions {
   handleShowSignInModal: () => void;
-  showLoginModal: () => void;
+  showLoginModal: (value: boolean) => void;
 }
 
 const SignInEmail = ({
@@ -39,12 +43,18 @@ const SignInEmail = ({
         type: 'SUCCESS',
         message: 'Sign in user success',
       });
-      showLoginModal();
+      dispatch(showModalSignInRequest(false));
     }
-  }, [isLoading, userCurrent, dispatch, error]);
+  }, [isLoading, userCurrent, error]);
 
-  const onSubmit = (data: UserLoginOptions) => {
-    dispatch(loginRequest(data));
+  useEffect(() => {
+    return () => {
+      dispatch(clearUserState());
+    };
+  }, []);
+
+  const onSubmit = async (data: UserLoginOptions) => {
+    await dispatch(loginRequest(data));
     reset();
   };
   return (

@@ -1,0 +1,351 @@
+.wall {
+  margin: 3rem auto;
+  .author-public-info {
+    .author-info-content {
+      display: flex;
+      align-items: flex-start;
+      .author-avatar {
+        width: 8rem;
+        height: 8rem;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 1rem;
+        .avatar-image {
+          aspect-ratio: 1/1;
+          object-fit: cover;
+        }
+      }
+      .public-info-detail {
+        .author-name {
+          cursor: pointer;
+          color: map-get($color, 'primary');
+        }
+        .activity-info-list {
+          display: flex;
+          margin: 1rem 0;
+          .activity-info-item {
+            margin-right: 1rem;
+            &.follow {
+              cursor: pointer;
+            }
+          }
+        }
+        .user-action {
+          cursor: pointer;
+        }
+        .user-action {
+          display: flex;
+          .item-icon {
+            @include flex-center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border: 1px solid map-get($color, 'primary');
+            background-color: map-get($color, 'white-snow');
+            color: map-get($color, 'primary');
+            border-radius: 50%;
+            transition: 0.3s;
+            &.active {
+              background-color: map-get($color, 'primary');
+              color: map-get($color, 'white-snow');
+            }
+            &:hover {
+              font-size: 120%;
+              background-color: map-get($color, 'primary');
+              color: map-get($color, 'white-snow');
+              transition: 0.3s;
+            }
+          }
+          .view-mode-item {
+            color: map-get($color, 'primary');
+            transition: 0.3s;
+            user-select: none;
+            margin-right: 1rem;
+            padding: 0.5rem 2rem;
+            border-radius: 1rem;
+            border: 1px solid map-get($color, 'primary');
+            &.active {
+              background: map-get($color, 'primary');
+              color: map-get($color, 'white-snow');
+            }
+          }
+        }
+      }
+    }
+  }
+  .wall-list {
+    .post-item {
+      @include flex-center-between;
+      height: 10rem;
+      margin: 2.5rem auto;
+      align-items: flex-end;
+      .item-img {
+        width: 15rem;
+        height: 100%;
+        margin-right: 1.5rem;
+        overflow: hidden;
+        .item-image {
+          height: 100%;
+          aspect-ratio: 3/2;
+          object-fit: cover;
+        }
+      }
+      .item-detail {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: space-between;
+        height: 100%;
+        flex: 1;
+        word-wrap: break-word;
+        word-break: break-word;
+        .item-title {
+          @include text-overflow(2);
+          font-size: map-get($font-size, 'sm');
+        }
+        .item-description {
+          @include text-overflow(2);
+          line-height: 1.5rem;
+          margin-top: 0.5rem;
+        }
+        .sub-info-list {
+          display: flex;
+          align-items: center;
+          .sub-info-item {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: center;
+            max-width: 8rem;
+            min-width: 3rem;
+            margin-left: 0.5rem;
+            border-radius: 99rem;
+            outline: none;
+            padding: 0.1rem 0.5rem;
+            color: map-get($color, 'primary');
+            font-size: map-get($font-size, 'sm');
+            background-color: map-get($color, 'white-snow');
+            border: 1px solid map-get($color, 'primary');
+            transition: 0.3s;
+          }
+        }
+        .time-status-info {
+          @include flex-center-between;
+          width: 100%;
+          .time-info {
+            font-size: map-get($font-size, 'normal');
+            color: map-get($color, 'gray-smoke');
+          }
+        }
+      }
+      .sign-optional {
+        @include flex-center;
+        position: relative;
+        padding: 0 1rem;
+        cursor: pointer;
+        &:hover > .list-option {
+          visibility: visible;
+          opacity: 1;
+          transition: 0.3s;
+        }
+        .dot {
+          font-size: 1.25rem;
+          color: map-get($color, 'gray-bold');
+        }
+        .list-option {
+          @include box-shadow;
+          position: absolute;
+          top: 150%;
+          right: 35%;
+          background-color: map-get($color, 'white-snow');
+          visibility: hidden;
+          opacity: 0;
+          .option-item {
+            cursor: pointer;
+            padding: 1rem 1rem 1rem 0.5rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px dashed map-get($color, 'gray-stone');
+            white-space: nowrap;
+            transition: 0.3s;
+            &-icon {
+              text-align: center;
+              width: 2rem;
+            }
+            &:hover {
+              background-color: map-get($color, 'gray-stone');
+              color: map-get($color, 'primary');
+              transition: 0.3s;
+            }
+          }
+        }
+      }
+    }
+    .empty-post {
+      font-size: map-get($font-size, 'lg');
+      color: map-get($color, 'black-midnight');
+      text-align: center;
+      margin: 2rem 0;
+    }
+  }
+  .popup-follow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.65);
+    z-index: 101;
+    overflow: hidden;
+    .popup-content {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 25rem;
+      height: 28rem;
+      background: map-get($color, 'white-snow');
+      .popup-follow-title {
+        text-align: center;
+        padding: 0.8rem;
+        border-bottom: 1px solid #e5e5e5;
+        position: sticky;
+        top: 0;
+        height: 3.125rem;
+        background: map-get($color, 'white-snow');
+      }
+      .list-follow {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem 1.5rem 0 1.5rem;
+        max-height: calc(28rem - 3.125rem);
+        overflow-y: scroll;
+        &::-webkit-scrollbar {
+          width: 0.5rem;
+        }
+        &::-webkit-scrollbar-track {
+          background: #edeff1;
+        }
+        &::-webkit-scrollbar-thumb {
+          background: #ddd;
+          border-radius: 0.6rem;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+          background: #555;
+        }
+        .follow-item {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 1rem;
+          .follow-item-content {
+            @include flex-center;
+            .user-avatar {
+              width: 3rem;
+              height: 3rem;
+              border-radius: 50%;
+              object-fit: cover;
+            }
+            .user-name {
+              font-weight: 500;
+              padding: 0 1rem;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              -webkit-line-clamp: 1;
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              transition: 0.3s;
+              &:hover {
+                color: map-get($color, 'primary');
+                transition: 0.3s;
+              }
+            }
+          }
+          .btn {
+            height: 2.2rem;
+            max-width: 5rem;
+            &.btn-primary {
+              color: map-get($color, 'white-snow');
+              &:hover {
+                background: map-get($color, 'white-snow');
+                border: 1px solid map-get($color, 'primary');
+                color: map-get($color, 'primary');
+              }
+            }
+          }
+        }
+        .empty-list-mess {
+          text-align: center;
+          color: map-get($color, 'gray-smoke');
+          font-size: map-get($font-size, 'lg');
+        }
+      }
+      .close-popup {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+        cursor: pointer;
+        background: none;
+        outline: none;
+        border: none;
+        font-size: map-get($font-size, 'lg');
+      }
+    }
+  }
+}
+@media screen and (max-width: 992px) {
+  .wall {
+    .author-interact {
+      display: none;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .wall {
+    .wall-list {
+      .post-item {
+        height: 8rem;
+        .item-img {
+          width: 10rem;
+        }
+        .item-detail {
+          .item-title {
+            @include text-overflow(1);
+            margin: 0.2rem 0;
+          }
+          .item-description {
+            @include text-overflow(2);
+          }
+        }
+      }
+    }
+    .author-public-info {
+      .author-info-content {
+        .author-avatar {
+          width: 6rem;
+          height: 6rem;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 480px) {
+  .wall {
+    .wall-list {
+      .wall-item {
+        height: 8rem;
+        .item-img {
+          height: 6rem;
+          width: 7rem;
+        }
+      }
+    }
+    .author-public-info {
+      .author-info-content {
+        .author-avatar {
+          width: 4rem;
+          height: 4rem;
+        }
+      }
+    }
+  }
+}

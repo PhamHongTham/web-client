@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+
+import { useDispatch } from 'react-redux';
+
 import SignInEmail from './SignInEmail';
 import SignInModal from './SignInModal';
 import SignUpEmail from './SignUpEmail';
+import { showModalSignInRequest } from 'app/stores/user/actions';
 
-interface modalUIOptions {
-  showLoginModal: () => void;
-}
-
-const AuthenticationModal = ({ showLoginModal }: modalUIOptions) => {
+const AuthenticationModal = () => {
+  const dispatch = useDispatch();
   const [UIModalOptions, setUIModalOptions] = useState({
     signInModal: true,
     signInEmail: false,
@@ -34,10 +35,14 @@ const AuthenticationModal = ({ showLoginModal }: modalUIOptions) => {
       signUpEmail: false,
     });
   };
+
+  const showLoginModal = (value: boolean) => {
+    dispatch(showModalSignInRequest(value));
+  };
   return (
     <div className="modal">
       <div className="authentication-modal">
-        <button className="close-modal" onClick={showLoginModal}>
+        <button className="close-modal" onClick={() => showLoginModal(false)}>
           <i className="fal fa-times"></i>
         </button>
         {UIModalOptions.signInModal ? (

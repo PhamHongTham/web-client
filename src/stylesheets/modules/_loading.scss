@@ -1,13 +1,18 @@
 .load-wrapp {
-  position: absolute;
+  position: fixed;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  bottom: 0;
+  right: 0;
   z-index: 1000;
   &::after {
-    position: absolute;
     content: '';
+    display: block;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -22,6 +27,7 @@
     transform: translate(-50%, -50%);
     z-index: 100000;
     opacity: 1;
+    display: flex;
     .line {
       display: inline-block;
       width: 15px;
@@ -39,6 +45,29 @@
     animation: loadingC 0.6s 0.2s linear infinite;
   }
   .loading .line:nth-last-child(3) {
+    animation: loadingC 0.6s 0.3s linear infinite;
+  }
+}
+.load-more-wrap {
+  width: 200px;
+  height: 30px;
+  margin: 0 auto;
+  text-align: center;
+  .line {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    margin: 0 0.5rem;
+    background-color: map-get($color, 'primary');
+  }
+  .load-more .line:nth-last-child(1) {
+    animation: loadingC 0.6s 0.1s linear infinite;
+  }
+  .load-more .line:nth-last-child(2) {
+    animation: loadingC 0.6s 0.2s linear infinite;
+  }
+  .load-more .line:nth-last-child(3) {
     animation: loadingC 0.6s 0.3s linear infinite;
   }
 }

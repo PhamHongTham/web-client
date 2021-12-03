@@ -1,0 +1,14 @@
+.section-notfound {
+  .notfound-image {
+    background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+    height: 80vh;
+    width: 100%;
+    background-position: center;
+    .notfound-title {
+      font-size: 500%;
+      color: map-get($color, 'primary');
+      text-align: center;
+      margin-top: 3rem;
+    }
+  }
+}
