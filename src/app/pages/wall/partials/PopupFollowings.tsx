@@ -29,7 +29,6 @@ const PopupFollowings = ({
   }, []);
 
   const getListPeople = () => {
-    console.log('bscysd');
     dispatch(getFollowingsRequest(authorId)).then((res: any) => {
       setListPeople(res);
       handleShowLoading(false);

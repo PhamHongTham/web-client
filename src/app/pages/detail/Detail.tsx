@@ -37,7 +37,6 @@ const Detail = () => {
   });
 
   const [post, setPost] = useState<any>(null);
-  console.log(post);
   const [comments, setComments] = useState<any>([]);
   const [follow, setFollow] = useState<boolean>(false);
   const { userCurrent }: any = useSelector(
