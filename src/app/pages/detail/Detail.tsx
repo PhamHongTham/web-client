@@ -92,6 +92,7 @@ const Detail = () => {
         comment: data.content,
         createdAt: new Date().toISOString(),
         user: {
+          email: userCurrent.email,
           displayName: userCurrent?.displayName
             ? userCurrent.displayName
             : userCurrent.lastName,
