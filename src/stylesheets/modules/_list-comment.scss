@@ -28,7 +28,8 @@
         font-weight: bold;
         .comment-moment{
           font-size: map-get($font-size, "sm" );
-          color: map-get($color , "gray-bold" );
+          font-weight: 500;
+          color: map-get($color , "gray-smoke" );
         }
       }
       .user-content {

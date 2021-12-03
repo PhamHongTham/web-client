@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import { followUserRequest } from 'app/stores/post/actions';
+import { RootState } from 'app/stores/app-reducer';
 
 const FollowerItem = (props: any) => {
   const dispatch = useDispatch();
   const { person, action, handleShowPopupFollow } = props;
   const [follow, setFollow] = useState<boolean>(true);
+  const { userCurrent }: any = useSelector(
+    (state: RootState) => state.userState
+  );
   const { id }: { id: string } = useParams();
 
   const handleUnfollow = () => {
@@ -29,7 +33,11 @@ const FollowerItem = (props: any) => {
   return (
     <div key={person.id} className="follow-item">
       <Link
-        to={`/wall/${person.id}`}
+        to={
+          userCurrent?.email === person?.email
+            ? '/wall/me'
+            : `/wall/${person.id}`
+        }
         className="follow-item-content"
         onClick={() => handleShowPopupFollow(false)}
       >
