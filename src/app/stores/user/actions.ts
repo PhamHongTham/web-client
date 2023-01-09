@@ -37,6 +37,7 @@ export const signUpRequest =
       dispatch({ type: UserConstant.SIGN_UP_SUCCESS, payload: data });
       callback();
     } catch (error: any) {
+      console.log('first')
       dispatch({
         type: UserConstant.SIGN_UP_FAILURE,
         payload: error.response.data.message,
