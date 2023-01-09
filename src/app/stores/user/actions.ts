@@ -20,11 +20,11 @@ export const loginRequest =
       const data = await login(userInfo);
       dispatch({ type: UserConstant.LOGIN_SUCCESS, payload: data });
       localStorageOption.setUserToken(data.accessToken);
-      localStorageOption.setUserId(data.userInfo.id);
+      // localStorageOption.setUserId(data.userInfo.id);
     } catch (error: any) {
       dispatch({
         type: UserConstant.LOGIN_FAILURE,
-        payload: error.response.data.errors[0],
+        payload: error.response.data.message,
       });
     }
   };

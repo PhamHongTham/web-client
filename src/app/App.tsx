@@ -14,12 +14,15 @@ import HandlePost from './pages/handlePost/HandlePost';
 import UpdateInfo from './pages/updateInfo/UpdateInfo';
 import { getUserInfoRequest } from './stores/user/actions';
 import NotFound from './pages/notFound/NotFound';
+import { localStorageOption } from 'app/shared/helper/LocalAction';
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserInfoRequest());
+    if (localStorageOption.getUserToken) {
+      dispatch(getUserInfoRequest());
+    }
   }, []);
 
   return (

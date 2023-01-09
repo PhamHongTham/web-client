@@ -12,10 +12,10 @@ export const apiWrapper = async (api: any, dispatch: any) => {
         payload: error.response.data,
       });
     } else {
-      dispatch({
-        type: 'OPEN_POPUP',
-        payload: error.response?.data.errors[0],
-      });
+      // dispatch({
+      //   type: 'OPEN_POPUP',
+      //   payload: error.response?.data.errors[0],
+      // });
     }
   }
 };
