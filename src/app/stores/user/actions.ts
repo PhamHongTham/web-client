@@ -39,7 +39,7 @@ export const signUpRequest =
     } catch (error: any) {
       dispatch({
         type: UserConstant.SIGN_UP_FAILURE,
-        payload: error.response.data.errors[0],
+        payload: error.response.data.message,
       });
     }
   };
