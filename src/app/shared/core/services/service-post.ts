@@ -18,6 +18,11 @@ export const getUrlImage = async (imageFile: File, typeUpload: string) => {
   return res;
 };
 
+export const getUrlImage2 = async (data: any) => {
+  const res = await axiosClient.post('/upload/image', data);
+  return res;
+};
+
 export const upLoadImage = (url: string, fileImage: File): any => axios.put(url, fileImage);
 
 export const createNewPost = (post: PostHandleOptions): any => axiosClient.post('posts', post);

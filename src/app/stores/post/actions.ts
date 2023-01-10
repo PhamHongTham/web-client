@@ -20,6 +20,7 @@ import {
   getUserBookmark,
   getFollowers,
   getFollowings,
+  getUrlImage2,
 } from 'app/shared/core/services/service-post';
 import axios from 'axios';
 
@@ -124,6 +125,14 @@ export const uploadImage: any =
     }, dispatch);
   };
 
+export const uploadImage2: any =
+  (data: any) => async (dispatch: any) => {
+    return apiWrapper(async () => {
+      const url = await getUrlImage2(data);
+      return url;
+    }, dispatch);
+  };
+
 export const saveUrlImageRequest: any = (image: string) => {
   return {
     type: postConstant.SAVE_URL_IMAGE,
@@ -135,6 +144,7 @@ export const clearUrlImageRequest: any = () => {
     type: postConstant.CLEAR_URL_IMAGE,
   };
 };
+
 export const loadingUploadImageRequest: any = (value: boolean) => {
   return {
     type: postConstant.LOADING_UPLOAD_IMAGE,

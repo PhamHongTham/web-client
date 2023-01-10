@@ -14,7 +14,7 @@ import {
 import SelectGender from './partials/SelectGender';
 import HandleBirthdate from './partials/HandleBirthdate';
 import Avatar from './partials/Avatar';
-import { uploadImage } from 'app/stores/post/actions';
+import { uploadImage, uploadImage2 } from 'app/stores/post/actions';
 import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
 import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
 import { useHistory } from 'react-router';
@@ -85,8 +85,12 @@ const UpdateInfo = () => {
       picture: data.picture,
     };
     if (data.picture instanceof File) {
-      const url = await dispatch(uploadImage(data.picture, 'avatar'));
-      infoData.picture = url;
+      // const url = await dispatch(uploadImage(data.picture, 'avatar'));
+      let formData = new FormData();
+      formData.append("image", data.picture);
+
+      const imageResult = await dispatch(uploadImage2(formData));
+      infoData.picture = imageResult.url;
     }
     dispatch(updateUserInfoRequest(infoData));
   };
