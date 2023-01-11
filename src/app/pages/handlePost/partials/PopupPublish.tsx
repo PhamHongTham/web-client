@@ -12,7 +12,7 @@ import HandleImage from './HandleImage';
 import { RootState } from 'app/stores/app-reducer';
 import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
 import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
-import { createNewPostRequest, updatePostRequest, uploadImage } from 'app/stores/post/actions';
+import { createNewPostRequest, updatePostRequest, uploadImage, uploadImage2 } from 'app/stores/post/actions';
 import { UserInfoOptions } from 'app/shared/models/User';
 import { postOptions } from 'app/shared/models/post-interface';
 
@@ -56,8 +56,12 @@ const PopupPublish = ({ showPopupPublish, setShowPopupPublish }: PopupPublishOpt
       ...data,
     };
     if (postData.cover instanceof File) {
-      const url = await dispatch(uploadImage(postData.cover, 'cover-post'));
-      postData.cover = url;
+      // const url = await dispatch(uploadImage(postData.cover, 'cover-post'));
+      let formData = new FormData();
+      formData.append("image", postData.cover);
+
+      const imageResult = await dispatch(uploadImage2(formData));
+      postData.cover = imageResult.url; // old code use url in line 59
     }
     if (infoPost?.id) {
       await dispatch(updatePostRequest(postData, String(infoPost.id))).then(() => {

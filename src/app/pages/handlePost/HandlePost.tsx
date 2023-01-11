@@ -15,6 +15,7 @@ import {
   saveInfoPost,
   saveUrlImageRequest,
   uploadImage,
+  uploadImage2,
 } from 'app/stores/post/actions';
 import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
 import Footer from 'app/shared/components/Footer';
@@ -22,19 +23,19 @@ import Footer from 'app/shared/components/Footer';
 const HandlePost = () => {
   const dispatch = useDispatch();
   const schema = yup.object().shape({
-    title: yup
-      .string()
-      .trim()
-      .min(20, 'Title must be at least 20 characters')
-      .required(),
-    description: yup
-      .string()
-      .min(50, 'Description must be at least 50 characters')
-      .required(),
-    content: yup
-      .string()
-      .min(200, 'Content must be at least 200 characters')
-      .required(),
+    // title: yup
+    //   .string()
+    //   .trim()
+    //   .min(20, 'Title must be at least 20 characters')
+    //   .required(),
+    // description: yup
+    //   .string()
+    //   .min(50, 'Description must be at least 50 characters')
+    //   .required(),
+    // content: yup
+    //   .string()
+    //   .min(200, 'Content must be at least 200 characters')
+    //   .required(),
   });
   const {
     register,
@@ -66,14 +67,21 @@ const HandlePost = () => {
     };
   }, []);
 
-  const handleFileInputImageChange = (e: FormEvent<HTMLInputElement>) => {
+  const handleFileInputImageChange = async (e: FormEvent<HTMLInputElement>) => {
     dispatch(loadingUploadImageRequest(true));
     const target = e.target as HTMLInputElement;
     const imageFile: any = (target.files as FileList)[0];
-    dispatch(uploadImage(imageFile, 'content-post')).then((res: any) => {
-      dispatch(saveUrlImageRequest(res));
-      dispatch(loadingUploadImageRequest(false));
-    });
+    // dispatch(uploadImage(imageFile, 'content-post')).then((res: any) => {
+    //   dispatch(saveUrlImageRequest(res));
+    //   dispatch(loadingUploadImageRequest(false));
+    // });
+
+    let formData = new FormData();
+    formData.append("image", imageFile);
+
+    const imageResult = await dispatch(uploadImage2(formData));
+    dispatch(saveUrlImageRequest(imageResult.url));
+    dispatch(loadingUploadImageRequest(false));
   };
 
   const onSubmit = (data: {
