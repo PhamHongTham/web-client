@@ -81,7 +81,7 @@ export const changePasswordRequest =
     } catch (error: any) {
       dispatch({
         type: UserConstant.CHANGE_PASSWORD_FAILURE,
-        payload: error.response.data.errors[0],
+        payload: error.response.data.message,
       });
     }
   };
