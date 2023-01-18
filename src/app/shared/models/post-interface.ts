@@ -1,5 +1,6 @@
 export interface postOptions {
   id: number;
+  _id: string;
   title: string;
   description: string;
   content: string;

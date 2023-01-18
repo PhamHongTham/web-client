@@ -11,7 +11,7 @@ import { showModalSignInRequest } from 'app/stores/user/actions';
 
 const Post = ({ post }: { post: postOptions }) => {
   const dispatch = useDispatch();
-  const { id, title, comments, likes, user, cover, description, createdAt, tags } = post;
+  const { _id, title, comments, likes, user, cover, description, createdAt, tags } = post;
   const { userCurrent }: { userCurrent: UserInfoOptions } = useSelector(
     (state: RootState) => state.userState
   );
@@ -25,15 +25,15 @@ const Post = ({ post }: { post: postOptions }) => {
     }
   };
   return (
-    <li key={id} className="list-item col-4 col-lg-6 col-md-12">
+    <li key={_id} className="list-item col-4 col-lg-6 col-md-12">
       <div className="card">
         <div className="card-img">
-          <Link to={`/detail/${id}`}>
+          <Link to={`/detail/${_id}`}>
             <img src={cover} alt="" className="post-image" />
           </Link>
         </div>
         <div className="card-body post-content">
-          <Link to={`/detail/${id}`}>
+          <Link to={`/detail/${_id}`}>
             <h2 className="card-title">{title}</h2>
           </Link>
           <ul className="card-tags">

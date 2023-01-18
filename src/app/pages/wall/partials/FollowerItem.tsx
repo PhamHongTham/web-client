@@ -18,24 +18,24 @@ const FollowerItem = (props: any) => {
 
   const handleUnfollow = () => {
     let data = {
-      followingId: person.id,
+      followingId: person._id,
     };
     setFollow(!follow);
     dispatch(followUserRequest(data)).then((res: any) => {
       props.setCountFollow(
-        res.followed
+        res.isFollowed
           ? (preState: number) => preState + 1
           : (preState: number) => preState - 1
       );
     });
   };
   return (
-    <div key={person.id} className="follow-item">
+    <div key={person._id} className="follow-item">
       <Link
         to={
           userCurrent?.email === person?.email
             ? '/wall/me'
-            : `/wall/${person.id}`
+            : `/wall/${person._id}`
         }
         className="follow-item-content"
         onClick={() => handleShowPopupFollow(false)}

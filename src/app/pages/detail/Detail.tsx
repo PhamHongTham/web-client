@@ -63,7 +63,7 @@ const Detail = () => {
 
   useEffect(() => {
     if (post) {
-      dispatch(getUserInfoByIdRequest(String(post.userId))).then((res: any) => {
+      dispatch(getUserInfoByIdRequest(String(post.user._id))).then((res: any) => {
         setFollow(res.isFollowed);
       });
     }
@@ -88,7 +88,7 @@ const Detail = () => {
   const onSubmit = (data: CommentHandleOptions) => {
     if (userCurrent) {
       let newComment = {
-        comment: data.content,
+        content: data.content,
         createdAt: new Date().toISOString(),
         user: {
           email: userCurrent.email,
@@ -121,7 +121,7 @@ const Detail = () => {
   const handleAddBookmark = () => {
     if (userCurrent) {
       let data = {
-        postId: String(post.id),
+        postId: String(post._id),
       };
       setBookmark(!bookmark);
       dispatch(addBookmarkRequest(data));
@@ -195,7 +195,7 @@ const Detail = () => {
                         to={
                           userCurrent?.email === post.user.email
                             ? '/wall/me'
-                            : `/wall/${post.userId}`
+                            : `/wall/${post.user._id}`
                         }
                         className="author-avatar"
                       >
@@ -214,7 +214,7 @@ const Detail = () => {
                         to={
                           userCurrent?.email === post.user.email
                             ? '/wall/me'
-                            : `/wall/${post.userId}`
+                            : `/wall/${post.user._id}`
                         }
                         className="text-primary author-name"
                       >

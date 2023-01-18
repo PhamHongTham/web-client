@@ -11,21 +11,21 @@ const PostItem = ({
   showBookmark,
 }: {
   post: postOptions;
-  handleDeletePost: (id: number) => void;
+  handleDeletePost: (id: string) => void;
   isMyself: boolean;
   showBookmark: boolean;
 }) => {
-  const { id, title, cover, description, createdAt, status, tags } = post;
+  const { _id, title, cover, description, createdAt, status, tags } = post;
   const timeSince = calculateTimeSince(createdAt);
 
   return (
-    <li key={id} className="post-item">
-      <Link to={`/detail/${id}`} className="item-img">
+    <li key={_id} className="post-item">
+      <Link to={`/detail/${post._id}`} className="item-img">
         <img src={cover} alt="" className="item-image" />
       </Link>
       <div className="item-detail">
         <div className="item-content">
-          <Link to={`/detail/${id}`} className="item-title">
+          <Link to={`/detail/${_id}`} className="item-title">
             <h2>{title}</h2>
           </Link>
           <div className="item-description">{description}</div>
@@ -57,13 +57,13 @@ const PostItem = ({
         <div className="sign-optional">
           <i className="far fa-ellipsis-h dot"></i>
           <ul className="list-option">
-            <Link to={`/post/edit/${id}`} className="option-item">
+            <Link to={`/post/edit/${_id}`} className="option-item">
               <i className="fal fa-pencil-alt option-item-icon"></i> Edit
             </Link>
             <li
               className="option-item"
               onClick={() => {
-                handleDeletePost(id);
+                handleDeletePost(_id);
               }}
             >
               <i className="fal fa-trash-alt option-item-icon"></i> Delete

@@ -63,14 +63,14 @@ const PopupPublish = ({ showPopupPublish, setShowPopupPublish }: PopupPublishOpt
       const imageResult = await dispatch(uploadImage2(formData));
       postData.cover = imageResult.url; // old code use url in line 59
     }
-    if (infoPost?.id) {
-      await dispatch(updatePostRequest(postData, String(infoPost.id))).then(() => {
-        history.push(`/detail/${infoPost.id}`);
+    if (infoPost?._id) {
+      await dispatch(updatePostRequest(postData, String(infoPost._id))).then(() => {
+        history.push(`/detail/${infoPost._id}`);
       });
       handleAddNotification({ type: 'SUCCESS', message: 'Updated new post' });
     } else {
       await dispatch(createNewPostRequest(postData)).then((res: any) => {
-        history.push(`/detail/${res.id}`);
+        history.push(`/detail/${res._id}`);
       });
       handleAddNotification({ type: 'SUCCESS', message: 'Created new post' });
     }

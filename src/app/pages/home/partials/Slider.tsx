@@ -12,7 +12,7 @@ const Slide = () => {
 
   useEffect(() => {
     dispatch(getFeaturedPostsRequest(1, 3)).then((res: any) => {
-      setPosts(res?.data);
+      setPosts(res);
     });
   }, []);
 

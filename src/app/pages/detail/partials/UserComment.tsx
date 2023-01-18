@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { calculateTimeSince } from 'app/shared/helper/helper-function';
 
 const UserComment = ({ props }: any) => {
-  const { id, comment, createdAt, user } = props;
+  const { id, content, createdAt, user } = props;
   const { userCurrent }: any = useSelector(
     (state: RootState) => state.userState
   );
@@ -30,7 +30,7 @@ const UserComment = ({ props }: any) => {
             <div className="comment-header">
               <Link
                 to={
-                  userCurrent?.email === user.email
+                  userCurrent?.email === user?.email
                     ? '/wall/me'
                     : `/wall/${user.id}`
                 }
@@ -39,7 +39,7 @@ const UserComment = ({ props }: any) => {
               </Link>
               <p className="comment-moment">{timeSince}</p>
             </div>
-            <div className="user-content">{comment}</div>
+            <div className="user-content">{content}</div>
           </div>
         </li>
       ) : (

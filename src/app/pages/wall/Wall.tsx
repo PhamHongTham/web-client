@@ -40,20 +40,21 @@ const Wall = () => {
   );
   const { handleAddNotification } = useContext(NotificationContext);
   const { handleShowLoading } = useContext(LoadingContext);
-
   useEffect(() => {
     setLoading(true);
     handleShowLoading(true);
     dispatch(fetchUserPostRequest(id)).then((res: any) => {
-      setAuthorInfo(res);
-      setCountFollow(res.followings);
-      setPosts(res.Posts);
+      setAuthorInfo(res.user);
+      setCountFollow(res.user.followings);
+      setPosts(res.posts);
       setLoading(false);
       handleShowLoading(false);
+      setFollow(res.user.isfollowed);
     });
     if (id !== 'me') {
       dispatch(getUserInfoByIdRequest(id)).then((res: any) => {
-        setFollow(res.isFollowed);
+        // console.log(res)
+        // setFollow(res.user.isFollowed);
       });
     }
   }, [id]);
@@ -63,16 +64,19 @@ const Wall = () => {
     setLoading(true);
     if (showBookmark && id === 'me') {
       dispatch(fetchUserBookmarkRequest()).then((res: any) => {
-        let newList = res.map((item: any) => item.post);
-        newList = newList.filter((item: any) => item !== null);
-        setPosts(newList);
+        // let newList = res.posts.map((item: any) => item.post);
+        // newList = newList.filter((item: any) => item !== null);
+        // setPosts(newList);
+        // setLoading(false);
+
+        setPosts(res.posts);
         setLoading(false);
       });
     }
     if (!showBookmark && id === 'me') {
       dispatch(fetchUserPostRequest('me')).then((res: any) => {
-        setAuthorInfo(res);
-        setPosts(res.Posts);
+        setAuthorInfo(res.user);
+        setPosts(res.posts);
         setLoading(false);
       });
     }
@@ -91,7 +95,7 @@ const Wall = () => {
   const handleFollowUser = () => {
     if (userCurrent) {
       let data = {
-        followingId: authorInfo.id,
+        followingId: authorInfo._id,
       };
       setFollow(!follow);
       dispatch(followUserRequest(data));
@@ -133,7 +137,7 @@ const Wall = () => {
               <ul className="activity-info-list">
                 <li className="activity-info-item">
                   <p>
-                    Stories: <b>{authorInfo?.Posts?.length}</b>
+                    Stories: <b>{posts?.length}</b>
                   </p>
                 </li>
                 <li
@@ -222,7 +226,7 @@ const Wall = () => {
       </div>
       {showPopupFollowers ? (
         <PopupFollowers
-          authorId={authorInfo.id}
+          authorId={authorInfo._id}
           handleShowPopupFollow={handleShowPopupFollowers}
         />
       ) : (
@@ -230,7 +234,7 @@ const Wall = () => {
       )}
       {showPopupFollowings ? (
         <PopupFollowings
-          authorId={authorInfo.id}
+          authorId={authorInfo._id}
           handleShowPopupFollow={handleShowPopupFollowings}
           setCountFollow={setCountFollow}
         />
