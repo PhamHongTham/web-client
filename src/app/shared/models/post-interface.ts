@@ -15,7 +15,7 @@ export interface postOptions {
   createdAt: string;
   updatedAt: string;
   user: {
-    id: number;
+    _id: number;
     email: string;
     firstName: string;
     lastName: string;

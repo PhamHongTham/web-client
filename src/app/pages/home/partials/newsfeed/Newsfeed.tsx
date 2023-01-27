@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { RootState } from 'app/stores/app-reducer';
 import { postOptions } from 'app/shared/models/post-interface';
-import { fetchPostRequest, fetchRecommendPostRequest } from 'app/stores/post/actions';
+import { fetchPostRequest } from 'app/stores/post/actions';
 import SkeletonNewsfeed from 'app/pages/home/partials/skeleton-component/SkeletonNewsfeed';
 import { UserInfoOptions } from 'app/shared/models/User';
 
@@ -23,11 +23,11 @@ const Newsfeed = () => {
     setLoading(true);
     dispatch(action(pageNumber)).then((res: any) => {
       if (pageNumber === 1) {
-        setPosts(res);
+        setPosts(res.data);
       } else {
-        setPosts([...posts, ...res]);
+        setPosts([...posts, ...res.data]);
       }
-      setLoadMore(res?.loadMore);
+      setLoadMore(res?.hasMore);
       setLoading(false);
     });
   };
@@ -38,12 +38,7 @@ const Newsfeed = () => {
   }, [userCurrent]);
 
   useEffect(() => {
-    if (userCurrent) {
-      fetchNewsfeedAPI(fetchRecommendPostRequest, pageNumber);
-    }
-    if (!userCurrent) {
-      fetchNewsfeedAPI(fetchPostRequest, pageNumber);
-    }
+    fetchNewsfeedAPI(fetchPostRequest, pageNumber);
   }, [pageNumber]);
 
   const loadMoreElementRef = useCallback(

@@ -45,7 +45,7 @@ const Post = ({ post }: { post: postOptions }) => {
         </div>
         <div className="card-footer">
           <Link
-            to={userCurrent?.email === user.email ? '/wall/me' : `/wall/${user.id}`}
+            to={userCurrent?.email === user.email ? '/wall/me' : `/wall/${user._id}`}
             className="post-creator-info"
             onClick={handleToWallPage}
           >
