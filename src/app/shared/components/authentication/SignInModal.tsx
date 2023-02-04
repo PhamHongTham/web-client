@@ -16,6 +16,10 @@ const SignInModal = ({
     return `${process.env.REACT_APP_API_URL}/api/v1/auth/${typeSocial}?redirect_to=${process.env.REACT_APP_REDIRECT_URL}`;
   };
 
+  const handleLoginWithSocial2 = (type: string) => {
+    return `http://localhost:4000/api/auth/${type}`;
+  }
+
   const handleRedirectToCurrentPage = () => {
     localStorage.setItem(
       'PATH',
@@ -35,15 +39,15 @@ const SignInModal = ({
           </p>
         </li>
         <li className="action-item" onClick={handleRedirectToCurrentPage}>
-          <a href={handleLoginWithSocial('google')} className="action-link">
+          <a href={handleLoginWithSocial2('google')} className="action-link">
             <i className="fab fa-google"></i> Sign in with Google
           </a>
         </li>
-        <li className="action-item" onClick={handleRedirectToCurrentPage}>
-          <a href={handleLoginWithSocial('github')} className="action-link">
+        {/* <li className="action-item" onClick={handleRedirectToCurrentPage}>
+          <a href={handleLoginWithSocial2('github')} className="action-link">
             <i className="fab fa-github"></i> Sign in with github
           </a>
-        </li>
+        </li> */}
       </ul>
       <span className="sign-up-action">
         No account?{' '}

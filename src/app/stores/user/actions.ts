@@ -21,6 +21,7 @@ export const loginRequest =
       dispatch({ type: UserConstant.LOGIN_SUCCESS, payload: data });
       localStorageOption.setUserToken(data.accessToken);
       // localStorageOption.setUserId(data.userInfo.id);
+      window.location.href = `${window.location.origin}`;
     } catch (error: any) {
       dispatch({
         type: UserConstant.LOGIN_FAILURE,
