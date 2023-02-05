@@ -12,7 +12,7 @@ import HandleImage from './HandleImage';
 import { RootState } from 'app/stores/app-reducer';
 import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
 import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
-import { createNewPostRequest, updatePostRequest, uploadImage, uploadImage2 } from 'app/stores/post/actions';
+import { createNewPostRequest, updatePostRequest, uploadImage2 } from 'app/stores/post/actions';
 import { UserInfoOptions } from 'app/shared/models/User';
 import { postOptions } from 'app/shared/models/post-interface';
 

@@ -14,7 +14,6 @@ import {
   loadingUploadImageRequest,
   saveInfoPost,
   saveUrlImageRequest,
-  uploadImage,
   uploadImage2,
 } from 'app/stores/post/actions';
 import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';

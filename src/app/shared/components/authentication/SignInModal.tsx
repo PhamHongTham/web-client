@@ -12,9 +12,9 @@ const SignInModal = ({
 }: SignInOptions) => {
   const { pathname }: { pathname: string } = useLocation();
 
-  const handleLoginWithSocial = (typeSocial: string) => {
-    return `${process.env.REACT_APP_API_URL}/api/v1/auth/${typeSocial}?redirect_to=${process.env.REACT_APP_REDIRECT_URL}`;
-  };
+  // const handleLoginWithSocial = (typeSocial: string) => {
+  //   return `${process.env.REACT_APP_API_URL}/api/v1/auth/${typeSocial}?redirect_to=${process.env.REACT_APP_REDIRECT_URL}`;
+  // };
 
   const handleLoginWithSocial2 = (type: string) => {
     return `http://localhost:4000/api/auth/${type}`;

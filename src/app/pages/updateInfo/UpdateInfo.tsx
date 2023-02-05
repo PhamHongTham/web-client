@@ -14,7 +14,7 @@ import {
 import SelectGender from './partials/SelectGender';
 import HandleBirthdate from './partials/HandleBirthdate';
 import Avatar from './partials/Avatar';
-import { uploadImage, uploadImage2 } from 'app/stores/post/actions';
+import { uploadImage2 } from 'app/stores/post/actions';
 import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
 import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
 import { useHistory } from 'react-router';
