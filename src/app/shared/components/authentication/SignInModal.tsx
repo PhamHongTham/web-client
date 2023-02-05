@@ -17,8 +17,8 @@ const SignInModal = ({
   // };
 
   const handleLoginWithSocial2 = (type: string) => {
-    return `http://localhost:4000/api/auth/${type}`;
-  }
+    return `${process.env.REACT_APP_API_URL}/api/auth/${type}`;
+  };
 
   const handleRedirectToCurrentPage = () => {
     localStorage.setItem(
