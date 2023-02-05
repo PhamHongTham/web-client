@@ -17,7 +17,7 @@ const SignInModal = ({
   // };
 
   const handleLoginWithSocial2 = (type: string) => {
-    return `${process.env.REACT_APP_API_URL}/api/auth/${type}`;
+    return `${process.env.REACT_APP_API_URL}/api/auth/${type}?redirect_to=${process.env.REACT_APP_REDIRECT_URL}`;
   };
 
   const handleRedirectToCurrentPage = () => {
