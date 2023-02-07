@@ -16,16 +16,16 @@ const SignInModal = ({
   //   return `${process.env.REACT_APP_API_URL}/api/v1/auth/${typeSocial}?redirect_to=${process.env.REACT_APP_REDIRECT_URL}`;
   // };
 
-  const handleLoginWithSocial2 = (type: string) => {
-    return `${process.env.REACT_APP_API_URL}/api/auth/${type}?redirect_to=${process.env.REACT_APP_REDIRECT_URL}`;
-  };
+  // const handleLoginWithSocial2 = (type: string) => {
+  //   return `${process.env.REACT_APP_API_URL}/api/auth/${type}?redirect_to=${process.env.REACT_APP_REDIRECT_URL}`;
+  // };
 
-  const handleRedirectToCurrentPage = () => {
-    localStorage.setItem(
-      'PATH',
-      JSON.stringify(pathname).slice(1, pathname.length + 1)
-    );
-  };
+  // const handleRedirectToCurrentPage = () => {
+  //   localStorage.setItem(
+  //     'PATH',
+  //     JSON.stringify(pathname).slice(1, pathname.length + 1)
+  //   );
+  // };
 
   return (
     <div className="sign-in-modal">
@@ -38,11 +38,11 @@ const SignInModal = ({
             <i className="fas fa-envelope"></i> Sign in with email
           </p>
         </li>
-        <li className="action-item" onClick={handleRedirectToCurrentPage}>
+        {/* <li className="action-item" onClick={handleRedirectToCurrentPage}>
           <a href={handleLoginWithSocial2('google')} className="action-link">
             <i className="fab fa-google"></i> Sign in with Google
           </a>
-        </li>
+        </li> */}
         {/* <li className="action-item" onClick={handleRedirectToCurrentPage}>
           <a href={handleLoginWithSocial2('github')} className="action-link">
             <i className="fab fa-github"></i> Sign in with github
