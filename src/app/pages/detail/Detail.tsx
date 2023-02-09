@@ -12,7 +12,6 @@ import UserComment from './partials/UserComment';
 import { formatNumber } from 'app/shared/helper/helper-function';
 import SkeletonDetailPost from '../home/partials/skeleton-component/SkeletonDetailPost';
 import {
-  getUserInfoByIdRequest,
   showModalSignInRequest,
 } from 'app/stores/user/actions';
 import {

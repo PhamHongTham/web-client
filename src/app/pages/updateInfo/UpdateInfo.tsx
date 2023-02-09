@@ -17,11 +17,9 @@ import Avatar from './partials/Avatar';
 import { uploadImage2 } from 'app/stores/post/actions';
 import { NotificationContext } from 'app/shared/components/notifications/NotificationProvider';
 import { LoadingContext } from 'app/shared/components/loading/LoadingProvider';
-import { useHistory } from 'react-router';
 
 const UpdateInfo = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const schema = yup.object().shape({
     picture: yup.mixed().required('You need upload image to update'),
     phone: yup
