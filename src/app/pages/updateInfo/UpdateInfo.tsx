@@ -59,9 +59,7 @@ const UpdateInfo = () => {
         message: 'Update user info success',
       });
       reset(userCurrent);
-      setTimeout(() => {
-        history.push('/');
-      }, 2500);
+      window.location.href = '/'
     }
     if (userCurrent) {
       reset(userCurrent);
@@ -75,6 +73,7 @@ const UpdateInfo = () => {
   }, []);
 
   const onSubmit = async (data: any) => {
+    handleShowLoading(true);
     const infoData = {
       firstName: data.firstName,
       lastName: data.lastName,

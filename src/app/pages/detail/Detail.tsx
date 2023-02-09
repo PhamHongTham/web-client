@@ -49,6 +49,7 @@ const Detail = () => {
   useEffect(() => {
     handleShowLoading(true);
     dispatch(fetchSpecificPostRequest(id)).then((res: any) => {
+      setFollow(res.isFollowed);
       setPost(res);
       setBookmark(res.isInBookmark);
       if (userCurrent?.email === res.user.email) {
@@ -61,13 +62,13 @@ const Detail = () => {
     dispatch(getCommentPostRequest(id)).then((res: any) => setComments(res));
   }, [id, userCurrent]);
 
-  useEffect(() => {
-    if (post) {
-      dispatch(getUserInfoByIdRequest(String(post.user._id))).then((res: any) => {
-        setFollow(res.isFollowed);
-      });
-    }
-  }, [post]);
+  // useEffect(() => {
+  //   if (post) {
+  //     dispatch(getUserInfoByIdRequest(String(post.user._id))).then((res: any) => {
+  //       setFollow(res.isFollowed);
+  //     });
+  //   }
+  // }, [post]);
 
   const handleLikePost = () => {
     if (userCurrent) {
@@ -109,7 +110,7 @@ const Detail = () => {
   const handleFollowUser = () => {
     if (userCurrent) {
       let data = {
-        followingId: post.userId,
+        followingId: post.user._id,
       };
       setFollow(!follow);
       dispatch(followUserRequest(data));

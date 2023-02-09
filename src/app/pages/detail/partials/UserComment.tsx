@@ -32,7 +32,7 @@ const UserComment = ({ props }: any) => {
                 to={
                   userCurrent?.email === user?.email
                     ? '/wall/me'
-                    : `/wall/${user.id}`
+                    : `/wall/${user._id}`
                 }
               >
                 {user && user.displayName ? user.displayName : user?.lastName}

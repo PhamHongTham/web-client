@@ -45,8 +45,8 @@ const ChangePassword = () => {
     }
     if (message) {
       dispatch(clearUserState());
-      handleAddNotification({ type: 'SUCCESS', message: message });
-      history.push('/');
+      handleAddNotification({ type: 'SUCCESS', message: 'Change password success' });
+      // window.location.href = '/'
     }
   }, [isLoading, message, error]);
 
