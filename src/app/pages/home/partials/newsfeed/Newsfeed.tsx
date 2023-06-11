@@ -23,7 +23,7 @@ const Newsfeed = () => {
     setLoading(true);
     dispatch(action(pageNumber)).then((res: any) => {
       if (pageNumber === 1) {
-        setPosts(res.data);
+        setPosts(res?.data || []);
       } else {
         setPosts([...posts, ...res.data]);
       }
