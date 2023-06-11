@@ -19,6 +19,7 @@ import { localStorageOption } from 'app/shared/helper/LocalAction';
 function App() {
   const dispatch = useDispatch();
 
+  console.log('first')
   useEffect(() => {
     if (localStorageOption.getUserToken) {
       dispatch(getUserInfoRequest());
